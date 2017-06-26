@@ -20,10 +20,10 @@ Then, you need to add some informations in your configuration files
 
 * In the services.php file
 
-    `'mailjet' => [
-        'key' => 'YOUT_API_KEY',
-        'secret' => 'YOUR_API_SECRET',
-    ]`
+```'mailjet' => [
+    'key' => 'YOUT_API_KEY',
+    'secret' => 'YOUR_API_SECRET',
+]```
 
 
 ## Utilisation
