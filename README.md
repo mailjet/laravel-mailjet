@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/MoltenCoreIO/laravel-mailjet.svg?branch=master)](https://travis-ci.org/MoltenCoreIO/laravel-mailjet)
-[![Packagist](https://img.shields.io/packagist/v/mailjet/mailjet-swiftmailer.svg)](https://packagist.org/packages/moltencore/laravel-mailjet)
-[![Packagist](https://img.shields.io/packagist/dt/mailjet/mailjet-swiftmailer.svg)](https://packagist.org/packages/moltencore/laravel-mailjet)
+[![Packagist](https://img.shields.io/packagist/v/moltencore/laravel-mailjet.svg)](https://packagist.org/packages/moltencore/laravel-mailjet)
+[![Packagist](https://img.shields.io/packagist/dt/moltencore/laravel-mailjet.svg)](https://packagist.org/packages/moltencore/laravel-mailjet)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mailjet/MailjetSwiftMailer/blob/master/LICENSE.md)
 # Laravel Mailjet
 
