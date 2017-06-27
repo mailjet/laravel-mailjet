@@ -22,6 +22,62 @@ class MailjetService
     }
 
     /**
+     * Trigger a POST request
+     *
+     * @param array $resource Mailjet Resource/Action pair
+     * @param array $args     Request arguments
+     * @param array $options
+     *
+     * @return Response
+     */
+    public function post($resource, array $args = [], array $options = [])
+    {
+        return $this->client->post($resource, $args, $options);
+    }
+
+    /**
+     * Trigger a GET request
+     *
+     * @param array $resource Mailjet Resource/Action pair
+     * @param array $args     Request arguments
+     * @param array $options
+     *
+     * @return Response
+     */
+    public function get($resource, array $args = [], array $options = [])
+    {
+        return $this->client->get($resource, $args, $options);
+    }
+
+    /**
+     * Trigger a PUT request
+     *
+     * @param array $resource Mailjet Resource/Action pair
+     * @param array $args     Request arguments
+     * @param array $options
+     *
+     * @return Response
+     */
+    public function put($resource, array $args = [], array $options = [])
+    {
+        return $this->client->put($resource, $args, $options);
+    }
+
+    /**
+     * Trigger a DELETE request
+     *
+     * @param array $resource Mailjet Resource/Action pair
+     * @param array $args     Request arguments
+     * @param array $options
+     *
+     * @return Response
+     */
+    public function delete($resource, array $args = [], array $options = [])
+    {
+        return $this->client->delete($resource, $args, $options);
+    }
+
+    /**
      * Get all list on your mailjet account
      * @param  array $filters Filters that will be use to filter the request. See mailjet API documentation for all filters available
      * @return array
@@ -100,18 +156,9 @@ class MailjetService
     }
 
     /**
-     * Send a mial via the mailjet API. It use the configuration given in the .env file
-     * @param  string $subject subject of the mail
-     * @param  string $message Message of the mail (could be html or text)
-     * @return array
+     * Retrieve Mailjet\Client
+     * @return Client
      */
-    public function sendMail($subject, $message)
-    {
-        $body = ['FromEmail' => env('MAILJET_FROMEMAIL'), 'FromName'=> env('MAILJET_FROMNAME'), 'To' => env('MAILJET_TOEMAIL'), 'Subject' => $subject,'Html-part' => $message ];
-        $response = $this->client->post(Resources::$Email, ['body'=> $body]);
-        return $response;
-    }
-
     public function getClient()
     {
         return $this->client;

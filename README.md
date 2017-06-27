@@ -51,12 +51,15 @@ mailjet' => [
 ```php
 MAILJET_APIKEY=YOUR_APIKEY
 MAILJET_APISECRET=YOUR_APISECRET
-MAILJET_FROMEMAIL=yourmail@example.com
-MAILJET_FROMNAME="your name"
-MAILJET_TOEMAIL="receiver@example.com"
 ```
 
-## Make a request
+## Mail driver configuration
+
+In order to use Mailjet as Mail driver, you need to change the mail driver in your `config/mail.php` or your `.env` file to `mailjet`, and make sure you have a valid and authorised from-address configured.
+
+For usage, check the [Laravel mail documentation](https://laravel.com/docs/master/mail)
+
+## Usage
 
 To use it, you need to import Mailjet Facade in your file
 
@@ -65,19 +68,27 @@ To use it, you need to import Mailjet Facade in your file
 
 Then, in your code you can use one of the method available in the MailjetServices :
 
-* getAllLists($filters)
-* createList($body)
-* getListRecipients($filters)
-* getSingleContact($id)
-* createContact($body)
-* createListRecipient($body)
-* editListrecipient($id, $body)
-* sendMail($subject, $message)
+Low level API methods:
+
+* `Mailjet::get($resource, $args, $options)`
+* `Mailjet::post($resource, $args, $options)`
+* `Mailjet::put($resource, $args, $options)`
+* `Mailjet::delete($resource, $args, $options)`
+
+High level API methods:
+
+* `Mailjet::getAllLists($filters)`
+* `Mailjet::createList($body)`
+* `Mailjet::getListRecipients($filters)`
+* `Mailjet::getSingleContact($id)`
+* `Mailjet::createContact($body)`
+* `Mailjet::createListRecipient($body)`
+* `Mailjet::editListrecipient($id, $body)`
 
 For more informations about the filters you can use in each methods, refer to the [Mailjet API documentation](https://dev.mailjet.com/email-api/v3/apikey/)
 
 
 ## ToDo
 
-* Client Call/Options
+* Client Call/Options (common api call and transactionnal mail)
 * Better \Mailjet\Client injection
