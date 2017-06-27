@@ -1,11 +1,11 @@
 <?php
 
-namespace laravelMailjet;
+namespace MoltenCore\LaravelMailjet;
 
 use Illuminate\Support\ServiceProvider;
 use laravelMailjet\Services\MailJetService;
 
-class MailJetProvider extends ServiceProvider
+class MailjetProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.

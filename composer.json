@@ -1,5 +1,5 @@
 {
-    "name": "MoltenCore/laravelMailjet",
+    "name": "MoltenCore/LaravelMailjet",
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel", "mailjet", "mailjet wrapper"],
     "license": "MIT",
@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "laravelMailjet\\": "src/"
+            "MoltenCore\\LaravelMailjet\\": "src/"
         }
     },
     "config": {
