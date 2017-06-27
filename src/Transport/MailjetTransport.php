@@ -20,7 +20,7 @@ class MailjetTransport extends BaseTransport
      * @param  \Swift_Events_EventListener  $plugin
      * @return void
      */
-    public function registerPlugin(Swift_Events_EventListener $plugin)
+    public function registerPlugin(\Swift_Events_EventListener $plugin)
     {
         array_push($this->plugins, $plugin);
     }
@@ -31,9 +31,9 @@ class MailjetTransport extends BaseTransport
      * @param  \Swift_Mime_Message  $message
      * @return void
      */
-    protected function beforeSendPerformed(Swift_Mime_Message $message)
+    protected function beforeSendPerformed(\Swift_Mime_Message $message)
     {
-        $event = new Swift_Events_SendEvent($this, $message);
+        $event = new \Swift_Events_SendEvent($this, $message);
         foreach ($this->plugins as $plugin) {
             if (method_exists($plugin, 'beforeSendPerformed')) {
                 $plugin->beforeSendPerformed($event);

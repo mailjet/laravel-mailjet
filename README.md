@@ -23,6 +23,7 @@ Then, you need to add some informations in your configuration files
 'providers' => [
     ...
     MoltenCore\LaravelMailjet\MailjetServiceProvider::class,
+    MoltenCore\LaravelMailjet\MailjetMailServiceProvider::class,
     ...
 ]
 ```
