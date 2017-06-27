@@ -55,6 +55,6 @@ class MailjetServiceTest extends TestCase
 
     protected function getPackageProviders($app)
     {
-        return ['\MoltenCore\LaravelMailjet\MailjetProvider'];
+        return ['\MoltenCore\LaravelMailjet\MailjetServiceProvider'];
     }
 }

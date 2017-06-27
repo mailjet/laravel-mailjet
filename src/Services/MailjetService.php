@@ -100,7 +100,7 @@ class MailjetService
     }
 
     /**
-     * Send a mial via tyhe mailjet API. It use the configuration given in the .env file
+     * Send a mial via the mailjet API. It use the configuration given in the .env file
      * @param  string $subject subject of the mail
      * @param  string $message Message of the mail (could be html or text)
      * @return array
