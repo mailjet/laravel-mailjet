@@ -3,7 +3,7 @@
 namespace MoltenCore\LaravelMailjet;
 
 use Illuminate\Support\ServiceProvider;
-use laravelMailjet\Services\MailJetService;
+use MoltenCore\LaravelMailjet\Services\MailJetService;
 
 class MailjetProvider extends ServiceProvider
 {
