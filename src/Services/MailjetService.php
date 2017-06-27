@@ -111,4 +111,9 @@ class MailjetService
         $response = $this->client->post(Resources::$Email, ['body'=> $body]);
         return $response;
     }
+
+    public function getClient()
+    {
+        return $this->client;
+    }
 }

@@ -1,6 +1,6 @@
 # Laravel Mailjet
 
-This library provide a wrapper arounr MailJet API for laravel. It is still in developpement, don't hesitate to add some method to the services.
+This library provide a wrapper arounr Mailjet API for laravel. It is still in developpement, don't hesitate to add some method to the services.
 
 ## Installation
 

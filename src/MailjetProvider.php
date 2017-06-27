@@ -23,7 +23,7 @@ class MailjetProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('mailJet', function ($app) {
+        $this->app->singleton('Mailjet', function ($app) {
             return new MailjetService();
         });
     }

@@ -8,6 +8,6 @@ class Mailjet extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'mailJet';
+        return 'Mailjet';
     }
 }
