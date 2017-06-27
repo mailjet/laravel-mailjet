@@ -15,7 +15,7 @@ Then, you need to add some informations in your configuration files
 ```php
 'providers' => [
     ...
-    MoltenCore\LaravelMailjet\MailJetProvider::class,
+    MoltenCore\LaravelMailjet\MailjetProvider::class,
     ...
 ]
 ```
