@@ -6,7 +6,7 @@ This library provide a wrapper arounr MailJet API for laravel. It is still in de
 
 First, include the package in your dependencies
 
-    composer require MoltenCore/LaravelMailjet
+    composer require moltencore/laravel-mailjet
 
 Then, you need to add some informations in your configuration files
 
