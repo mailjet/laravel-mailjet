@@ -3,7 +3,7 @@
 namespace MoltenCore\LaravelMailjet;
 
 use Illuminate\Support\ServiceProvider;
-use MoltenCore\LaravelMailjet\Services\MailJetService;
+use MoltenCore\LaravelMailjet\Services\MailjetService;
 
 class MailjetProvider extends ServiceProvider
 {
@@ -24,7 +24,7 @@ class MailjetProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('mailJet', function ($app) {
-            return new MailJetService();
+            return new MailjetService();
         });
     }
 
