@@ -119,7 +119,7 @@ High level API methods:
 
 For more informations about the filters you can use in each methods, refer to the [Mailjet API documentation](https://dev.mailjet.com/email-api/v3/apikey/)
 
-All method return the data array or throw a MailjetException in case of API error.
+All method return Mailjet\Response or throw a MailjetException in case of API error.
 
 You can also get the client with the method `getClient()` and make your own request to Mailjet API.
 

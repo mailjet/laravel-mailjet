@@ -38,7 +38,7 @@ class MailjetService
         if (!$response->success()) {
             $this->throwError("MailjetService:post() failed", $response);
         }
-        return $response->getData();
+        return $response;
     }
 
     /**
@@ -56,7 +56,7 @@ class MailjetService
         if (!$response->success()) {
             $this->throwError("MailjetService:get() failed", $response);
         }
-        return $response->getData();
+        return $response;
     }
 
     /**
@@ -74,7 +74,7 @@ class MailjetService
         if (!$response->success()) {
             $this->throwError("MailjetService:put() failed", $response);
         }
-        return $response->getData();
+        return $response;
     }
 
     /**
@@ -92,7 +92,7 @@ class MailjetService
         if (!$response->success()) {
             $this->throwError("MailjetService:delete() failed", $response);
         }
-        return $response->getData();
+        return $response;
     }
 
     /**
@@ -106,7 +106,7 @@ class MailjetService
         if (!$response->success()) {
             $this->throwError("MailjetService:getAllLists() failed", $response);
         }
-        return $response->getData();
+        return $response;
     }
 
     /**
@@ -120,7 +120,7 @@ class MailjetService
         if (!$response->success()) {
             $this->throwError("MailjetService:createList() failed", $response);
         }
-        return $response->getData();
+        return $response;
     }
 
     /**
@@ -134,7 +134,7 @@ class MailjetService
         if (!$response->success()) {
             $this->throwError("MailjetService:getListRecipients() failed", $response);
         }
-        return $response->getData();
+        return $response;
     }
 
     /**
@@ -148,7 +148,7 @@ class MailjetService
         if (!$response->success()) {
             $this->throwError("MailjetService:getSingleContact() failed", $response);
         }
-        return $response->getData();
+        return $response;
     }
 
     /**
@@ -162,7 +162,7 @@ class MailjetService
         if (!$response->success()) {
             $this->throwError("MailjetService:createContact() failed", $response);
         }
-        return $response->getData();
+        return $response;
     }
 
     /**
@@ -176,7 +176,7 @@ class MailjetService
         if (!$response->success()) {
             $this->throwError("MailjetService:createListRecipient() failed", $response);
         }
-        return $response->getData();
+        return $response;
     }
 
     /**
@@ -191,7 +191,7 @@ class MailjetService
         if (!$response->success()) {
             $this->throwError("MailjetService:editListrecipient() failed", $response);
         }
-        return $response->getData();
+        return $response;
     }
 
     /**
