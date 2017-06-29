@@ -16,9 +16,9 @@ class MailjetService
     /**
      * Instanciate the client whit the api key and api secret given in the configuration
      */
-    public function __construct()
+    public function __construct($key, $secret, $call = true, array $settings = [])
     {
-        $this->client = new Client(config('services.mailjet.key'), config('services.mailjet.secret'));
+        $this->client = new Client($key, $secret, $call, $settings);
     }
 
     /**

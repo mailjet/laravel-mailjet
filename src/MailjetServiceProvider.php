@@ -25,7 +25,11 @@ class MailjetServiceProvider extends ServiceProvider
     {
         // Facade
         $this->app->singleton('Mailjet', function ($app) {
-            return new MailjetService();
+            $config = $this->app['config']->get('services.mailjet', array());
+            $call = $this->app['config']->get('services.mailjet.common.call', true);
+            $options = $this->app['config']->get('services.mailjet.common.options', array());
+
+            return new MailjetService($config['key'], $config['secret'], $call, $options);
         });
     }
 
