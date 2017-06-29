@@ -54,9 +54,40 @@ MAILJET_APIKEY=YOUR_APIKEY
 MAILJET_APISECRET=YOUR_APISECRET
 ```
 
+## Full configuration
+
+```php
+'mailjet' => [
+    'key' => env('MAILJET_APIKEY'),
+    'secret' => env('MAILJET_APISECRET'),
+    'transactionnal' => [
+        'call' => true,
+        'options' => [
+            'url' => 'api.mailjet.com',
+            'version' => 'v31',
+            'call' => true,
+            'secured' => true
+        ]
+    ],
+    'common' => [
+        'call' => true,
+        'options' => [
+            'url' => 'api.mailjet.com',
+            'version' => 'v3',
+            'call' => true,
+            'secured' => true
+        ]
+    ]
+]
+```
+You can pass settings to [MailjetClient](https://github.com/mailjet/mailjet-apiv3-php#new--version-120-of-the-php-wrapper-).
+
+* `transactionnal`: settings to sendAPI client
+* `common`: setting to MailjetClient accessible throught the Facade Mailjet
+
 ## Mail driver configuration
 
-In order to use Mailjet as Mail driver, you need to change the mail driver in your `config/mail.php` or your `.env` file to `mailjet`, and make sure you have a valid and authorised from-address configured.
+In order to use Mailjet as Mail driver, you need to change the mail driver in your `config/mail.php` or your `.env` file to `MAIL_DRIVER=mailjet`, and make sure you have a valid and authorised from-address configured on your Mailjet account.
 
 For usage, check the [Laravel mail documentation](https://laravel.com/docs/master/mail)
 
@@ -64,7 +95,7 @@ For usage, check the [Laravel mail documentation](https://laravel.com/docs/maste
 
 To use it, you need to import Mailjet Facade in your file
 
-    use Mailjet;
+    use Mailjet\LaravelMailjet\Facades\Mailjet;
 
 
 Then, in your code you can use one of the method available in the MailjetServices :
@@ -88,8 +119,11 @@ High level API methods:
 
 For more informations about the filters you can use in each methods, refer to the [Mailjet API documentation](https://dev.mailjet.com/email-api/v3/apikey/)
 
+All method return the data array or throw a MailjetException in case of API error.
+
+You can also get the client with the method `getClient()` and make your own request to Mailjet API.
 
 ## ToDo
 
-* Client Call/Options (common api call and transactionnal mail)
-* Better \Mailjet\Client injection
+* Create Mailjet contract (Laravel 5.4 - DepInject <https://laravel.com/docs/5.4/contracts>)
+* New feature: EventAPI (webhook), Campaign, stats, ...

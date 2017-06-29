@@ -5,6 +5,8 @@ namespace Mailjet\LaravelMailjet\Services;
 use \Mailjet\Resources;
 use \Mailjet\Client;
 
+use Mailjet\LaravelMailjet\Exception\MailjetException;
+
 class MailjetService
 {
     /**
@@ -32,7 +34,11 @@ class MailjetService
      */
     public function post($resource, array $args = [], array $options = [])
     {
-        return $this->client->post($resource, $args, $options);
+        $response = $this->client->post($resource, $args, $options);
+        if (!$response->success()) {
+            $this->throwError("MailjetService:post() failed", $response);
+        }
+        return $response->getData();
     }
 
     /**
@@ -46,7 +52,11 @@ class MailjetService
      */
     public function get($resource, array $args = [], array $options = [])
     {
-        return $this->client->get($resource, $args, $options);
+        $response = $this->client->get($resource, $args, $options);
+        if (!$response->success()) {
+            $this->throwError("MailjetService:get() failed", $response);
+        }
+        return $response->getData();
     }
 
     /**
@@ -60,7 +70,11 @@ class MailjetService
      */
     public function put($resource, array $args = [], array $options = [])
     {
-        return $this->client->put($resource, $args, $options);
+        $response = $this->client->put($resource, $args, $options);
+        if (!$response->success()) {
+            $this->throwError("MailjetService:put() failed", $response);
+        }
+        return $response->getData();
     }
 
     /**
@@ -74,7 +88,11 @@ class MailjetService
      */
     public function delete($resource, array $args = [], array $options = [])
     {
-        return $this->client->delete($resource, $args, $options);
+        $response = $this->client->delete($resource, $args, $options);
+        if (!$response->success()) {
+            $this->throwError("MailjetService:delete() failed", $response);
+        }
+        return $response->getData();
     }
 
     /**
@@ -85,7 +103,10 @@ class MailjetService
     public function getAllLists($filters)
     {
         $response = $this->client->get(Resources::$Contactslist, ['filters' => $filters]);
-        return $response;
+        if (!$response->success()) {
+            $this->throwError("MailjetService:getAllLists() failed", $response);
+        }
+        return $response->getData();
     }
 
     /**
@@ -96,7 +117,10 @@ class MailjetService
     public function createList($body)
     {
         $response = $this->client->post(Resources::$Contactslist, ['body' => $body]);
-        return $response;
+        if (!$response->success()) {
+            $this->throwError("MailjetService:createList() failed", $response);
+        }
+        return $response->getData();
     }
 
     /**
@@ -107,7 +131,10 @@ class MailjetService
     public function getListRecipients($filters)
     {
         $response = $this->client->get(Resources::$Listrecipient, ['filters' => $filters]);
-        return $response;
+        if (!$response->success()) {
+            $this->throwError("MailjetService:getListRecipients() failed", $response);
+        }
+        return $response->getData();
     }
 
     /**
@@ -118,7 +145,10 @@ class MailjetService
     public function getSingleContact($id)
     {
         $response = $this->client->get(Resources::$Contact, ['id' => $id]);
-        return $response;
+        if (!$response->success()) {
+            $this->throwError("MailjetService:getSingleContact() failed", $response);
+        }
+        return $response->getData();
     }
 
     /**
@@ -129,7 +159,10 @@ class MailjetService
     public function createContact($body)
     {
         $response = $this->client->post(Resources::$Contact, ['body' => $body]);
-        return $response;
+        if (!$response->success()) {
+            $this->throwError("MailjetService:createContact() failed", $response);
+        }
+        return $response->getData();
     }
 
     /**
@@ -140,7 +173,10 @@ class MailjetService
     public function createListRecipient($body)
     {
         $response = $this->client->post(Resources::$Listrecipient, ['body' => $body]);
-        return $response;
+        if (!$response->success()) {
+            $this->throwError("MailjetService:createListRecipient() failed", $response);
+        }
+        return $response->getData();
     }
 
     /**
@@ -152,7 +188,10 @@ class MailjetService
     public function editListrecipient($id, $body)
     {
         $response = $this->client->put(Resources::$Listrecipient, ['id'=>$id, 'body' => $body]);
-        return $response;
+        if (!$response->success()) {
+            $this->throwError("MailjetService:editListrecipient() failed", $response);
+        }
+        return $response->getData();
     }
 
     /**
@@ -163,4 +202,14 @@ class MailjetService
     {
         return $this->client;
     }
+
+    /**
+     * Helper to throw error
+     * @param  string $title
+     * @param  Response $response
+     */
+     private function throwError($title, Response $response)
+     {
+         throw new MailjetException(0, $title, $response);
+     }
 }
