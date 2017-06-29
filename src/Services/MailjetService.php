@@ -1,6 +1,6 @@
 <?php
 
-namespace MoltenCore\LaravelMailjet\Services;
+namespace Mailjet\LaravelMailjet\Services;
 
 use \Mailjet\Resources;
 use \Mailjet\Client;

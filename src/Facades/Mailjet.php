@@ -1,6 +1,6 @@
 <?php
 
-namespace MoltenCore\LaravelMailjet\Facades;
+namespace Mailjet\LaravelMailjet\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

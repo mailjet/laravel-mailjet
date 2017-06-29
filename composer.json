@@ -1,10 +1,10 @@
 {
-    "name": "moltencore/laravel-mailjet",
+    "name": "mailjet/laravel-mailjet",
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel", "mailjet", "mailjet wrapper", "transport", "mailjet API"],
     "license": "MIT",
     "type": "library",
-    "homepage": "https://github.com/MoltenCoreIO/laravel-mailjet",
+    "homepage": "https://github.com/MailjetIO/laravel-mailjet",
     "authors": [
         {
             "name": "Gaetan DELBART",
@@ -37,7 +37,7 @@
     },
     "autoload": {
         "psr-4": {
-            "MoltenCore\\LaravelMailjet\\": "src/"
+            "Mailjet\\LaravelMailjet\\": "src/"
         }
     },
     "config": {

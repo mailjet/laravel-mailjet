@@ -1,6 +1,6 @@
 <?php
 
-namespace MoltenCore\LaravelMailjet\Transport;
+namespace Mailjet\LaravelMailjet\Transport;
 
 use Mailjet\MailjetSwiftMailer\SwiftMailer\MailjetTransport as BaseTransport;
 

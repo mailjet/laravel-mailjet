@@ -1,9 +1,9 @@
 <?php
 
-namespace MoltenCore\LaravelMailjet;
+namespace Mailjet\LaravelMailjet;
 
 use Illuminate\Mail\MailServiceProvider;
-use MoltenCore\LaravelMailjet\Transport\MailjetTransport;
+use Mailjet\LaravelMailjet\Transport\MailjetTransport;
 
 class MailjetMailServiceProvider extends MailServiceProvider
 {
@@ -17,7 +17,13 @@ class MailjetMailServiceProvider extends MailServiceProvider
         parent::registerSwiftTransport();
         app('swift.transport')->extend('mailjet', function ($app) {
             $config = $this->app['config']->get('services.mailjet', array());
-            return new MailjetTransport(new \Swift_Events_SimpleEventDispatcher(), $config['key'], $config['secret']);
+            if (!array_key_exists('call', $config)) {
+                $config['call'] = true;
+            }
+            if (!array_key_exists('options', $config)) {
+                $config['options'] = [];
+            }
+            return new MailjetTransport(new \Swift_Events_SimpleEventDispatcher(), $config['key'], $config['secret'], $config['call'], $config['options']);
         });
     }
 }

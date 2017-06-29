@@ -1,9 +1,9 @@
 # Laravel Mailjet
 
-[![Build Status](https://travis-ci.org/MoltenCoreIO/laravel-mailjet.svg?branch=master)](https://travis-ci.org/MoltenCoreIO/laravel-mailjet)
-[![Packagist](https://img.shields.io/packagist/v/moltencore/laravel-mailjet.svg)](https://packagist.org/packages/moltencore/laravel-mailjet)
-[![Packagist](https://img.shields.io/packagist/dt/moltencore/laravel-mailjet.svg)](https://packagist.org/packages/moltencore/laravel-mailjet)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mailjet/MailjetSwiftMailer/blob/master/LICENSE.md)
+[![Build Status](https://travis-ci.org/mailjet/laravel-mailjet.svg?branch=master)](https://travis-ci.org/mailjet/laravel-mailjet)
+[![Packagist](https://img.shields.io/packagist/v/mailjet/laravel-mailjet.svg)](https://packagist.org/packages/mailjet/laravel-mailjet)
+[![Packagist](https://img.shields.io/packagist/dt/mailjet/laravel-mailjet.svg)](https://packagist.org/packages/mailjet/laravel-mailjet)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mailjet/laravel-mailjet/blob/master/LICENSE.md)
 
 Laravel package for handling Mailjet API V3 using this wrapper: <https://github.com/mailjet/mailjet-apiv3-php>
 
@@ -13,7 +13,7 @@ It also provide a mailjetTransport for [Laravel mail feature](https://laravel.co
 
 First, include the package in your dependencies
 
-    composer require moltencore/laravel-mailjet
+    composer require mailjet/laravel-mailjet
 
 Then, you need to add some informations in your configuration files
 
@@ -22,8 +22,8 @@ Then, you need to add some informations in your configuration files
 ```php
 'providers' => [
     ...
-    MoltenCore\LaravelMailjet\MailjetServiceProvider::class,
-    MoltenCore\LaravelMailjet\MailjetMailServiceProvider::class,
+    Mailjet\LaravelMailjet\MailjetServiceProvider::class,
+    Mailjet\LaravelMailjet\MailjetMailServiceProvider::class,
     ...
 ]
 ```
@@ -33,7 +33,7 @@ Then, you need to add some informations in your configuration files
 ```php
 'aliases' => [
     ...
-    'Mailjet' => MoltenCore\LaravelMailjet\Facades\Mailjet::class,
+    'Mailjet' => Mailjet\LaravelMailjet\Facades\Mailjet::class,
     ...
 ]
 ```

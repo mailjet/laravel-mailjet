@@ -1,6 +1,6 @@
 <?php
 
-namespace MoltenCore\LaravelMailjet\Tests\Services;
+namespace Mailjet\LaravelMailjet\Tests\Services;
 
 use Mockery\Container;
 use Orchestra\Testbench\TestCase;
@@ -39,7 +39,7 @@ class MailjetServiceTest extends TestCase
     protected function getPackageAliases($app)
     {
         return [
-            'Mailjet' => \MoltenCore\LaravelMailjet\Facades\Mailjet::class
+            'Mailjet' => \Mailjet\LaravelMailjet\Facades\Mailjet::class
         ];
     }
 
@@ -58,6 +58,6 @@ class MailjetServiceTest extends TestCase
 
     protected function getPackageProviders($app)
     {
-        return ['\MoltenCore\LaravelMailjet\MailjetServiceProvider'];
+        return ['\Mailjet\LaravelMailjet\MailjetServiceProvider'];
     }
 }
