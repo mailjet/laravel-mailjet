@@ -64,7 +64,7 @@ MAILJET_APISECRET=YOUR_APISECRET
         'call' => true,
         'options' => [
             'url' => 'api.mailjet.com',
-            'version' => 'v31',
+            'version' => 'v3.1',
             'call' => true,
             'secured' => true
         ]
