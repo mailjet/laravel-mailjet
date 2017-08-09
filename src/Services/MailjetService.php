@@ -95,6 +95,9 @@ class MailjetService
         return $response;
     }
 
+
+
+    /**TODO exclude HIGH Level API methods into managers**/
     /**
      * Get all list on your mailjet account
      * @param  array $filters Filters that will be use to filter the request. See mailjet API documentation for all filters available
