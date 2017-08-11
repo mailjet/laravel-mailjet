@@ -1,6 +1,6 @@
 <?php
 
-namespace Mailjet\MailjetBundle\Model;
+namespace Mailjet\LaravelMailjet\Model;
 
 /**
  * https://dev.mailjet.com/email-api/v3/campaigndraft/

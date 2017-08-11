@@ -1,6 +1,6 @@
 <?php
 
-namespace Mailjet\LaravelMailjet;
+namespace Mailjet\LaravelMailjet\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Mailjet\LaravelMailjet\Services\MailjetService;

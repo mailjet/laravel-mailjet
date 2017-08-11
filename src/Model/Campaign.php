@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Mailjet\MailjetBundle\Model;
+namespace Mailjet\LaravelMailjet\Model;
 
 /**
  * https://dev.mailjet.com/email-api/v3/campaign/

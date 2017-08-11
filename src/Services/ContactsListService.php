@@ -1,10 +1,10 @@
 <?php
 
-namespace Mailjet\LaravelMailjet\Manager;
+namespace Mailjet\LaravelMailjet\Services;
 
 use \Mailjet\Resources;
 use \Mailjet\Response;
-use Mailjet\LaravelMailjet\Facades\Mailjet;
+use Mailjet\LaravelMailjet\Services\MailjetService;
 use Mailjet\LaravelMailjet\Model\Contact;
 use Mailjet\LaravelMailjet\Model\ContactsList;
 use Mailjet\LaravelMailjet\Exception\MailjetException;
@@ -14,7 +14,7 @@ use Mailjet\LaravelMailjet\Exception\MailjetException;
 * manage ContactsList (create, update, delete, ...)
 *
 */
-class ContactsListManager
+class ContactsListService
 {
     /**
      * @var int
@@ -30,7 +30,7 @@ class ContactsListManager
     /**
      * @param MailjetClient $mailjet
      */
-    public function __construct(Mailjet $mailjet)
+    public function __construct(MailjetService $mailjet)
     {
         $this->mailjet = $mailjet;
     }

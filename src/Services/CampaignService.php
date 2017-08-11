@@ -1,10 +1,10 @@
 <?php
 
-namespace Mailjet\LaravelMailjet\Manager;
+namespace Mailjet\LaravelMailjet\Services;
 
 use \Mailjet\Resources;
 use \Mailjet\Response;
-use Mailjet\LaravelMailjet\Facades\Mailjet;
+use Mailjet\LaravelMailjet\Services\MailjetService;
 use Mailjet\LaravelMailjet\Model\Campaign;
 use Mailjet\LaravelMailjet\Exception\MailjetException;
 
@@ -12,7 +12,7 @@ use Mailjet\LaravelMailjet\Exception\MailjetException;
  * https://dev.mailjet.com/email-api/v3/campaign/
  * list/view/update
  */
-class CampaignManager {
+class CampaignService {
 
     /**
      * Mailjet client
@@ -20,7 +20,7 @@ class CampaignManager {
      */
     protected $mailjet;
 
-    public function __construct(Mailjet $mailjet) {
+    public function __construct(MailjetService $mailjet) {
         $this->mailjet = $mailjet;
     }
 

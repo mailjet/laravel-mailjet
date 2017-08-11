@@ -1,10 +1,10 @@
 <?php
 
-namespace Mailjet\LaravelMailjet\Manager;
+namespace Mailjet\LaravelMailjet\Services;
 
 use \Mailjet\Response;
 use \Mailjet\Resources;
-use Mailjet\LaravelMailjet\Facades\Mailjet;
+use Mailjet\LaravelMailjet\Services\MailjetService;
 use Mailjet\LaravelMailjet\Model\ContactMetadata;
 use Mailjet\LaravelMailjet\Exception\MailjetException;
 
@@ -13,7 +13,7 @@ use Mailjet\LaravelMailjet\Exception\MailjetException;
 * manage ContactsMetadata (create, update, delete, ...)
 *
 */
-class ContactMetadataManager
+class ContactMetadataService
 {
     /**
      * Mailjet client
@@ -24,7 +24,7 @@ class ContactMetadataManager
     /**
      * @param MailjetClient $mailjet
      */
-    public function __construct(Mailjet $mailjet)
+    public function __construct(MailjetService $mailjet)
     {
         $this->mailjet = $mailjet;
     }

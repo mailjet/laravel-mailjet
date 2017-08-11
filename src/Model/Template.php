@@ -1,6 +1,6 @@
 <?php
 
-namespace Mailjet\MailjetBundle\Model;
+namespace Mailjet\LaravelMailjet\Model;
 
 /**
  * Description of Template
