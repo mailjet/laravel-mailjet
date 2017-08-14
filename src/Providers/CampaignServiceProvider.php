@@ -3,10 +3,10 @@
 namespace Mailjet\LaravelMailjet\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Mailjet\LaravelMailjet\Services\CampaignDraftService;
+use Mailjet\LaravelMailjet\Services\CampaignService;
 use Mailjet\LaravelMailjet\Services\MailjetService;
 
-class CampaignDraftServiceProvider extends ServiceProvider
+class CampaignServiceProvider extends ServiceProvider
 {
     protected $defer = true;
 
@@ -17,7 +17,7 @@ class CampaignDraftServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        
+
     }
 
     /**
@@ -27,13 +27,13 @@ class CampaignDraftServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('Mailjet\LaravelMailjet\Contracts\CampaignDraftContract',
+        $this->app->bind('Mailjet\LaravelMailjet\Contracts\CampaignContract',
             function($app) {
             $config  = $this->app['config']->get('services.mailjet', array());
             $call    = $this->app['config']->get('services.mailjet.common.call',true);
             $options = $this->app['config']->get('services.mailjet.common.options', array());
             $mailjetService=new MailjetService($config['key'], $config['secret'], $call,$options);
-            return new CampaignDraftService($mailjetService);
+            return new CampaignService($mailjetService);
         });
     }
 
@@ -44,6 +44,6 @@ class CampaignDraftServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['Mailjet\LaravelMailjet\Contracts\CampaignDraftContract'];
+        return ['Mailjet\LaravelMailjet\Contracts\CampaignContract'];
     }
 }

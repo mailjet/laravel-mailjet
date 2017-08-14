@@ -6,13 +6,14 @@ use \Mailjet\Resources;
 use \Mailjet\Response;
 use Mailjet\LaravelMailjet\Services\MailjetService;
 use Mailjet\LaravelMailjet\Model\Campaign;
+use Mailjet\LaravelMailjet\Contracts\CampaignContract;
 use Mailjet\LaravelMailjet\Exception\MailjetException;
 
 /**
  * https://dev.mailjet.com/email-api/v3/campaign/
  * list/view/update
  */
-class CampaignService {
+class CampaignService implements CampaignContract {
 
     /**
      * Mailjet client

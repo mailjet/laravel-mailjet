@@ -3,6 +3,7 @@
 namespace Mailjet\LaravelMailjet\Services;
 
 use \Mailjet\Resources;
+use \Mailjet\Response;
 use \Mailjet\Client;
 
 use Mailjet\LaravelMailjet\Exception\MailjetException;

@@ -1,6 +1,8 @@
 <?php
 
+
 namespace Mailjet\LaravelMailjet\Contracts;
+use Mailjet\LaravelMailjet\Model\CampaignDraft;
 
 interface CampaignDraftContract
 {
