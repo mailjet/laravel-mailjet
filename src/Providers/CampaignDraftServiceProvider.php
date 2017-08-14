@@ -8,13 +8,16 @@ use Mailjet\LaravelMailjet\Services\MailjetService;
 
 class CampaignDraftServiceProvider extends ServiceProvider
 {
-/**
+    protected $defer = true;
+
+    /**
      * Bootstrap the application services.
      *
      * @return void
      */
     public function boot()
     {
+        
     }
 
     /**
@@ -24,18 +27,22 @@ class CampaignDraftServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Facade
-        $this->app->singleton('CampaignDraft', function ($app) {
-            $config = $this->app['config']->get('services.mailjet', array());
-            $call = $this->app['config']->get('services.mailjet.common.call', true);
+        $this->app->bind('Mailjet\LaravelMailjet\Contracts\CampaignDraftContract',
+            function($app) {
+            $config  = $this->app['config']->get('services.mailjet', array());
+            $call    = $this->app['config']->get('services.mailjet.common.call',true);
             $options = $this->app['config']->get('services.mailjet.common.options', array());
-            return new CampaignDraftService(new MailjetService($config['key'], $config['secret'], $call, $options));
+            return new CampaignDraftService(new MailjetService($config['key'], $config['secret'], $call,$options));
         });
     }
 
-
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
     public function provides()
     {
-        return ['CampaignDraft'];
+        return ['Mailjet\LaravelMailjet\Contracts\CampaignDraftContract'];
     }
 }

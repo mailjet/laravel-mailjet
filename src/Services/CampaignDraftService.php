@@ -6,13 +6,14 @@ use \Mailjet\Resources;
 use \Mailjet\Response;
 use Mailjet\LaravelMailjet\Services\MailjetService;
 use Mailjet\LaravelMailjet\Model\CampaignDraft;
+use Mailjet\LaravelMailjet\Contracts\CampaignDraftContract;
 use Mailjet\LaravelMailjet\Exception\MailjetException;
 
 /**
  * https://dev.mailjet.com/email-api/v3/campaigndraft/
  * CampaignDraft data. (list,view, create, update, delete,schedule,send ...)
  */
-class CampaignDraftService
+class CampaignDraftService implements CampaignDraftContract
 {
     /**
      * Mailjet client
