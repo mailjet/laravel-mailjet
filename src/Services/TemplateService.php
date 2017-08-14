@@ -6,13 +6,14 @@ use \Mailjet\Resources;
 use \Mailjet\Response;
 use Mailjet\LaravelMailjet\Services\MailjetService;
 use Mailjet\LaravelMailjet\Model\Template;
+use Mailjet\LaravelMailjet\Contracts\TemplateServiceContract;
 use Mailjet\LaravelMailjet\Exception\MailjetException;
 
 /**
  * https://dev.mailjet.com/email-api/v3/template/
  * Template data. (list,view, create, update, delete,detailcontent, ...)
  */
-class TemplateService
+class TemplateService implements TemplateServiceContract
 {
     /**
      * Mailjet client

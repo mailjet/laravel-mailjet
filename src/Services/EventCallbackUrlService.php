@@ -5,13 +5,15 @@ namespace Mailjet\LaravelMailjet\Services;
 use \Mailjet\Resources;
 use \Mailjet\Response;
 use Mailjet\LaravelMailjet\Services\MailjetService;
+use Mailjet\MailjetBundle\Model\EventCallbackUrl;
+use Mailjet\LaravelMailjet\Contracts\EventCallbackUrlContract;
 use Mailjet\LaravelMailjet\Exception\MailjetException;
 
 /**
 * https://dev.mailjet.com/email-api/v3/eventcallbackurl/
 * Manage EventCallbackUrl
 */
-class EventCallbackUrlService
+class EventCallbackUrlService implements EventCallbackUrlContract
 {
 
     /**

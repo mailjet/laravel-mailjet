@@ -7,6 +7,7 @@ use \Mailjet\Response;
 use Mailjet\LaravelMailjet\Services\MailjetService;
 use Mailjet\LaravelMailjet\Model\Contact;
 use Mailjet\LaravelMailjet\Model\ContactsList;
+use Mailjet\LaravelMailjet\Contracts\ContactsListContract;
 use Mailjet\LaravelMailjet\Exception\MailjetException;
 
 /**
@@ -14,7 +15,7 @@ use Mailjet\LaravelMailjet\Exception\MailjetException;
 * manage ContactsList (create, update, delete, ...)
 *
 */
-class ContactsListService
+class ContactsListService implements ContactsListContract
 {
     /**
      * @var int

@@ -1,7 +1,7 @@
 <?php
 
-
 namespace Mailjet\LaravelMailjet\Contracts;
+
 use Mailjet\LaravelMailjet\Model\CampaignDraft;
 
 interface CampaignDraftContract
@@ -32,5 +32,4 @@ interface CampaignDraftContract
     public function testCampaign($CampaignId, $recipients);
 
     public function getCampaignStatus($CampaignId);
-    
 }
