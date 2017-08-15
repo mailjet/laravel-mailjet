@@ -32,6 +32,7 @@ class CampaignDraftServiceProviderTest extends TestCase
     protected function setUpMocks()
     {
         $this->application_mock = Mockery::mock(Application::class);
+        $this->application_mock->shouldReceive('bind');
     }
 
     /**
