@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Package\GreatThing;
+namespace Mailjet\LaravelMailjet\Tests\Services;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
