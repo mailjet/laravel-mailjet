@@ -58,6 +58,6 @@ class MailjetServiceTest extends TestCase
 
     protected function getPackageProviders($app)
     {
-        return ['\Mailjet\LaravelMailjet\MailjetServiceProvider'];
+        return ['\Mailjet\LaravelMailjet\Providers\MailjetServiceProvider'];
     }
 }

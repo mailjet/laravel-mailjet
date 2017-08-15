@@ -5,10 +5,10 @@ namespace Mailjet\LaravelMailjet\Services;
 use \Mailjet\Resources;
 use \Mailjet\Response;
 use \Mailjet\Client;
-
+use Mailjet\LaravelMailjet\Contracts\MailjetServiceContract;
 use Mailjet\LaravelMailjet\Exception\MailjetException;
 
-class MailjetService
+class MailjetService implements MailjetServiceContract
 {
     /**
      * Mailjet Client
