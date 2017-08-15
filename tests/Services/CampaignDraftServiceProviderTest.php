@@ -5,6 +5,7 @@ namespace Mailjet\LaravelMailjet\Tests\Services;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Mockery;
+use Orchestra\Testbench\TestCase;
 use Mailjet\LaravelMailjet\Providers\CampaignDraftServiceProvider;
 
 class CampaignDraftServiceProviderTest extends TestCase
