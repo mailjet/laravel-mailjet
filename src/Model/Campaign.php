@@ -70,7 +70,7 @@ class Campaign {
      * @param array $property
      * @return Properties
      */
-    public function addOptionalProperty($property) {
+    public function addOptionalProperty(array $property) {
         $this->optionalProperties[] = $property;
         return $this->optionalProperties;
     }
@@ -80,7 +80,7 @@ class Campaign {
      * @param array $property
      * @return Properties
      */
-    public function removeOptionalProperty($property) {
+    public function removeOptionalProperty(array $property) {
         foreach (array_keys($this->optionalProperties, $property) as $key) {
             unset($this->optionalProperties[$key]);
         }

@@ -11,5 +11,7 @@ interface CampaignContract
 
     public function findByCampaignId($CampaignId);
 
+    public function findByNewsletterId($NewsletterId);
+
     public function updateCampaign($CampaignId, Campaign $campaign);
 }

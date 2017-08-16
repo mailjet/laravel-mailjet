@@ -14,11 +14,8 @@ class EventCallbackUrl
     const EVENT_TYPE_SPAM = 'spam';
     const EVENT_TYPE_BLOCKED = 'blocked';
     const EVENT_TYPE_UNSUB = 'unsub';
-    const EVENT_TYPE_TYPOFIX = 'typofix';
     const EVENT_TYPE_SENT = 'sent';
-    const EVENT_TYPE_PARSEAPI = 'parseapi';
-    const EVENT_TYPE_NEWSENDER = 'newsender';
-    const EVENT_TYPE_NEWSENDERAUTOVALID = 'newsenderautovalid';
+
 
     const EVENT_STATUS_DEAD = 'dead';
     const EVENT_STATUS_ALIVE = 'alive';

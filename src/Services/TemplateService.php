@@ -37,7 +37,7 @@ class TemplateService implements TemplateServiceContract
         $response = $this->mailjet->get(Resources::$Template,
             ['filters' => $filters]);
         if (!$response->success()) {
-            $this->throwError("TemplateManager :getAll() failed", $response);
+            $this->throwError("TemplateService :getAll() failed", $response);
         }
 
         return $response->getData();
@@ -52,7 +52,7 @@ class TemplateService implements TemplateServiceContract
     {
         $response = $this->mailjet->get(Resources::$Template, ['id' => $id]);
         if (!$response->success()) {
-            $this->throwError("TemplateManager:get() failed", $response);
+            $this->throwError("TemplateService:get() failed", $response);
         }
 
         return $response->getData();
@@ -67,7 +67,7 @@ class TemplateService implements TemplateServiceContract
         $response = $this->mailjet->post(Resources::$Template,
             ['body' => $Template->format()]);
         if (!$response->success()) {
-            $this->throwError("TemplateManager:create() failed", $response);
+            $this->throwError("TemplateService:create() failed", $response);
         }
 
         return $response->getData();
@@ -83,7 +83,7 @@ class TemplateService implements TemplateServiceContract
         $response = $this->mailjet->put(Resources::$Template,
             ['id' => $id, 'body' => $Template->format()]);
         if (!$response->success()) {
-            $this->throwError("TemplateManager:update() failed", $response);
+            $this->throwError("TemplateService:update() failed", $response);
         }
 
         return $response->getData();
@@ -98,7 +98,7 @@ class TemplateService implements TemplateServiceContract
     {
         $response = $this->mailjet->delete(Resources::$Template, ['id' => $id]);
         if (!$response->success()) {
-            $this->throwError("TemplateManager:delete() failed", $response);
+            $this->throwError("TemplateService:delete() failed", $response);
         }
 
         return $response->getData();
@@ -114,7 +114,7 @@ class TemplateService implements TemplateServiceContract
         $response = $this->mailjet->get(Resources::$TemplateDetailcontent,
             ['id' => $id]);
         if (!$response->success()) {
-            $this->throwError("TemplateManager:getDetailContent failed",
+            $this->throwError("TemplateService:getDetailContent failed",
                 $response);
         }
 
@@ -130,7 +130,7 @@ class TemplateService implements TemplateServiceContract
         $response = $this->mailjet->post(Resources::$TemplateDetailcontent,
             ['id' => $id, 'body' => $contentData]);
         if (!$response->success()) {
-            $this->throwError("TemplateManager:createDetailContent failed",
+            $this->throwError("TemplateService:createDetailContent failed",
                 $response);
         }
 
@@ -147,7 +147,7 @@ class TemplateService implements TemplateServiceContract
         $response    = $this->mailjet->post(Resources::$TemplateDetailcontent,
             ['id' => $id, 'body' => $nullContent]);
         if (!$response->success()) {
-            $this->throwError("TemplateManager:createDetailContent failed",
+            $this->throwError("TemplateService:createDetailContent failed",
                 $response);
         }
 

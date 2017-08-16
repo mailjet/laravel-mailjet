@@ -22,8 +22,8 @@ Then, you need to add some informations in your configuration files
 ```php
 'providers' => [
     ...
-    Mailjet\LaravelMailjet\Providers\MailjetServiceProvider::class,
-    Mailjet\LaravelMailjet\Providers\MailjetMailServiceProvider::class,
+    Mailjet\LaravelMailjet\MailjetServiceProvider::class,
+    Mailjet\LaravelMailjet\MailjetMailServiceProvider::class,
     ...
 ]
 ```

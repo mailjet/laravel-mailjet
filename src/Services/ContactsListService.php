@@ -47,7 +47,7 @@ class ContactsListService implements ContactsListContract
         $contact->setAction($action);
         $response = $this->_exec($listId, $contact);
         if (!$response->success()) {
-            $this->throwError("ContactsListManager:create() failed", $response);
+            $this->throwError("ContactsListService:create() failed", $response);
         }
 
         return $response->getData();
@@ -64,7 +64,7 @@ class ContactsListService implements ContactsListContract
         $contact->setAction($action);
         $response = $this->_exec($listId, $contact);
         if (!$response->success()) {
-            $this->throwError("ContactsListManager:update() failed", $response);
+            $this->throwError("ContactsListService:update() failed", $response);
         }
 
         return $response->getData();
@@ -85,7 +85,7 @@ class ContactsListService implements ContactsListContract
         }
         $response = $this->_exec($listId, $contact);
         if (!$response->success()) {
-            $this->throwError("ContactsListManager:sub() failed", $response);
+            $this->throwError("ContactsListService:subscribe() failed", $response);
         }
 
         return $response->getData();
@@ -101,7 +101,7 @@ class ContactsListService implements ContactsListContract
         $contact->setAction(Contact::ACTION_UNSUB);
         $response = $this->_exec($listId, $contact);
         if (!$response->success()) {
-            $this->throwError("ContactsListManager:unsub() failed", $response);
+            $this->throwError("ContactsListService:unsubscribe() failed", $response);
         }
 
         return $response->getData();
@@ -117,7 +117,7 @@ class ContactsListService implements ContactsListContract
         $contact->setAction(Contact::ACTION_REMOVE);
         $response = $this->_exec($listId, $contact);
         if (!$response->success()) {
-            $this->throwError("ContactsListManager:delete() failed", $response);
+            $this->throwError("ContactsListService:delete() failed", $response);
         }
 
         return $response->getData();
@@ -129,12 +129,12 @@ class ContactsListService implements ContactsListContract
      * @param Contact $contact
      * @param string $oldEmail
      */
-    public function changeEmail($listId, Contact $contact, $oldEmail)
+    public function updateEmail($listId, Contact $contact, $oldEmail)
     {
         // get old contact properties
         $response = $this->mailjet->get(Resources::$Contactdata, ['id' => $oldEmail]);
         if (!$response->success()) {
-            $this->throwError("ContactsListManager:changeEmail() failed", $response);
+            $this->throwError("ContactsListService:changeEmail() failed", $response);
         }
 
         // copy contact properties
@@ -147,7 +147,7 @@ class ContactsListService implements ContactsListContract
         $contact->setAction(Contact::ACTION_ADDFORCE);
         $response = $this->_exec($listId, $contact);
         if (!$response->success()) {
-            $this->throwError("ContactsListManager:changeEmail() failed", $response);
+            $this->throwError("ContactsListService:changeEmail() failed", $response);
         }
 
         // remove old
@@ -155,7 +155,7 @@ class ContactsListService implements ContactsListContract
         $oldContact->setAction(Contact::ACTION_REMOVE);
         $response = $this->_exec($listId, $oldContact);
         if (!$response->success()) {
-            $this->throwError("ContactsListManager:changeEmail() failed", $response);
+            $this->throwError("ContactsListService:changeEmail() failed", $response);
         }
 
         return $response->getData();
@@ -181,7 +181,7 @@ class ContactsListService implements ContactsListContract
             if ($currentBatch->success()) {
                 array_push($batchResults, $currentBatch->getData()[0]);
             } else {
-                $this->throwError("ContactsListManager:manageManyContactsList() failed", $currentBatch);
+                $this->throwError("ContactsListService:manageManyContactsList() failed", $currentBatch);
             }
         }
         return $batchResults;

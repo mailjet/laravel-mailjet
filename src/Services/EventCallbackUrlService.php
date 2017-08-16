@@ -38,7 +38,7 @@ class EventCallbackUrlService implements EventCallbackUrlContract
     {
         $response = $this->mailjet->get(Resources::$Eventcallbackurl);
         if (!$response->success()) {
-            $this->throwError("EventCallbackUrlManager:getAll() failed", $response);
+            $this->throwError("EventCallbackUrlService:getAll() failed", $response);
         }
 
         return $response->getData();
@@ -53,7 +53,7 @@ class EventCallbackUrlService implements EventCallbackUrlContract
     {
         $response = $this->mailjet->get(Resources::$Eventcallbackurl, ['id' => $id]);
         if (!$response->success()) {
-            $this->throwError("EventCallbackUrlManager:get() failed", $response);
+            $this->throwError("EventCallbackUrlService:get() failed", $response);
         }
 
         return $response->getData();
@@ -68,7 +68,7 @@ class EventCallbackUrlService implements EventCallbackUrlContract
     {
         $response = $this->mailjet->post(Resources::$Eventcallbackurl, ['body' => $eventCallbackUrl->format()]);
         if (!$response->success()) {
-            $this->throwError("EventCallbackUrlManager:create() failed", $response);
+            $this->throwError("EventCallbackUrlService:create() failed", $response);
         }
 
         return $response->getData();
@@ -84,7 +84,7 @@ class EventCallbackUrlService implements EventCallbackUrlContract
     {
         $response = $this->mailjet->put(Resources::$Eventcallbackurl, ['id' => $id, 'body' => $eventCallbackUrl->format()]);
         if (!$response->success()) {
-            $this->throwError("EventCallbackUrlManager:update() failed", $response);
+            $this->throwError("EventCallbackUrlService:update() failed", $response);
         }
 
         return $response->getData();
@@ -99,7 +99,7 @@ class EventCallbackUrlService implements EventCallbackUrlContract
     {
         $response = $this->mailjet->delete(Resources::$Eventcallbackurl, ['id' => $id]);
         if (!$response->success()) {
-            $this->throwError("EventCallbackUrlManager:delete() failed", $response);
+            $this->throwError("EventCallbackUrlService:delete() failed", $response);
         }
 
         return $response->getData();

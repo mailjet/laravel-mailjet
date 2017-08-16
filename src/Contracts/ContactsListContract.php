@@ -20,7 +20,7 @@ interface ContactsListContract
 
     public function delete($listId, Contact $contact);
 
-    public function changeEmail($listId, Contact $contact, $oldEmail);
+    public function updateEmail($listId, Contact $contact, $oldEmail);
 
     public function manageManyContactsList(ContactsList $contactsList);
 }

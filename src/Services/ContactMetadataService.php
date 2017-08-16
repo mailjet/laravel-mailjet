@@ -38,7 +38,7 @@ class ContactMetadataService implements ContactMetadataContract
     {
         $response = $this->mailjet->get(Resources::$Contactmetadata);
         if (!$response->success()) {
-            $this->throwError("ContactMetadataManager:getAll() failed", $response);
+            $this->throwError("ContactMetadataService:getAll() failed", $response);
         }
 
         return $response->getData();
@@ -53,7 +53,7 @@ class ContactMetadataService implements ContactMetadataContract
     {
         $response = $this->mailjet->get(Resources::$Contactmetadata, ['id' => $id]);
         if (!$response->success()) {
-            $this->throwError("ContactMetadataManager:get() failed", $response);
+            $this->throwError("ContactMetadataService:get() failed", $response);
         }
 
         return $response->getData();
@@ -67,7 +67,7 @@ class ContactMetadataService implements ContactMetadataContract
     {
         $response = $this->mailjet->post(Resources::$Contactmetadata, ['body' => $contactMetadata->format()]);
         if (!$response->success()) {
-            $this->throwError("ContactMetadataManager:create() failed", $response);
+            $this->throwError("ContactMetadataService:create() failed", $response);
         }
 
         return $response->getData();
@@ -82,7 +82,7 @@ class ContactMetadataService implements ContactMetadataContract
     {
         $response = $this->mailjet->put(Resources::$Contactmetadata, ['id' => $id,'body' => $contactMetadata->format()]);
         if (!$response->success()) {
-            $this->throwError("ContactMetadataManager:update() failed", $response);
+            $this->throwError("ContactMetadataService:update() failed", $response);
         }
 
         return $response->getData();
@@ -96,7 +96,7 @@ class ContactMetadataService implements ContactMetadataContract
     {
         $response = $this->mailjet->delete(Resources::$Contactmetadata, ['id' => $id]);
         if (!$response->success()) {
-            $this->throwError("ContactMetadataManager:delete() failed", $response);
+            $this->throwError("ContactMetadataService:delete() failed", $response);
         }
 
         return $response->getData();

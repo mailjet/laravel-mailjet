@@ -71,7 +71,7 @@ class Template {
      * @param array $property
      * @return Properties
      */
-    public function addProperty($property) {
+    public function addProperty(array $property) {
         $this->optionalProperties[] = $property;
         return $this->optionalProperties;
     }
@@ -81,7 +81,7 @@ class Template {
      * @param array $property
      * @return Properties
      */
-    public function removeProperty($property) {
+    public function removeProperty(array $property) {
         foreach (array_keys($this->optionalProperties, $property) as $key) {
             unset($this->optionalProperties[$key]);
         }
@@ -105,7 +105,7 @@ class Template {
     }
 
     /**
-     * Get  Template id
+     * Get Id
      * @return $content
      */
     public function getId() {
@@ -113,8 +113,7 @@ class Template {
     }
 
     /**
-     * Set  Template Id
-     * @return $content
+     * Set Id
      */
     public function setId($id) {
         $this->id = $id;

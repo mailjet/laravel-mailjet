@@ -35,7 +35,7 @@ class CampaignDraftService implements CampaignDraftContract
         $response = $this->mailjet->get(Resources::$Campaigndraft,
             ['filters' => $filters]);
         if (!$response->success()) {
-            $this->throwError("CampaignDraftManager :getAllCampaignDrafts() failed",
+            $this->throwError("CampaignDraftService :getAllCampaignDrafts() failed",
                 $response);
         }
 
@@ -52,7 +52,7 @@ class CampaignDraftService implements CampaignDraftContract
         $response = $this->mailjet->get(Resources::$Campaigndraft,
             ['id' => $CampaignId]);
         if (!$response->success()) {
-            $this->throwError("CampaignDraftManager:findByCampaignDraftId() failed",
+            $this->throwError("CampaignDraftService:findByCampaignDraftId() failed",
                 $response);
         }
 
@@ -68,7 +68,7 @@ class CampaignDraftService implements CampaignDraftContract
         $response = $this->mailjet->post(Resources::$Campaigndraft,
             ['body' => $campaignDraft->format()]);
         if (!$response->success()) {
-            $this->throwError("CampaignDraftManager:create() failed", $response);
+            $this->throwError("CampaignDraftService:create() failed", $response);
         }
 
         return $response->getData();
@@ -84,7 +84,7 @@ class CampaignDraftService implements CampaignDraftContract
         $response = $this->mailjet->put(Resources::$Campaigndraft,
             ['id' => $CampaignId, 'body' => $campaignDraft->format()]);
         if (!$response->success()) {
-            $this->throwError("CampaignDraftManager:update() failed", $response);
+            $this->throwError("CampaignDraftService:update() failed", $response);
         }
 
         return $response->getData();
@@ -100,7 +100,7 @@ class CampaignDraftService implements CampaignDraftContract
         $response = $this->mailjet->get(Resources::$CampaigndraftDetailcontent,
             ['id' => $id]);
         if (!$response->success()) {
-            $this->throwError("CampaignDraftManager:getDetailContent failed",
+            $this->throwError("CampaignDraftService:getDetailContent failed",
                 $response);
         }
 
@@ -117,7 +117,7 @@ class CampaignDraftService implements CampaignDraftContract
         $response = $this->mailjet->post(Resources::$CampaigndraftDetailcontent,
             ['id' => $id, 'body' => $contentData]);
         if (!$response->success()) {
-            $this->throwError("CampaignDraftManager:createDetailContent failed",
+            $this->throwError("CampaignDraftService:createDetailContent failed",
                 $response);
         }
 
@@ -134,7 +134,7 @@ class CampaignDraftService implements CampaignDraftContract
         $response = $this->mailjet->get(Resources::$CampaigndraftSchedule,
             ['id' => $CampaignId]);
         if (!$response->success()) {
-            $this->throwError("CampaignDraftManager:getSchedule failed",
+            $this->throwError("CampaignDraftService:getSchedule failed",
                 $response);
         }
 
@@ -144,7 +144,7 @@ class CampaignDraftService implements CampaignDraftContract
     /**
      * Schedule when the campaigndraft will be sent
      * @param string Campaign $id
-     * @param string Schedule $date
+     * @param RFC3339 format "Y-m-d\TH:i:sP"  $date
      * @return array
      */
     public function scheduleCampaign($CampaignId, $date)
@@ -152,7 +152,7 @@ class CampaignDraftService implements CampaignDraftContract
         $response = $this->mailjet->post(Resources::$CampaigndraftSchedule,
             ['id' => $CampaignId, 'body' => $date]);
         if (!$response->success()) {
-            $this->throwError("CampaignDraftManager:scheduleCampaign failed",
+            $this->throwError("CampaignDraftService:scheduleCampaign failed",
                 $response);
         }
 
@@ -170,7 +170,7 @@ class CampaignDraftService implements CampaignDraftContract
         $response = $this->mailjet->put(Resources::$CampaigndraftSchedule,
             ['id' => $CampaignId, 'body' => $date]);
         if (!$response->success()) {
-            $this->throwError("CampaignDraftManager:updateCampaignSchedule failed",
+            $this->throwError("CampaignDraftService:updateCampaignSchedule failed",
                 $response);
         }
 
@@ -187,7 +187,7 @@ class CampaignDraftService implements CampaignDraftContract
         $response = $this->mailjet->delete(Resources::$CampaigndraftSchedule,
             ['id' => $CampaignId]);
         if (!$response->success()) {
-            $this->throwError("CampaignDraftManager:removeSchedule failed",
+            $this->throwError("CampaignDraftService:removeSchedule failed",
                 $response);
         }
 
@@ -204,7 +204,7 @@ class CampaignDraftService implements CampaignDraftContract
         $response = $this->mailjet->post(Resources::$CampaigndraftSend,
             ['id' => $CampaignId]);
         if (!$response->success()) {
-            $this->throwError("CampaignDraftManager:sendCampaign failed",
+            $this->throwError("CampaignDraftService:sendCampaign failed",
                 $response);
         }
 
@@ -221,7 +221,7 @@ class CampaignDraftService implements CampaignDraftContract
         $response = $this->mailjet->get(Resources::$CampaigndraftStatus,
             ['id' => $CampaignId]);
         if (!$response->success()) {
-            $this->throwError("CampaignDraftManager:getCampaignStatus failed",
+            $this->throwError("CampaignDraftService:getCampaignStatus failed",
                 $response);
         }
 
@@ -239,7 +239,7 @@ class CampaignDraftService implements CampaignDraftContract
         $response = $this->mailjet->post(Resources::$CampaigndraftTest,
             ['id' => $CampaignId, 'body' => $recipients]);
         if (!$response->success()) {
-            $this->throwError("CampaignDraftManager:getCampaignStatus failed",
+            $this->throwError("CampaignDraftService:testCampaign failed",
                 $response);
         }
 

@@ -20,14 +20,14 @@ class Contact
 
     protected $email;
     protected $name;
-    protected $properties;
+    protected $optionalProperties;
     protected $action;
 
-    public function __construct($email, $name = null, array $properties = [])
+    public function __construct($email, array $optionalProperties = [])
     {
         $this->email = $email;
         $this->name = $name;
-        $this->properties = $properties;
+        $this->optionalProperties = $optionalProperties;
     }
 
     /**
@@ -48,9 +48,9 @@ class Contact
             $result[self::ACTION_KEY] = $this->action;
         }
 
-        if (!is_null($this->properties)) {
+        if (!is_null($this->optionalProperties)) {
             #$result[self::PROPERTIES_KEY] = $this->removeNullProperties($this->properties);
-            $result[self::PROPERTIES_KEY] = $this->properties;
+            $result[self::PROPERTIES_KEY] = $this->optionalProperties;
         }
 
         return $result;
@@ -80,7 +80,7 @@ class Contact
      */
     public function getName()
     {
-        return $this->name;
+        return $this->optionalProperties[self::NAME_KEY];
     }
 
     /**
@@ -90,7 +90,7 @@ class Contact
      */
     public function setName($name)
     {
-        $this->name = $name;
+        $this->optionalProperties[self::NAME_KEY] = $name;
         return $this;
     }
 
@@ -100,7 +100,7 @@ class Contact
      */
     public function getProperties()
     {
-        return $this->properties;
+        return $this->optionalProperties;
     }
 
     /**
@@ -110,7 +110,7 @@ class Contact
      */
     public function setProperties(array $properties)
     {
-        $this->properties = $properties;
+        $this->optionalProperties = $properties;
         return $this;
     }
 
@@ -141,6 +141,6 @@ class Contact
      */
     protected function removeNullProperties(array $properties)
     {
-        return array_filter($properties);
+        return array_filter($this->optionalProperties);
     }
 }
