@@ -26,7 +26,6 @@ class Contact
     public function __construct($email, array $optionalProperties = [])
     {
         $this->email = $email;
-        $this->name = $name;
         $this->optionalProperties = $optionalProperties;
     }
 
@@ -39,11 +38,7 @@ class Contact
         $result = [
             self::EMAIL_KEY => $this->email,
         ];
-
-        if (!is_null($this->name)) {
-            $result[self::NAME_KEY] = $this->name;
-        }
-
+        
         if (!is_null($this->action)) {
             $result[self::ACTION_KEY] = $this->action;
         }
