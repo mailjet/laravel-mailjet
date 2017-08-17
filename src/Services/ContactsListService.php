@@ -162,12 +162,12 @@ class ContactsListService implements ContactsListContract
     }
 
     /**
-     * Manage Many Contacts to List
+     * Import many contacts to a list
      * https://dev.mailjet.com/email-api/v3/contactslist-managemanycontacts/
      * @param  ContactsList $contactsList
      * @return array
      */
-    public function manageManyContactsList(ContactsList $contactsList)
+    public function uploadManyContactsList(ContactsList $contactsList)
     {
         $batchResults = [];
         // we send multiple smaller requests instead of a bigger one

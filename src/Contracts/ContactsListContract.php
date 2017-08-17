@@ -22,5 +22,5 @@ interface ContactsListContract
 
     public function updateEmail($listId, Contact $contact, $oldEmail);
 
-    public function manageManyContactsList(ContactsList $contactsList);
+    public function uploadManyContactsList(ContactsList $contactsList);
 }
