@@ -125,6 +125,4 @@ You can also get the client with the method `getClient()` and make your own requ
 
 ## ToDo
 
-* Create Mailjet contract (Laravel 5.4 - DepInject <https://laravel.com/docs/5.4/contracts>)
-* New feature: EventAPI (webhook), Campaign, stats, ...
 * More Tests
