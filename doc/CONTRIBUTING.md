@@ -10,5 +10,5 @@
 
 ## Contributors
 
-* Original author: [Titouan BENOIT](https://github.com/Nightbr)
+* Original author: [Gaetan DELBART](https://github.com/gagaXD), [Titouan BENOIT](https://github.com/Nightbr)
 * Mailjet API <api@mailjet.com>
