@@ -1,0 +1,124 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Laravel Mailjet\n\n\n\n\n\n\n\n\n\n\nLaravel package for handling Mailjet API V3 using this wrapper: \nhttps://github.com/mailjet/mailjet-apiv3-php\n\n\nIt also provide a mailjetTransport for \nLaravel mail feature\n\n\nInstallation\n\n\nFirst, include the package in your dependencies\n\n\ncomposer require mailjet/laravel-mailjet\n\n\n\nThen, you need to add some informations in your configuration files\n\n\n\n\nIn the providers array add the service providers you want to use, for example:\n\n\n\n\n'providers' => [\n    ...\n    Mailjet\\LaravelMailjet\\MailjetServiceProvider::class,\n    Mailjet\\LaravelMailjet\\MailjetMailServiceProvider::class,\n    ...\n    Mailjet\\LaravelMailjet\\Providers\\CampaignDraftServiceProvider::class\n]\n\n\n\n\n\nIn the aliases array\n\n\n\n\n'aliases' => [\n    ...\n    'Mailjet' => Mailjet\\LaravelMailjet\\Facades\\Mailjet::class,\n    ...\n]\n\n\n\n\n\nIn the services.php file\n\n\n\n\nmailjet' => [\n    'key' => env('MAILJET_APIKEY'),\n    'secret' => env('MAILJET_APISECRET'),\n]\n\n\n\n\n\nIn your .env file\n\n\n\n\nMAILJET_APIKEY=YOUR_APIKEY\nMAILJET_APISECRET=YOUR_APISECRET\n\n\n\nUsage\n\n\nTo use it, you need to import the Mailjet Facade or any of the available Service-provider contracts in your file\n\n\nuse Mailjet\\LaravelMailjet\\Facades\\Mailjet;\n.....\nuse Mailjet\\LaravelMailjet\\Contracts\\CampaignDraftContract;\n\n\n\nThen, in your code you can use one of the method available in the MailjetServices :\n\n\nLow level API methods:\n\n\n\n\nMailjet::get($resource, $args, $options)\n\n\nMailjet::post($resource, $args, $options)\n\n\nMailjet::put($resource, $args, $options)\n\n\nMailjet::delete($resource, $args, $options)\n\n\n\n\nHigh level API methods:\n\n\n\n\nMailjet::getAllLists($filters)\n\n\nMailjet::createList($body)\n\n\nMailjet::getListRecipients($filters)\n\n\nMailjet::getSingleContact($id)\n\n\nMailjet::createContact($body)\n\n\nMailjet::createListRecipient($body)\n\n\nMailjet::editListrecipient($id, $body)\n\n\n\n\nFor more informations about the filters you can use in each methods, refer to the \nMailjet API documentation\n\n\nAll method return Mailjet\\Response or throw a MailjetException in case of API error.\n\n\nYou can also get the client with the method \ngetClient()\n and make your own request to Mailjet API.",
+            "title": "Home"
+        },
+        {
+            "location": "/#laravel-mailjet",
+            "text": "Laravel package for handling Mailjet API V3 using this wrapper:  https://github.com/mailjet/mailjet-apiv3-php  It also provide a mailjetTransport for  Laravel mail feature",
+            "title": "Laravel Mailjet"
+        },
+        {
+            "location": "/#installation",
+            "text": "First, include the package in your dependencies  composer require mailjet/laravel-mailjet  Then, you need to add some informations in your configuration files   In the providers array add the service providers you want to use, for example:   'providers' => [\n    ...\n    Mailjet\\LaravelMailjet\\MailjetServiceProvider::class,\n    Mailjet\\LaravelMailjet\\MailjetMailServiceProvider::class,\n    ...\n    Mailjet\\LaravelMailjet\\Providers\\CampaignDraftServiceProvider::class\n]   In the aliases array   'aliases' => [\n    ...\n    'Mailjet' => Mailjet\\LaravelMailjet\\Facades\\Mailjet::class,\n    ...\n]   In the services.php file   mailjet' => [\n    'key' => env('MAILJET_APIKEY'),\n    'secret' => env('MAILJET_APISECRET'),\n]   In your .env file   MAILJET_APIKEY=YOUR_APIKEY\nMAILJET_APISECRET=YOUR_APISECRET",
+            "title": "Installation"
+        },
+        {
+            "location": "/#usage",
+            "text": "To use it, you need to import the Mailjet Facade or any of the available Service-provider contracts in your file  use Mailjet\\LaravelMailjet\\Facades\\Mailjet;\n.....\nuse Mailjet\\LaravelMailjet\\Contracts\\CampaignDraftContract;  Then, in your code you can use one of the method available in the MailjetServices :  Low level API methods:   Mailjet::get($resource, $args, $options)  Mailjet::post($resource, $args, $options)  Mailjet::put($resource, $args, $options)  Mailjet::delete($resource, $args, $options)   High level API methods:   Mailjet::getAllLists($filters)  Mailjet::createList($body)  Mailjet::getListRecipients($filters)  Mailjet::getSingleContact($id)  Mailjet::createContact($body)  Mailjet::createListRecipient($body)  Mailjet::editListrecipient($id, $body)   For more informations about the filters you can use in each methods, refer to the  Mailjet API documentation  All method return Mailjet\\Response or throw a MailjetException in case of API error.  You can also get the client with the method  getClient()  and make your own request to Mailjet API.",
+            "title": "Usage"
+        },
+        {
+            "location": "/configuration/",
+            "text": "Full configuration\n\n\n'mailjet' => [\n    'key' => env('MAILJET_APIKEY'),\n    'secret' => env('MAILJET_APISECRET'),\n    'transactionnal' => [\n        'call' => true,\n        'options' => [\n            'url' => 'api.mailjet.com',\n            'version' => 'v3.1',\n            'call' => true,\n            'secured' => true\n        ]\n    ],\n    'common' => [\n        'call' => true,\n        'options' => [\n            'url' => 'api.mailjet.com',\n            'version' => 'v3',\n            'call' => true,\n            'secured' => true\n        ]\n    ]\n]\n\nYou can pass settings to \nMailjetClient\n.\n\n\n\n\ntransactionnal\n: settings to sendAPI client\n\n\ncommon\n: setting to MailjetClient accessible throught the Facade Mailjet\n\n\n\n\nMail driver configuration\n\n\nIn order to use Mailjet as Mail driver, you need to change the mail driver in your \nconfig/mail.php\n or your \n.env\n file to \nMAIL_DRIVER=mailjet\n, and make sure you have a valid and authorised from-address configured on your Mailjet account.\n\n\nFor usage, check the \nLaravel mail documentation",
+            "title": "Configuration"
+        },
+        {
+            "location": "/configuration/#full-configuration",
+            "text": "'mailjet' => [\n    'key' => env('MAILJET_APIKEY'),\n    'secret' => env('MAILJET_APISECRET'),\n    'transactionnal' => [\n        'call' => true,\n        'options' => [\n            'url' => 'api.mailjet.com',\n            'version' => 'v3.1',\n            'call' => true,\n            'secured' => true\n        ]\n    ],\n    'common' => [\n        'call' => true,\n        'options' => [\n            'url' => 'api.mailjet.com',\n            'version' => 'v3',\n            'call' => true,\n            'secured' => true\n        ]\n    ]\n] \nYou can pass settings to  MailjetClient .   transactionnal : settings to sendAPI client  common : setting to MailjetClient accessible throught the Facade Mailjet",
+            "title": "Full configuration"
+        },
+        {
+            "location": "/configuration/#mail-driver-configuration",
+            "text": "In order to use Mailjet as Mail driver, you need to change the mail driver in your  config/mail.php  or your  .env  file to  MAIL_DRIVER=mailjet , and make sure you have a valid and authorised from-address configured on your Mailjet account.  For usage, check the  Laravel mail documentation",
+            "title": "Mail driver configuration"
+        },
+        {
+            "location": "/usage/",
+            "text": "Examples\n\n\nRetrieve Mailjet Client Object to make custom MailJet API V3 requests\n\n\nYou can  get the \nclient\n. with the method getClient() and make your own request to Mailjet API.\n* In the providers array\n\n\n'providers' => [\n    ...\n    Mailjet\\LaravelMailjet\\MailjetServiceProvider::class,\n    Mailjet\\LaravelMailjet\\MailjetMailServiceProvider::class,\n    ...\n]\n\n\n\n\n\nIn the aliases array\n\n\n\n\n'aliases' => [\n    ...\n    'Mailjet' => Mailjet\\LaravelMailjet\\Facades\\Mailjet::class,\n    ...\n]\n\nTo use it, you need to import Mailjet Facade in your file\n\n\nuse Mailjet\\LaravelMailjet\\Facades\\Mailjet;\n\n\n\nExample:\n\n\n<?php\n    use \\Mailjet\\Resources;\n    use Mailjet\\LaravelMailjet\\Facades\\Mailjet;\n\n    ...\n    $mailjet = Mailjet::getClient();\n\n    // Resources are all located in the Resources class\n    $response = $mailjet->get(Resources::$Contact);\n\n    /*\n      Read the response\n    */\n    if ($response->success())\n      var_dump($response->getData());\n    else\n      var_dump($response->getStatus());\n\n    ...\n    // Send transactional emails (note: prefer using SwiftMailer to send transactionnal emails)\n\n    $body = [\n        'FromEmail' => \"pilot@mailjet.com\",\n        'FromName' => \"Mailjet Pilot\",\n        'Subject' => \"Your email flight plan!\",\n        'Text-part' => \"Dear passenger, welcome to Mailjet! May the delivery force be with you!\",\n        'Html-part' => \"<h3>Dear passenger, welcome to Mailjet!</h3><br />May the delivery force be with you!\",\n        'Recipients' => [['Email' => \"passenger@mailjet.com\"]]\n    ];\n\n    $response = $mailjet->post(Resources::$Email, ['body' => $body]);\n\n\n\n\nCampaigndraft Example\n\n\nIn the providers array inside app.php add:\n\n\nMailjet\\LaravelMailjet\\Providers\\CampaignDraftServiceProvider::class\n\n\n\nYou can access the \n/campaigndraft\n api through the CampaignDraftContract.\n\n\nExample:\n\n\n<?php\nuse Mailjet\\LaravelMailjet\\Contracts\\CampaignDraftContract;\nuse Mailjet\\LaravelMailjet\\Model\\CampaignDraft;\n// ...\npublic function campaignDraftExample(CampaignDraftContract $campaignDraftManager ) {\n    // ...\n    $optionalProp['Title'] = 'Friday newsletter';\n    $optionalProp['SenderName'] = 'Mailjet team';\n    $optionalProp['EditMode'] = 'html2';\n    $campaignDraft = new CampaignDraft(\"en_US\", \"Lyubo\", \"api@mailjet.com\", \"Laravel bundle test\", \"5410\");\n    $campaignDraft->setOptionalProperties($optionalProp);\n    $campaignDraftManager->create($campaignDraft);\n    $content = ['Html-part' => \"Hello <strong>world</strong>!\",\n        'Text-part' => \"Hello world!\"];\n    $campaignDraft->setContent($content);\n    $campaignDraftManager->createDetailContent($campaignDraft->getId(), $campaignDraft->getContent());\n      /*     * Send a campaigndraft** */\n    $campaignDraftManager->sendCampaign($campaignDraft->getId());\n}\n\n\n\nTemplate Example\n\n\nIn the providers array inside app.php add:\n\n\nMailjet\\LaravelMailjet\\Providers\\TemplateServiceProvider::class\n\n\n\nYou can access the \n/template\n api through the TemplateContract.\n\n\nExample:\n\n\n<?php\nuse Mailjet\\LaravelMailjet\\Contracts\\TemplateContract;\nuse Mailjet\\LaravelMailjet\\Model\\Template;\n\n// ...\npublic function templateExample(TemplateContract $templateManager) {\n    // ...\n        //Example create template\n        $optionalProp['Author'] = 'Mailjet team';\n        $optionalProp['EditMode'] = 1;\n        $optionalProp['Purposes'] = ['transactional'];\n        $template = new Template(\"Laravel Template Example!!! \", $optionalProp);\n\n        $ID = $templateManager->create($template)[0]['ID'];\n\n        //Add content to a template\n        $contentData = [\n            'Html-part' => \"<html><body><p>Hello {{var:name}}</p></body></html>\",\n            'Text-part' => \"Hello {{var:name}}\"\n        ];\n        $templateManager->createDetailContent($ID, $contentData);\n\n        //Example list all templates based on multiple filters\n        $filters['OwnerType']='apikey';\n        $filters['EditMode']=1;\n        $result=$templateManager->getAll($filters);\n}\n\n\n\nCampaigns Example\n\n\nIn the providers array inside app.php add:\n\n\nMailjet\\LaravelMailjet\\Providers\\CampaignServiceProvider::class\n\n\n\nYou can  access the \n/campaign\n API through the CampaignContract.\n\n\nExample:\n\n\n<?php\n\nuse Mailjet\\LaravelMailjet\\Contracts\\CampaignContract;\nuse Mailjet\\LaravelMailjet\\Model\\Campaign;\n    // ...\npublic function campaignExample(CampaignContract $campaignManager ) {\n        // ...\n        //Example retrieve all (limit 10 :) ) stared campaigns\n        $result = $campaignManager->getAllCampaigns($filters);\n}\n\n\n\nChange User's email address\n\n\nIn the providers array inside app.php add:\n\n\n Mailjet\\LaravelMailjet\\Providers\\ContactsListServiceProvider::class\n\n\n\n<?php\n\nuse Mailjet\\LaravelMailjet\\Contracts\\ContactsListContract;\nuse Mailjet\\LaravelMailjet\\Model\\Contact;\n\npublic function changeEmailAddress(ContactsListContract $ContactsListManager, $oldEmail, $newEmail,$listId)\n{\n    // ...\n    $contact = new Contact($newEmail);\n\n      $ContactsListManager->updateEmail($listId,$contact,$oldEmail);\n\n}",
+            "title": "Examples"
+        },
+        {
+            "location": "/usage/#examples",
+            "text": "",
+            "title": "Examples"
+        },
+        {
+            "location": "/usage/#retrieve-mailjet-client-object-to-make-custom-mailjet-api-v3-requests",
+            "text": "You can  get the  client . with the method getClient() and make your own request to Mailjet API.\n* In the providers array  'providers' => [\n    ...\n    Mailjet\\LaravelMailjet\\MailjetServiceProvider::class,\n    Mailjet\\LaravelMailjet\\MailjetMailServiceProvider::class,\n    ...\n]   In the aliases array   'aliases' => [\n    ...\n    'Mailjet' => Mailjet\\LaravelMailjet\\Facades\\Mailjet::class,\n    ...\n] \nTo use it, you need to import Mailjet Facade in your file  use Mailjet\\LaravelMailjet\\Facades\\Mailjet;  Example:  <?php\n    use \\Mailjet\\Resources;\n    use Mailjet\\LaravelMailjet\\Facades\\Mailjet;\n\n    ...\n    $mailjet = Mailjet::getClient();\n\n    // Resources are all located in the Resources class\n    $response = $mailjet->get(Resources::$Contact);\n\n    /*\n      Read the response\n    */\n    if ($response->success())\n      var_dump($response->getData());\n    else\n      var_dump($response->getStatus());\n\n    ...\n    // Send transactional emails (note: prefer using SwiftMailer to send transactionnal emails)\n\n    $body = [\n        'FromEmail' => \"pilot@mailjet.com\",\n        'FromName' => \"Mailjet Pilot\",\n        'Subject' => \"Your email flight plan!\",\n        'Text-part' => \"Dear passenger, welcome to Mailjet! May the delivery force be with you!\",\n        'Html-part' => \"<h3>Dear passenger, welcome to Mailjet!</h3><br />May the delivery force be with you!\",\n        'Recipients' => [['Email' => \"passenger@mailjet.com\"]]\n    ];\n\n    $response = $mailjet->post(Resources::$Email, ['body' => $body]);",
+            "title": "Retrieve Mailjet Client Object to make custom MailJet API V3 requests"
+        },
+        {
+            "location": "/usage/#campaigndraft-example",
+            "text": "In the providers array inside app.php add:  Mailjet\\LaravelMailjet\\Providers\\CampaignDraftServiceProvider::class  You can access the  /campaigndraft  api through the CampaignDraftContract.  Example:  <?php\nuse Mailjet\\LaravelMailjet\\Contracts\\CampaignDraftContract;\nuse Mailjet\\LaravelMailjet\\Model\\CampaignDraft;\n// ...\npublic function campaignDraftExample(CampaignDraftContract $campaignDraftManager ) {\n    // ...\n    $optionalProp['Title'] = 'Friday newsletter';\n    $optionalProp['SenderName'] = 'Mailjet team';\n    $optionalProp['EditMode'] = 'html2';\n    $campaignDraft = new CampaignDraft(\"en_US\", \"Lyubo\", \"api@mailjet.com\", \"Laravel bundle test\", \"5410\");\n    $campaignDraft->setOptionalProperties($optionalProp);\n    $campaignDraftManager->create($campaignDraft);\n    $content = ['Html-part' => \"Hello <strong>world</strong>!\",\n        'Text-part' => \"Hello world!\"];\n    $campaignDraft->setContent($content);\n    $campaignDraftManager->createDetailContent($campaignDraft->getId(), $campaignDraft->getContent());\n      /*     * Send a campaigndraft** */\n    $campaignDraftManager->sendCampaign($campaignDraft->getId());\n}",
+            "title": "Campaigndraft Example"
+        },
+        {
+            "location": "/usage/#template-example",
+            "text": "In the providers array inside app.php add:  Mailjet\\LaravelMailjet\\Providers\\TemplateServiceProvider::class  You can access the  /template  api through the TemplateContract.  Example:  <?php\nuse Mailjet\\LaravelMailjet\\Contracts\\TemplateContract;\nuse Mailjet\\LaravelMailjet\\Model\\Template;\n\n// ...\npublic function templateExample(TemplateContract $templateManager) {\n    // ...\n        //Example create template\n        $optionalProp['Author'] = 'Mailjet team';\n        $optionalProp['EditMode'] = 1;\n        $optionalProp['Purposes'] = ['transactional'];\n        $template = new Template(\"Laravel Template Example!!! \", $optionalProp);\n\n        $ID = $templateManager->create($template)[0]['ID'];\n\n        //Add content to a template\n        $contentData = [\n            'Html-part' => \"<html><body><p>Hello {{var:name}}</p></body></html>\",\n            'Text-part' => \"Hello {{var:name}}\"\n        ];\n        $templateManager->createDetailContent($ID, $contentData);\n\n        //Example list all templates based on multiple filters\n        $filters['OwnerType']='apikey';\n        $filters['EditMode']=1;\n        $result=$templateManager->getAll($filters);\n}",
+            "title": "Template Example"
+        },
+        {
+            "location": "/usage/#campaigns-example",
+            "text": "In the providers array inside app.php add:  Mailjet\\LaravelMailjet\\Providers\\CampaignServiceProvider::class  You can  access the  /campaign  API through the CampaignContract.  Example:  <?php\n\nuse Mailjet\\LaravelMailjet\\Contracts\\CampaignContract;\nuse Mailjet\\LaravelMailjet\\Model\\Campaign;\n    // ...\npublic function campaignExample(CampaignContract $campaignManager ) {\n        // ...\n        //Example retrieve all (limit 10 :) ) stared campaigns\n        $result = $campaignManager->getAllCampaigns($filters);\n}",
+            "title": "Campaigns Example"
+        },
+        {
+            "location": "/usage/#change-users-email-address",
+            "text": "In the providers array inside app.php add:   Mailjet\\LaravelMailjet\\Providers\\ContactsListServiceProvider::class  <?php\n\nuse Mailjet\\LaravelMailjet\\Contracts\\ContactsListContract;\nuse Mailjet\\LaravelMailjet\\Model\\Contact;\n\npublic function changeEmailAddress(ContactsListContract $ContactsListManager, $oldEmail, $newEmail,$listId)\n{\n    // ...\n    $contact = new Contact($newEmail);\n\n      $ContactsListManager->updateEmail($listId,$contact,$oldEmail);\n\n}",
+            "title": "Change User's email address"
+        },
+        {
+            "location": "/build-documentation/",
+            "text": "Build documentation\n\n\nYou can read files in the folder \nsrc/Resources/doc\n or you can compile the documentation with MkDocs.\n\n\nMkDocs\n\n\n\n\nInstall Python 2.7 and Pip 1.5\n\n\nInstall MkDocs: \npip install mkdocs\n\n\nInstall pymdown-extension: \npip install pymdown-extensions\n\n\nCompile the doc: \nmkdocs build\n\n\nPreview the doc: \nmkdocs serve\n at \nhttp://127.0.0.1:8000\n\n\n\n\nDeploy to gh-pages\n\n\nDocumentation is deployed here: \nhttps://mailjet.github.io/laravelmailjet/\n\n\nIn order to deploy a new version of documentation: \nmkdocs gh-deploy",
+            "title": "Build Documentation"
+        },
+        {
+            "location": "/build-documentation/#build-documentation",
+            "text": "You can read files in the folder  src/Resources/doc  or you can compile the documentation with MkDocs.",
+            "title": "Build documentation"
+        },
+        {
+            "location": "/build-documentation/#mkdocs",
+            "text": "Install Python 2.7 and Pip 1.5  Install MkDocs:  pip install mkdocs  Install pymdown-extension:  pip install pymdown-extensions  Compile the doc:  mkdocs build  Preview the doc:  mkdocs serve  at  http://127.0.0.1:8000",
+            "title": "MkDocs"
+        },
+        {
+            "location": "/build-documentation/#deploy-to-gh-pages",
+            "text": "Documentation is deployed here:  https://mailjet.github.io/laravelmailjet/  In order to deploy a new version of documentation:  mkdocs gh-deploy",
+            "title": "Deploy to gh-pages"
+        },
+        {
+            "location": "/mailjet-doc/",
+            "text": "Mailjet Documentation\n\n\n\n\nAPI Guides\n\n\nAPI Reference\n\n\nSwitch from Mandrill\n\n\nAutomation (FR)",
+            "title": "Mailjet Doc"
+        },
+        {
+            "location": "/mailjet-doc/#mailjet-documentation",
+            "text": "API Guides  API Reference  Switch from Mandrill  Automation (FR)",
+            "title": "Mailjet Documentation"
+        },
+        {
+            "location": "/CONTRIBUTING/",
+            "text": "CONTRIBUTING\n\n\n\n\nContributing to Open Source guide\n\n\n\n\nSteps\n\n\n\n\nCreate an Issue\n\n\nPull Request\n\n\nMerge \\o/\n\n\n\n\nContributors\n\n\n\n\nOriginal author: \nTitouan BENOIT\n\n\nMailjet API \napi@mailjet.com",
+            "title": "Contributing"
+        },
+        {
+            "location": "/CONTRIBUTING/#contributing",
+            "text": "Contributing to Open Source guide",
+            "title": "CONTRIBUTING"
+        },
+        {
+            "location": "/CONTRIBUTING/#steps",
+            "text": "Create an Issue  Pull Request  Merge \\o/",
+            "title": "Steps"
+        },
+        {
+            "location": "/CONTRIBUTING/#contributors",
+            "text": "Original author:  Titouan BENOIT  Mailjet API  api@mailjet.com",
+            "title": "Contributors"
+        }
+    ]
+}

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Titouan BENOIT">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Examples - Laravel Mailjet</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Examples";
+    var mkdocs_page_input_path = "usage.md";
+    var mkdocs_page_url = "/usage/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Laravel Mailjet</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../configuration/">Configuration</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Examples</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#examples">Examples</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#retrieve-mailjet-client-object-to-make-custom-mailjet-api-v3-requests">Retrieve Mailjet Client Object to make custom MailJet API V3 requests</a></li>
+        
+            <li><a class="toctree-l3" href="#campaigndraft-example">Campaigndraft Example</a></li>
+        
+            <li><a class="toctree-l3" href="#template-example">Template Example</a></li>
+        
+            <li><a class="toctree-l3" href="#campaigns-example">Campaigns Example</a></li>
+        
+            <li><a class="toctree-l3" href="#change-users-email-address">Change User's email address</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../build-documentation/">Build Documentation</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../mailjet-doc/">Mailjet Doc</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../CONTRIBUTING/">Contributing</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Laravel Mailjet</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Examples</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/mailjet/laravel-mailjet/edit/master/src/Resources/doc/usage.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="examples">Examples</h1>
+<h2 id="retrieve-mailjet-client-object-to-make-custom-mailjet-api-v3-requests">Retrieve Mailjet Client Object to make custom MailJet API V3 requests</h2>
+<p>You can  get the <a href="https://github.com/mailjet/mailjet-apiv3-php">client</a>. with the method getClient() and make your own request to Mailjet API.
+* In the providers array</p>
+<pre class="highlight"><code class="language-php">'providers' =&gt; [
+    ...
+    Mailjet\LaravelMailjet\MailjetServiceProvider::class,
+    Mailjet\LaravelMailjet\MailjetMailServiceProvider::class,
+    ...
+]</code></pre>
+
+<ul>
+<li>In the aliases array</li>
+</ul>
+<p><pre class="highlight"><code class="language-php">'aliases' =&gt; [
+    ...
+    'Mailjet' =&gt; Mailjet\LaravelMailjet\Facades\Mailjet::class,
+    ...
+]</code></pre>
+To use it, you need to import Mailjet Facade in your file</p>
+<pre><code>use Mailjet\LaravelMailjet\Facades\Mailjet;
+</code></pre>
+<p>Example:</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+    use \Mailjet\Resources;
+    use Mailjet\LaravelMailjet\Facades\Mailjet;
+
+    ...
+    $mailjet = Mailjet::getClient();
+
+    // Resources are all located in the Resources class
+    $response = $mailjet-&gt;get(Resources::$Contact);
+
+    /*
+      Read the response
+    */
+    if ($response-&gt;success())
+      var_dump($response-&gt;getData());
+    else
+      var_dump($response-&gt;getStatus());
+
+    ...
+    // Send transactional emails (note: prefer using SwiftMailer to send transactionnal emails)
+
+    $body = [
+        'FromEmail' =&gt; &quot;pilot@mailjet.com&quot;,
+        'FromName' =&gt; &quot;Mailjet Pilot&quot;,
+        'Subject' =&gt; &quot;Your email flight plan!&quot;,
+        'Text-part' =&gt; &quot;Dear passenger, welcome to Mailjet! May the delivery force be with you!&quot;,
+        'Html-part' =&gt; &quot;&lt;h3&gt;Dear passenger, welcome to Mailjet!&lt;/h3&gt;&lt;br /&gt;May the delivery force be with you!&quot;,
+        'Recipients' =&gt; [['Email' =&gt; &quot;passenger@mailjet.com&quot;]]
+    ];
+
+    $response = $mailjet-&gt;post(Resources::$Email, ['body' =&gt; $body]);
+</code></pre>
+
+<h2 id="campaigndraft-example">Campaigndraft Example</h2>
+<p>In the providers array inside app.php add:</p>
+<pre><code>Mailjet\LaravelMailjet\Providers\CampaignDraftServiceProvider::class
+</code></pre>
+<p>You can access the <a href="https://dev.mailjet.com/email-api/v3/campaigndraft">/campaigndraft</a> api through the CampaignDraftContract.</p>
+<p>Example:</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+use Mailjet\LaravelMailjet\Contracts\CampaignDraftContract;
+use Mailjet\LaravelMailjet\Model\CampaignDraft;
+// ...
+public function campaignDraftExample(CampaignDraftContract $campaignDraftManager ) {
+    // ...
+    $optionalProp['Title'] = 'Friday newsletter';
+    $optionalProp['SenderName'] = 'Mailjet team';
+    $optionalProp['EditMode'] = 'html2';
+    $campaignDraft = new CampaignDraft(&quot;en_US&quot;, &quot;Lyubo&quot;, &quot;api@mailjet.com&quot;, &quot;Laravel bundle test&quot;, &quot;5410&quot;);
+    $campaignDraft-&gt;setOptionalProperties($optionalProp);
+    $campaignDraftManager-&gt;create($campaignDraft);
+    $content = ['Html-part' =&gt; &quot;Hello &lt;strong&gt;world&lt;/strong&gt;!&quot;,
+        'Text-part' =&gt; &quot;Hello world!&quot;];
+    $campaignDraft-&gt;setContent($content);
+    $campaignDraftManager-&gt;createDetailContent($campaignDraft-&gt;getId(), $campaignDraft-&gt;getContent());
+      /*     * Send a campaigndraft** */
+    $campaignDraftManager-&gt;sendCampaign($campaignDraft-&gt;getId());
+}</code></pre>
+
+<h2 id="template-example">Template Example</h2>
+<p>In the providers array inside app.php add:</p>
+<pre><code>Mailjet\LaravelMailjet\Providers\TemplateServiceProvider::class
+</code></pre>
+<p>You can access the <a href="https://dev.mailjet.com/email-api/v3/template">/template</a> api through the TemplateContract.</p>
+<p>Example:</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+use Mailjet\LaravelMailjet\Contracts\TemplateContract;
+use Mailjet\LaravelMailjet\Model\Template;
+
+// ...
+public function templateExample(TemplateContract $templateManager) {
+    // ...
+        //Example create template
+        $optionalProp['Author'] = 'Mailjet team';
+        $optionalProp['EditMode'] = 1;
+        $optionalProp['Purposes'] = ['transactional'];
+        $template = new Template(&quot;Laravel Template Example!!! &quot;, $optionalProp);
+
+        $ID = $templateManager-&gt;create($template)[0]['ID'];
+
+        //Add content to a template
+        $contentData = [
+            'Html-part' =&gt; &quot;&lt;html&gt;&lt;body&gt;&lt;p&gt;Hello {{var:name}}&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&quot;,
+            'Text-part' =&gt; &quot;Hello {{var:name}}&quot;
+        ];
+        $templateManager-&gt;createDetailContent($ID, $contentData);
+
+        //Example list all templates based on multiple filters
+        $filters['OwnerType']='apikey';
+        $filters['EditMode']=1;
+        $result=$templateManager-&gt;getAll($filters);
+}</code></pre>
+
+<h2 id="campaigns-example">Campaigns Example</h2>
+<p>In the providers array inside app.php add:</p>
+<pre><code>Mailjet\LaravelMailjet\Providers\CampaignServiceProvider::class
+</code></pre>
+<p>You can  access the <a href="https://dev.mailjet.com/email-api/v3/campaign">/campaign</a> API through the CampaignContract.</p>
+<p>Example:</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+use Mailjet\LaravelMailjet\Contracts\CampaignContract;
+use Mailjet\LaravelMailjet\Model\Campaign;
+    // ...
+public function campaignExample(CampaignContract $campaignManager ) {
+        // ...
+        //Example retrieve all (limit 10 :) ) stared campaigns
+        $result = $campaignManager-&gt;getAllCampaigns($filters);
+}</code></pre>
+
+<h2 id="change-users-email-address">Change User's email address</h2>
+<p>In the providers array inside app.php add:</p>
+<pre><code> Mailjet\LaravelMailjet\Providers\ContactsListServiceProvider::class
+</code></pre>
+<pre class="highlight"><code class="language-php">&lt;?php
+
+use Mailjet\LaravelMailjet\Contracts\ContactsListContract;
+use Mailjet\LaravelMailjet\Model\Contact;
+
+public function changeEmailAddress(ContactsListContract $ContactsListManager, $oldEmail, $newEmail,$listId)
+{
+    // ...
+    $contact = new Contact($newEmail);
+
+      $ContactsListManager-&gt;updateEmail($listId,$contact,$oldEmail);
+
+}</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../build-documentation/" class="btn btn-neutral float-right" title="Build Documentation">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../configuration/" class="btn btn-neutral" title="Configuration"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>MIT</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/mailjet/laravel-mailjet" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../configuration/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../build-documentation/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>
