@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Laravel Mailjet API V3.">
+  <meta name="author" content="Titouan BENOIT">
+  <link rel="shortcut icon" href="./img/favicon.ico">
+  <title>Home - Laravel Mailjet</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="./css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Home";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = "/";
+  </script>
+  
+  <script src="./js/jquery-2.1.1.min.js"></script>
+  <script src="./js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> Laravel Mailjet</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href=".">Home</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#laravel-mailjet">Laravel Mailjet</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#installation">Installation</a></li>
+        
+            <li><a class="toctree-l3" href="#usage">Usage</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="configuration/">Configuration</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="usage/">Usage</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="build-documentation/">Build Documentation</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="mailjet-doc/">Mailjet Doc</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="CONTRIBUTING/">Contributing</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">Laravel Mailjet</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/mailjet/laravel-mailjet/edit/master/src/Resources/doc/index.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="laravel-mailjet">Laravel Mailjet</h1>
+<p><a href="https://travis-ci.org/mailjet/laravel-mailjet"><img alt="Build Status" src="https://travis-ci.org/mailjet/laravel-mailjet.svg?branch=master" /></a>
+<a href="https://packagist.org/packages/mailjet/laravel-mailjet"><img alt="Packagist" src="https://img.shields.io/packagist/v/mailjet/laravel-mailjet.svg" /></a>
+<a href="https://packagist.org/packages/mailjet/laravel-mailjet"><img alt="Packagist" src="https://img.shields.io/packagist/dt/mailjet/laravel-mailjet.svg" /></a>
+<a href="https://github.com/mailjet/laravel-mailjet/blob/master/LICENSE.md"><img alt="GitHub license" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a></p>
+<p>Laravel package for handling Mailjet API V3 using this wrapper: <a href="https://github.com/mailjet/mailjet-apiv3-php">https://github.com/mailjet/mailjet-apiv3-php</a></p>
+<p>It also provide a mailjetTransport for <a href="https://laravel.com/docs/master/mail">Laravel mail feature</a></p>
+<h2 id="installation">Installation</h2>
+<p>First, include the package in your dependencies</p>
+<pre><code>composer require mailjet/laravel-mailjet
+</code></pre>
+<p>Then, you need to add some informations in your configuration files</p>
+<ul>
+<li>In the providers array add the service providers you want to use, for example:</li>
+</ul>
+<pre class="highlight"><code class="language-php">'providers' =&gt; [
+    ...
+    Mailjet\LaravelMailjet\MailjetServiceProvider::class,
+    Mailjet\LaravelMailjet\MailjetMailServiceProvider::class,
+    ...
+    Mailjet\LaravelMailjet\Providers\CampaignDraftServiceProvider::class
+]</code></pre>
+
+<ul>
+<li>In the aliases array</li>
+</ul>
+<pre class="highlight"><code class="language-php">'aliases' =&gt; [
+    ...
+    'Mailjet' =&gt; Mailjet\LaravelMailjet\Facades\Mailjet::class,
+    ...
+]</code></pre>
+
+<ul>
+<li>In the services.php file</li>
+</ul>
+<pre class="highlight"><code class="language-php">mailjet' =&gt; [
+    'key' =&gt; env('MAILJET_APIKEY'),
+    'secret' =&gt; env('MAILJET_APISECRET'),
+]</code></pre>
+
+<ul>
+<li>In your .env file</li>
+</ul>
+<pre class="highlight"><code class="language-php">MAILJET_APIKEY=YOUR_APIKEY
+MAILJET_APISECRET=YOUR_APISECRET</code></pre>
+
+<h2 id="usage">Usage</h2>
+<p>To use it, you need to import the Mailjet Facade or any of the available Service-provider contracts in your file</p>
+<pre><code>use Mailjet\LaravelMailjet\Facades\Mailjet;
+.....
+use Mailjet\LaravelMailjet\Contracts\CampaignDraftContract;
+</code></pre>
+<p>Then, in your code you can use one of the method available in the MailjetServices :</p>
+<p>Low level API methods:</p>
+<ul>
+<li><code>Mailjet::get($resource, $args, $options)</code></li>
+<li><code>Mailjet::post($resource, $args, $options)</code></li>
+<li><code>Mailjet::put($resource, $args, $options)</code></li>
+<li><code>Mailjet::delete($resource, $args, $options)</code></li>
+</ul>
+<p>High level API methods:</p>
+<ul>
+<li><code>Mailjet::getAllLists($filters)</code></li>
+<li><code>Mailjet::createList($body)</code></li>
+<li><code>Mailjet::getListRecipients($filters)</code></li>
+<li><code>Mailjet::getSingleContact($id)</code></li>
+<li><code>Mailjet::createContact($body)</code></li>
+<li><code>Mailjet::createListRecipient($body)</code></li>
+<li><code>Mailjet::editListrecipient($id, $body)</code></li>
+</ul>
+<p>For more informations about the filters you can use in each methods, refer to the <a href="https://dev.mailjet.com/email-api/v3/apikey/">Mailjet API documentation</a></p>
+<p>All method return Mailjet\Response or throw a MailjetException in case of API error.</p>
+<p>You can also get the client with the method <code>getClient()</code> and make your own request to Mailjet API.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="configuration/" class="btn btn-neutral float-right" title="Configuration">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>MIT</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/mailjet/laravel-mailjet" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+      
+        <span style="margin-left: 15px"><a href="configuration/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="./js/theme.js"></script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 0.16.3
+Build Date UTC : 2017-08-21 08:25:59
+-->

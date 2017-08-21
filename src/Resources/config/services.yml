@@ -1,0 +1,97 @@
+parameters:
+    mailjet.client.class: Mailjet\MailjetBundle\Client\MailjetClient
+    mailjet.event_callback_manager.class: Mailjet\MailjetBundle\Manager\EventCallbackUrlManager
+    mailjet.contact_metadata_manager.class: Mailjet\MailjetBundle\Manager\ContactMetadataManager
+    mailjet.contacts_list_manager.class: Mailjet\MailjetBundle\Manager\ContactsListManager
+    mailjet.contacts_list_synchronizer.class: Mailjet\MailjetBundle\Synchronizer\ContactsListSynchronizer
+    mailjet.contact_listener.class: Mailjet\MailjetBundle\Listener\ContactListener
+    mailjet.data_collector.mailjet.class: Mailjet\MailjetBundle\DataCollector\MailjetDataCollector
+    mailjet.campaign_draft_manager.class: Mailjet\MailjetBundle\Manager\CampaignDraftManager
+    mailjet.campaign_manager.class: Mailjet\MailjetBundle\Manager\CampaignManager
+    mailjet.template_manager.class: Mailjet\MailjetBundle\Manager\TemplateManager
+
+services:
+    mailjet.client:
+        class: '%mailjet.client.class%'
+        arguments: ['%mailjet.api_key%', '%mailjet.secret_key%', '%mailjet.call%', '%mailjet.options%']
+
+    mailjet.transactionnal.client:
+        class: '%mailjet.client.class%'
+        arguments:
+            - '%mailjet.api_key%'
+            - '%mailjet.secret_key%'
+            - '%mailjet.transactionnal.call%'
+            - '%mailjet.transactionnal.options%'
+
+    swiftmailer.transport.eventdispatcher.mailjet:
+        class: Swift_Events_SimpleEventDispatcher
+
+    swiftmailer.mailer.transport.mailjet:
+        class: Mailjet\MailjetSwiftMailer\SwiftMailer\MailjetTransport
+        arguments:
+            - '@swiftmailer.transport.eventdispatcher.mailjet'
+            - '%mailjet.api_key%'
+            - '%mailjet.secret_key%'
+            - '%mailjet.transactionnal.call%'
+            - '%mailjet.transactionnal.options%'
+        calls:
+            - method: setExternalMailjetClient
+              arguments:
+                  - '@mailjet.transactionnal.client'
+
+    mailjet.service.contacts_list_synchronizer:
+        class: '%mailjet.contacts_list_synchronizer.class%'
+        arguments:
+            - '@mailjet.client'
+            - '@mailjet.service.contacts_list_manager'
+
+    mailjet.service.event_callback_manager:
+        class: '%mailjet.event_callback_manager.class%'
+        arguments:
+            - '@mailjet.client'
+
+    mailjet.service.contact_metadata_manager:
+        class: '%mailjet.contact_metadata_manager.class%'
+        arguments:
+            - '@mailjet.client'
+
+    mailjet.service.contacts_list_manager:
+        class: '%mailjet.contacts_list_manager.class%'
+        arguments:
+            - '@mailjet.client'
+
+    mailjet.service.campaign_draft_manager:
+        class: '%mailjet.campaign_draft_manager.class%'
+        arguments:
+            - '@mailjet.client'
+
+    mailjet.service.campaign_manager:
+        class: '%mailjet.campaign_manager.class%'
+        arguments:
+            - '@mailjet.client'
+
+    mailjet.service.template_manager:
+        class: '%mailjet.template_manager.class%'
+        arguments:
+            - '@mailjet.client'    
+
+
+    # Listener
+    mailjet.listener.contact_listener:
+        class: %mailjet.contact_listener.class%
+        arguments:
+            - '@mailjet.service.contacts_list_manager'
+        tags:
+            - { name: kernel.event_listener, event: mailjet.event.subscribe, method: onSubscribe }
+            - { name: kernel.event_listener, event: mailjet.event.unsubscribe, method: onUnsubscribe }
+            - { name: kernel.event_listener, event: mailjet.event.update, method: onUpdate }
+            - { name: kernel.event_listener, event: mailjet.event.delete, method: onDelete }
+            - { name: kernel.event_listener, event: mailjet.event.change_email, method: onChangeEmail }
+
+    mailjet.data_collector.mailjet:
+        class: '%mailjet.data_collector.mailjet.class%'
+        arguments:
+            - '@mailjet.client'
+            - '@mailjet.transactionnal.client'
+        tags:
+            - { name: data_collector, template: MailjetBundle:DataCollector:mailjet.html.twig, id: mailjet}
