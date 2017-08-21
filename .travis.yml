@@ -1,9 +1,10 @@
 language: php
 php:
-  - 5.6
-
+- 5.6
 before_install:
-  - composer install --dev -v --prefer-source
-
+- composer install --dev -v --prefer-source
 script:
-  - bin/phpunit -c .
+- bin/phpunit -c .
+notifications:
+  slack:
+    secure: YpECkeOQvtc5iVqVzBiV2XzOXEpL2s5Nyp82waOwRyegNY8y3QWP4h0UhbXJmUlcM6E+NMZgNBmQKrtkoM8u1H0K5Q1Qun/0Ca0qbku5eLrXbxS1PlYDwnTpgv6yAfJsqjkEVturV5QYDHVG5O9VJtKCzUXTC5ZZDl4AS7tKScrXwfZxcM82OWeksokAsMRjVTKamqWvs95Pr35rhUpggwqS7tHF9Kf9ynkwL6PC2UMglcqPKbd+eUohaxWu4uJ6+9jAYesjEmqzBEEiMdAXmDPKhJrjHnzP8pozYacpasBjT29KCNIn3ny2aN+REui74m6vpzHOohNvu46IAfNIN3r4PhVhC/szwgguaSJBd9YvyZO4RXNXn9dZRX7BBZ20Z2Q/CMvqJCHYk00X9W1TIziIa1Va1U7zmhTJYjCCcsKN0e60VqrVsbIyM6tv8ym5t2zYHUa+E9IsHYl9T8u2itBPgzbbndD8r+hch3vQ32DUCepBNirNyAZriV++piMuj00COBa1RAjgYTwOsXN1vDQi84RfxVRtwIsF3v2fanq19SJhBuYzpbWFCVeGkhnrDDJTANbHBvSDajDyVtOe6j9NM9Uzo1jCyp/LRZdKAuQLk0+u4AZBAoLy/DOEOcxphH9IHw6FUTBq9eoYB2wnET4u+POeDBfVgpQwKyXbC0E=
