@@ -1,3 +1,0 @@
-mailjet_event_endpoint:
-    resource: Mailjet\MailjetBundle\Controller\EventController
-    type:     annotation
