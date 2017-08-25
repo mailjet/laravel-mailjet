@@ -73,11 +73,6 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="../build-documentation/">Build Documentation</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
     <a class="" href="../mailjet-doc/">Mailjet Doc</a>
 	    </li>
           
@@ -111,7 +106,7 @@
     <li>Configuration</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/mailjet/laravel-mailjet/edit/master/src/Resources/doc/configuration.md"
+        <a href="https://github.com/mailjet/laravel-mailjet/edit/master/src/doc/configuration.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -144,10 +139,14 @@
         ]
     ]
 ]</code></pre>
-You can pass settings to <a href="https://github.com/mailjet/mailjet-apiv3-php#new--version-120-of-the-php-wrapper-">MailjetClient</a>.</p>
+You can pass settings to <a href="https://github.com/mailjet/mailjet-apiv3-php">MailjetClient</a>.</p>
 <ul>
-<li><code>transactionnal</code>: settings to sendAPI client</li>
-<li><code>common</code>: setting to MailjetClient accessible throught the Facade Mailjet</li>
+<li><code>transactional</code>: settings to Send API client</li>
+<li><code>common</code>: setting to MailjetClient accessible throught the Facade Mailjet.</li>
+<li><code>url</code> (Default: api.mailjet.com) : domain name of the API
+version (Default: v3) : API version (only working for Mailjet API V3 +)</li>
+<li><code>call</code> (Default: true) : turns on(true) / off the call to the API</li>
+<li><code>secured</code> (Default: true) : turns on(true) / off the use of 'https'</li>
 </ul>
 <h2 id="mail-driver-configuration">Mail driver configuration</h2>
 <p>In order to use Mailjet as Mail driver, you need to change the mail driver in your <code>config/mail.php</code> or your <code>.env</code> file to <code>MAIL_DRIVER=mailjet</code>, and make sure you have a valid and authorised from-address configured on your Mailjet account.</p>
