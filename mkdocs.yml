@@ -3,14 +3,13 @@ site_description: Laravel Mailjet API V3.
 site_author: Titouan BENOIT
 copyright: MIT
 repo_url: https://github.com/mailjet/laravel-mailjet
-edit_uri: edit/master/src/Resources/doc/
-docs_dir: 'src/Resources/doc'
+edit_uri: edit/master/src/doc/
+docs_dir: 'doc'
 site_dir: "docs"
 pages:
     - Home: index.md
     - Configuration: configuration.md
     - Examples: usage.md
-    - Build Documentation: build-documentation.md
     - Mailjet Doc: mailjet-doc.md
     - Contributing: CONTRIBUTING.md
 theme: readthedocs
