@@ -1,0 +1,27 @@
+site_name: Laravel Mailjet
+site_description: Laravel Mailjet API V3.
+site_author: Titouan BENOIT
+copyright: MIT
+repo_url: https://github.com/mailjet/laravel-mailjet
+edit_uri: edit/master/docs/
+docs_dir: 'docs'
+site_dir: "doc"
+pages:
+    - Home: index.md
+    - Configuration: configuration.md
+    - Examples: usage.md
+    - Mailjet Doc: mailjet-doc.md
+    - Contributing: CONTRIBUTING.md
+theme_dir: 'docs/custom_theme/material'
+extra_css:
+  - https://dev.mailjet.com/static/stylesheets/styles-redesign.css
+  - stylesheets/extra.css
+  - https://cdn.rawgit.com/noelboss/featherlight/1.5.1/release/featherlight.min.css
+extra_javascript:
+  - https://dev.mailjet.com/static/javascripts/jquery-2.1.1.min.js
+  - https://cdn.jsdelivr.net/ace/1.1.3/min/ace.js
+  - https://cdn.jsdelivr.net/clipboard.js/1.5.10/clipboard.min.js
+  - https://dev.mailjet.com/static/javascripts/my/ace-editor-redesign.js
+  - https://cdn.rawgit.com/noelboss/featherlight/1.5.1/release/featherlight.min.js
+markdown_extensions:
+    - pymdownx.github

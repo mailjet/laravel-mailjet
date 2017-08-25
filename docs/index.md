@@ -4,7 +4,6 @@
 [![Packagist](https://img.shields.io/packagist/v/mailjet/laravel-mailjet.svg)](https://packagist.org/packages/mailjet/laravel-mailjet)
 [![Packagist](https://img.shields.io/packagist/dt/mailjet/laravel-mailjet.svg)](https://packagist.org/packages/mailjet/laravel-mailjet)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mailjet/laravel-mailjet/blob/master/LICENSE.md)
-[![Documentation](https://img.shields.io/badge/documentation-gh--pages-blue.svg)](https://mailjet.github.io/laravel-mailjet/)
 
 Laravel package for handling Mailjet API V3 using this wrapper: <https://github.com/mailjet/mailjet-apiv3-php>
 
@@ -18,7 +17,7 @@ First, include the package in your dependencies
 
 Then, you need to add some informations in your configuration files
 
-* In the providers array
+* In the providers array add the service providers you want to use, for example:
 
 ```php
 'providers' => [
@@ -26,6 +25,7 @@ Then, you need to add some informations in your configuration files
     Mailjet\LaravelMailjet\MailjetServiceProvider::class,
     Mailjet\LaravelMailjet\MailjetMailServiceProvider::class,
     ...
+	Mailjet\LaravelMailjet\Providers\CampaignDraftServiceProvider::class
 ]
 ```
 
@@ -55,48 +55,15 @@ MAILJET_APIKEY=YOUR_APIKEY
 MAILJET_APISECRET=YOUR_APISECRET
 ```
 
-## Full configuration
 
-```php
-'mailjet' => [
-    'key' => env('MAILJET_APIKEY'),
-    'secret' => env('MAILJET_APISECRET'),
-    'transactionnal' => [
-        'call' => true,
-        'options' => [
-            'url' => 'api.mailjet.com',
-            'version' => 'v3.1',
-            'call' => true,
-            'secured' => true
-        ]
-    ],
-    'common' => [
-        'call' => true,
-        'options' => [
-            'url' => 'api.mailjet.com',
-            'version' => 'v3',
-            'call' => true,
-            'secured' => true
-        ]
-    ]
-]
-```
-You can pass settings to [MailjetClient](https://github.com/mailjet/mailjet-apiv3-php#new--version-120-of-the-php-wrapper-).
-
-* `transactionnal`: settings to sendAPI client
-* `common`: setting to MailjetClient accessible throught the Facade Mailjet
-
-## Mail driver configuration
-
-In order to use Mailjet as Mail driver, you need to change the mail driver in your `config/mail.php` or your `.env` file to `MAIL_DRIVER=mailjet`, and make sure you have a valid and authorised from-address configured on your Mailjet account.
-
-For usage, check the [Laravel mail documentation](https://laravel.com/docs/master/mail)
 
 ## Usage
 
-To use it, you need to import Mailjet Facade in your file
+To use it, you need to import the Mailjet Facade or any of the available Service-provider contracts in your file
 
     use Mailjet\LaravelMailjet\Facades\Mailjet;
+	.....
+	use Mailjet\LaravelMailjet\Contracts\CampaignDraftContract;
 
 
 Then, in your code you can use one of the method available in the MailjetServices :
@@ -124,6 +91,3 @@ All method return Mailjet\Response or throw a MailjetException in case of API er
 
 You can also get the client with the method `getClient()` and make your own request to Mailjet API.
 
-## ToDo
-
-* More Tests

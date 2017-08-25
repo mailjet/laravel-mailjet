@@ -1,0 +1,52 @@
+.new_design {
+    display: inline-block;
+    width: 100%;
+}
+
+.new_design .editors{
+    width: 100% !important;
+}
+
+.new-design .editors .editors-wrapper .editor{
+    width: 100% !important;
+}
+
+pre {
+    border: 0;
+}
+
+.navbar-brand {
+    padding: 20px 15px !important;
+}
+
+.md-header.header {
+    z-index:20;
+} 
+
+blockquote {
+	margin: 0px !important;
+}
+
+blockquote p {
+	margin-top: 0px !important;	
+}
+
+.md-header-nav__button.md-icon--menu {
+	background-color: #4784e3;
+}
+
+.codehilite .hll {
+ 	background-color: rgba(68,138,255,.15) !important;
+}
+
+.header .navbar .navbar-nav li.active a {
+    color: #5a75e2 !important;
+}
+.header .navbar .navbar-nav li a, .header .navbar .navbar-nav li a:hover {
+    color: #a8b3ee !important;
+}
+
+.header .navbar .navbar-nav li.active::after {
+    background-color: #5a75e2 !important;
+}
+
