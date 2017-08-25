@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
       
         <meta name="description" content="Laravel Mailjet API V3.">
       
@@ -16,7 +15,7 @@
       
         <link rel="shortcut icon" href="./assets/images/favicon.png">
       
-      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.8.1">
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.2.0">
     
     
       
@@ -24,12 +23,13 @@
       
     
     
-      <script src="./assets/javascripts/modernizr-1df76c4e58.js"></script>
+      <script src="./assets/javascripts/modernizr-56ade86843.js"></script>
     
     
-      <link rel="stylesheet" href="./assets/stylesheets/application-bfecc7305d.css">
+      <link rel="stylesheet" href="./assets/stylesheets/application-e17eeafcbc.css">
       
     
+    <link rel="stylesheet" type="text/css" href="https://dev.mailjet.com/static/stylesheets/styles.css">
     
       
         
@@ -41,7 +41,26 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     
     
+      <link rel="stylesheet" href="https://dev.mailjet.com/static/stylesheets/styles-redesign.css">
     
+      <link rel="stylesheet" href="./stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.rawgit.com/noelboss/featherlight/1.5.1/release/featherlight.min.css">
+    
+    
+    <!-- Google Tag Manager -->
+	<script type="text/javascript">
+	  var dataLayer = [];
+	</script>
+	<noscript>
+	  <iframe src="//www.googletagmanager.com/ns.html?id=GTM-5CSDQB" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+	</noscript>
+	<script>
+	  (function(w,d,s,l,i){
+	    w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s), dl=l!='dataLayer'?'&l='+l:''; j.async=true; j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	  })(window,document,'script','dataLayer','GTM-5CSDQB');
+	</script>
+	<!-- End Google Tag Manager -->
   </head>
   
   
@@ -61,82 +80,43 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
     <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
     
-      <header class="md-header" data-md-component="header">
+      <header class="md-header header">
+  <nav class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-top">
+                        <span class="sr-only"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        <img class="header-logo" alt="Mailjet white logo" src="./img/mailjet_logo_blue2.svg">
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse  navbar-right" id="navbar-top">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a data-link="api-guide" href="https://dev.mailjet.com/guides">API Guides</a>
+                        </li>
+                        <li>
+                        <a data-link="v3-reference" href="https://dev.mailjet.com/email-api/v3/apikey/">API Reference</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
-      <div class="md-flex__cell md-flex__cell--shrink">
-        
-          <a href="." title="Laravel Mailjet" class="md-icon md-icon--home md-header-nav__button">
-          </a>
-        
-      </div>
+      
       <div class="md-flex__cell md-flex__cell--shrink">
         <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
       </div>
-      <div class="md-flex__cell md-flex__cell--stretch">
-        <span class="md-flex__ellipsis md-header-nav__title">
-          
-            
-              
-            
-            Home
-          
-        </span>
-      </div>
-      <div class="md-flex__cell md-flex__cell--shrink">
-        
-          <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
-          
-<div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="search"></label>
-  <div class="md-search__inner">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
-      <label class="md-icon md-search__icon" for="search"></label>
-      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
-          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
-            Type to start searching
-          </div>
-          <ol class="md-search-result__list"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-        
-      </div>
-      
-        <div class="md-flex__cell md-flex__cell--shrink">
-          <div class="md-header-nav__source">
-            
-
-
-  
-
-
-  <a href="https://github.com/mailjet/laravel-mailjet" title="Go to repository" class="md-source" data-md-source="github">
-    
-      <div class="md-source__icon">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <use xlink:href="#github" width="24" height="24"></use>
-        </svg>
-      </div>
-    
-    <div class="md-source__repository">
-      GitHub
-    </div>
-  </a>
-
-          </div>
-        </div>
-      
     </div>
   </nav>
 </header>
+
     
     <div class="md-container">
       
@@ -225,8 +205,6 @@
   </a>
   
 </li>
-      
-      
       
     </ul>
   
@@ -317,8 +295,6 @@
   
 </li>
       
-      
-      
     </ul>
   
 </nav>
@@ -329,10 +305,10 @@
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
+               
+                 <a href="https://github.com/mailjet/laravel-mailjet/edit/master/src/docs/index.md" title="Edit this page" class="md-icon md-content__edit">edit</a>
+               
               
-                
-                  <a href="https://github.com/mailjet/laravel-mailjet/edit/master/src/doc/index.md" title="Edit this page" class="md-icon md-content__icon">edit</a>
-                
                 
                 <h1 id="laravel-mailjet">Laravel Mailjet</h1>
 <p><a href="https://travis-ci.org/mailjet/laravel-mailjet"><img alt="Build Status" src="https://travis-ci.org/mailjet/laravel-mailjet.svg?branch=master" /></a>
@@ -411,12 +387,7 @@ use Mailjet\LaravelMailjet\Contracts\CampaignDraftContract;
 <p>For more informations about the filters you can use in each methods, refer to the <a href="https://dev.mailjet.com/email-api/v3/apikey/">Mailjet API documentation</a></p>
 <p>All method return Mailjet\Response or throw a MailjetException in case of API error.</p>
 <p>You can also get the client with the method <code>getClient()</code> and make your own request to Mailjet API.</p>
-                
-                  
-                
               
-              
-                
               
             </article>
           </div>
@@ -448,32 +419,24 @@ use Mailjet\LaravelMailjet\Contracts\CampaignDraftContract;
     </div>
   
   <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
-        
-          <div class="md-footer-copyright__highlight">
-            MIT
-          </div>
-        
-        powered by
-        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
-        and
-        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
-          Material for MkDocs</a>
-      </div>
-      
-        
-      
-    </div>
+    
   </div>
 </footer>
       
     </div>
     
-      <script src="./assets/javascripts/application-6940329b9f.js"></script>
-      
-      
+      <script src="./assets/javascripts/application-30ac6a1727.js"></script>
       <script>app.initialize({url:{base:"."}})</script>
+      
+        <script src="https://dev.mailjet.com/static/javascripts/jquery-2.1.1.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/ace/1.1.3/min/ace.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.10/clipboard.min.js"></script>
+      
+        <script src="https://dev.mailjet.com/static/javascripts/my/ace-editor-redesign.js"></script>
+      
+        <script src="https://cdn.rawgit.com/noelboss/featherlight/1.5.1/release/featherlight.min.js"></script>
       
     
     
