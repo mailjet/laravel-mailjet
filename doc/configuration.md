@@ -24,10 +24,15 @@
     ]
 ]
 ```
-You can pass settings to [MailjetClient](https://github.com/mailjet/mailjet-apiv3-php#new--version-120-of-the-php-wrapper-).
+You can pass settings to [MailjetClient](https://github.com/mailjet/mailjet-apiv3-php).
 
-* `transactionnal`: settings to sendAPI client
-* `common`: setting to MailjetClient accessible throught the Facade Mailjet
+* `transactional`: settings to Send API client
+* `common`: setting to MailjetClient accessible throught the Facade Mailjet.
+* `url` (Default: api.mailjet.com) : domain name of the API
+version (Default: v3) : API version (only working for Mailjet API V3 +)
+* `call` (Default: true) : turns on(true) / off the call to the API
+* `secured` (Default: true) : turns on(true) / off the use of 'https'
+
 
 ## Mail driver configuration
 
