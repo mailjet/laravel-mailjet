@@ -12,6 +12,6 @@ pages:
     - Examples: usage.md
     - Mailjet Doc: mailjet-doc.md
     - Contributing: CONTRIBUTING.md
-theme: readthedocs
+theme: 'material'
 markdown_extensions:
     - pymdownx.github
