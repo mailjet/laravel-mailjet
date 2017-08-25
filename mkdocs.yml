@@ -12,7 +12,7 @@ pages:
     - Examples: usage.md
     - Mailjet Doc: mailjet-doc.md
     - Contributing: CONTRIBUTING.md
-theme_dir: 'custom_theme/material'
+theme_dir: 'docs/custom_theme/material'
 extra_css:
   - https://dev.mailjet.com/static/stylesheets/styles-redesign.css
   - stylesheets/extra.css
