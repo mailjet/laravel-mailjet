@@ -1,9 +1,161 @@
 # Examples
 
+## Prepare & Send a Campaign Draft
 
-## Retrieve Mailjet Client Object to make custom MailJet API V3 requests
+In order to create a draft campaign, perform a `POST` on the `/campaigndraft` endpoint. 
 
-You can retrieve the MailjetClient, as defined in the PHP [wrapper]((https://github.com/mailjet/mailjet-apiv3-php)), with the method getClient() and make your own request to Mailjet API.
+Required fields are `Locale`, `Sender`, `SenderEmail`, `Subject` and `ContactsListID`.
+In the providers array inside `app.php` add:
+
+    Mailjet\LaravelMailjet\Providers\CampaignDraftServiceProvider::class
+
+You can manage [/campaigndraft](https://dev.mailjet.com/email-api/v3/campaigndraft) resources using the `CampaignDraftContract` class.
+ 
+
+### Code sample
+
+```php
+<?php
+use Mailjet\LaravelMailjet\Contracts\CampaignDraftContract;
+use Mailjet\LaravelMailjet\Model\CampaignDraft;
+// ...
+public function campaignDraftExample(CampaignDraftContract $campaignDraftManager ) {
+    // ...
+    $optionalProp['Title'] = 'Friday newsletter';
+    $optionalProp['SenderName'] = 'Mailjet team';
+    $optionalProp['EditMode'] = 'html2';
+    $campaignDraft = new CampaignDraft("en_US", "Lyubo", "api@mailjet.com", "Laravel bundle test", "5410");
+    $campaignDraft->setOptionalProperties($optionalProp);
+    $campaignDraftManager->create($campaignDraft);
+}
+```
+
+Now we've created a draft campaign, we can set its most important property: the content, which can be either plain text or HTML (respectively represented by the `Text-part` and the `Html-part` resource's properties).
+
+```php
+    $content = ['Html-part' => "Hello <strong>world</strong>!",
+        'Text-part' => "Hello world!"];
+    $campaignDraft->setContent($content);
+    $campaignDraftManager->createDetailContent($campaignDraft->getId(), $campaignDraft->getContent());
+```
+
+Once the draft campaign draft is all set, it can now be sent via the `CampaignDraftContract`.
+``` php
+     /* Send the campaigndraft instance */
+    $campaignDraftManager->sendCampaign($campaignDraft->getId());
+
+```
+
+## Storing & Sending a Template
+The `/template` resource allows to store your template on the Mailjet system.
+To create a template you only need to provide a name.
+
+You can than reuse the template in your messages by referencing the ID returned when created.
+
+In the providers array inside `app.php` add:
+
+    Mailjet\LaravelMailjet\Providers\TemplateServiceProvider::class
+
+You can manage [/template](https://dev.mailjet.com/email-api/v3/template) resources through the `TemplateContract`.
+
+### Create Template Code Sample
+
+```php
+<?php
+use Mailjet\LaravelMailjet\Contracts\TemplateContract;
+use Mailjet\LaravelMailjet\Model\Template;
+
+// ...
+public function templateExample(TemplateContract $templateManager) {
+        $optionalProp['Author'] = 'Mailjet team';
+        $optionalProp['EditMode'] = 1;
+        $optionalProp['Purposes'] = ['transactional'];
+        $template = new Template("Laravel Template Example", $optionalProp);
+        
+        $ID = $templateManager->create($template)[0]['ID'];
+        
+        // Set template content
+        $contentData = [
+            'Html-part' => "<html><body><p>Hello {{var:name}}</p></body></html>",
+            'Text-part' => "Hello {{var:name}}"
+        ];
+        $templateManager->createDetailContent($ID, $contentData);
+        
+        // List all templates based on multiple filters
+        $filters['OwnerType']='apikey';
+        $filters['EditMode']=1;
+        $result=$templateManager->getAll($filters);
+}
+```
+
+To send the template you must set the `Mj-TemplateID` property to the template ID to send in your Send API payload.
+
+In addition to that, you must set the `Mj-TemplateLanguage` property in the Send API payload to true in order to have the Mailjet templating language interpreted.
+
+### Send Template Code Sample
+
+``` php
+<?php
+    use \Mailjet\Resources;
+    use Mailjet\LaravelMailjet\Facades\Mailjet;
+    ...
+    $mj = Mailjet::getClient();
+    $body = [
+    'FromEmail' => "pilot@mailjet.com",
+    'FromName' => "Mailjet Pilot",
+    'Subject' => "Your email flight plan!",
+    'MJ-TemplateID' => $ID,
+    'MJ-TemplateLanguage' => true,
+    'Recipients' => [['Email' => "passenger@mailjet.com"]]
+];
+$response =  $mj->post(Resources::$Email, ['body' => $body]);
+$response->success() && var_dump($response->getData());
+```
+
+## Manage Campaigns
+
+In the providers array inside `app.php` add:
+
+    Mailjet\LaravelMailjet\Providers\CampaignServiceProvider::class
+
+You can manage the [/campaign](https://dev.mailjet.com/email-api/v3/campaign) resources through the `CampaignContract`.
+
+### Code Sample
+
+```php
+<?php
+
+use Mailjet\LaravelMailjet\Contracts\CampaignContract;
+use Mailjet\LaravelMailjet\Model\Campaign;
+    // ...
+public function campaignExample(CampaignContract $campaignManager ) {
+        // Retrieve last ten starred campaigns
+        $result = $campaignManager->getAllCampaigns($filters);
+}
+```
+## Update a contact email address
+In the providers array inside app.php add:
+
+     Mailjet\LaravelMailjet\Providers\ContactsListServiceProvider::class
+
+```php
+<?php
+
+use Mailjet\LaravelMailjet\Contracts\ContactsListContract;
+use Mailjet\LaravelMailjet\Model\Contact;
+
+public function changeEmailAddress(ContactsListContract $ContactsListManager, $oldEmail, $newEmail, $listId)
+{
+    $contact = new Contact($newEmail);
+
+    $ContactsListManager->updateEmail($listId, $contact,$oldEmail);
+}
+```
+
+## Retrieve Mailjet Client instance to perform custom requests
+
+You can retrieve the `MailjetClient` instance, as defined in the PHP [wrapper]((https://github.com/mailjet/mailjet-apiv3-php)), using the method `getClient()`. It enables you to perform custom requests to Mailjet API.
+
 * In the providers array
 
 ```php
@@ -63,157 +215,4 @@ Example:
 
     $response = $mailjet->post(Resources::$Email, ['body' => $body]);
 
-```
-## Prepare & Send a Campaign Draft
-
-To create a campaign draft, perform a POST on the /campaigndraft . Required fields are a Locale, Sender, SenderEmail, Subject and ContactsListID.
-In the providers array inside app.php add:
-
-    Mailjet\LaravelMailjet\Providers\CampaignDraftServiceProvider::class
-
-You can access the [/campaigndraft](https://dev.mailjet.com/email-api/v3/campaigndraft) api through the CampaignDraftContract.
- 
-
-Example:
-
-``` php
-<?php
-use Mailjet\LaravelMailjet\Contracts\CampaignDraftContract;
-use Mailjet\LaravelMailjet\Model\CampaignDraft;
-// ...
-public function campaignDraftExample(CampaignDraftContract $campaignDraftManager ) {
-    // ...
-    $optionalProp['Title'] = 'Friday newsletter';
-    $optionalProp['SenderName'] = 'Mailjet team';
-    $optionalProp['EditMode'] = 'html2';
-    $campaignDraft = new CampaignDraft("en_US", "Lyubo", "api@mailjet.com", "Laravel bundle test", "5410");
-    $campaignDraft->setOptionalProperties($optionalProp);
-    $campaignDraftManager->create($campaignDraft);
-    
- 
-}
-```
-Now that we have a campaign draft, we can add the most important property: its content, which can be Text or Html (Text-part or Html-part).
-
-``` php
-    $content = ['Html-part' => "Hello <strong>world</strong>!",
-        'Text-part' => "Hello world!"];
-    $campaignDraft->setContent($content);
-    $campaignDraftManager->createDetailContent($campaignDraft->getId(), $campaignDraft->getContent());
-
-```
-
-Once the campaign draft is completely set up, it can be sent through the CampaignDraftContract.
-``` php
-     /*     * Send the a campaigndraft** */
-    $campaignDraftManager->sendCampaign($campaignDraft->getId());
-
-```
-
-## Storing & Sending a Template
-The /template resource allows to store your template on the Mailjet system.
-To create a template you need to specify it's name.
-
-You can than reuse the template at will for your messages by referencing the ID returned when created
-
-In the providers array inside app.php add:
-
-    Mailjet\LaravelMailjet\Providers\TemplateServiceProvider::class
-
-You can access the [/template](https://dev.mailjet.com/email-api/v3/template) api through the TemplateContract.
-
-Create Template Example:
-
-``` php
-<?php
-use Mailjet\LaravelMailjet\Contracts\TemplateContract;
-use Mailjet\LaravelMailjet\Model\Template;
-
-// ...
-public function templateExample(TemplateContract $templateManager) {
-    // ...
-        //Example create template
-        $optionalProp['Author'] = 'Mailjet team';
-        $optionalProp['EditMode'] = 1;
-        $optionalProp['Purposes'] = ['transactional'];
-        $template = new Template("Laravel Template Example!!! ", $optionalProp);
-        
-        $ID = $templateManager->create($template)[0]['ID'];
-        
-        //Add content to a template
-        $contentData = [
-            'Html-part' => "<html><body><p>Hello {{var:name}}</p></body></html>",
-            'Text-part' => "Hello {{var:name}}"
-        ];
-        $templateManager->createDetailContent($ID, $contentData);
-        
-        //Example list all templates based on multiple filters
-        $filters['OwnerType']='apikey';
-        $filters['EditMode']=1;
-        $result=$templateManager->getAll($filters);
-}
-```
-To send the template you use the Mj-TemplateID property in your Send API payload to specify the ID of the the template you created.
-
-You must set the Mj-TemplateLanguage property in the payload at true to have the templating language interpreted.
-
-Send Template Example:
-``` php
-<?php
-    use \Mailjet\Resources;
-    use Mailjet\LaravelMailjet\Facades\Mailjet;
-    ...
-    $mj = Mailjet::getClient();
-    $body = [
-    'FromEmail' => "pilot@mailjet.com",
-    'FromName' => "Mailjet Pilot",
-    'Subject' => "Your email flight plan!",
-    'MJ-TemplateID' => $ID,
-    'MJ-TemplateLanguage' => true,
-    'Recipients' => [['Email' => "passenger@mailjet.com"]]
-];
-$response =  $mj->post(Resources::$Email, ['body' => $body]);
-$response->success() && var_dump($response->getData());
-```
-## Campaigns Example
-
-In the providers array inside app.php add:
-
-    Mailjet\LaravelMailjet\Providers\CampaignServiceProvider::class
-
-You can  access the [/campaign](https://dev.mailjet.com/email-api/v3/campaign) API through the CampaignContract.
-
-Example:
-
-``` php
-<?php
-
-use Mailjet\LaravelMailjet\Contracts\CampaignContract;
-use Mailjet\LaravelMailjet\Model\Campaign;
-    // ...
-public function campaignExample(CampaignContract $campaignManager ) {
-        // ...
-        //Example retrieve all (limit 10 :) ) stared campaigns
-        $result = $campaignManager->getAllCampaigns($filters);
-}
-```
-## Change User's email address
-In the providers array inside app.php add:
-
-     Mailjet\LaravelMailjet\Providers\ContactsListServiceProvider::class
-
-```php
-<?php
-
-use Mailjet\LaravelMailjet\Contracts\ContactsListContract;
-use Mailjet\LaravelMailjet\Model\Contact;
-
-public function changeEmailAddress(ContactsListContract $ContactsListManager, $oldEmail, $newEmail,$listId)
-{
-    // ...
-    $contact = new Contact($newEmail);
-
-      $ContactsListManager->updateEmail($listId,$contact,$oldEmail);
-
-}
 ```

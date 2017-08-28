@@ -6,19 +6,19 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mailjet/laravel-mailjet/blob/master/LICENSE.md)
 [![Documentation](https://img.shields.io/badge/documentation-gh--pages-blue.svg)](https://mailjet.github.io/laravel-mailjet/)
 
-Laravel package for handling Mailjet API V3 using this wrapper: <https://github.com/mailjet/mailjet-apiv3-php>
+Laravel package for handling Mailjet API v3 using this wrapper: <https://github.com/mailjet/mailjet-apiv3-php>
 
-It also provide a mailjetTransport for [Laravel mail feature](https://laravel.com/docs/master/mail)
+It also provides a mailjetTransport for [Laravel mail feature](https://laravel.com/docs/master/mail)
 
 ## Installation
 
-First, include the package in your dependencies
+First, include the package in your dependencies:
 
     composer require mailjet/laravel-mailjet
 
-Then, you need to add some informations in your configuration files
+Then, you need to add some informations in your configuration files. You can find your Mailjet API key/secret [here](https://app.mailjet.com/account/api_keys)
 
-* In the providers array
+* In the providers array:
 
 ```php
 'providers' => [
@@ -29,7 +29,7 @@ Then, you need to add some informations in your configuration files
 ]
 ```
 
-* In the aliases array
+* In the aliases array:
 
 ```php
 'aliases' => [
@@ -39,7 +39,7 @@ Then, you need to add some informations in your configuration files
 ]
 ```
 
-* In the services.php file
+* In the services.php file:
 
 ```php
 mailjet' => [
@@ -48,7 +48,7 @@ mailjet' => [
 ]
 ```
 
-* In your .env file
+* In your .env file:
 
 ```php
 MAILJET_APIKEY=YOUR_APIKEY
@@ -61,7 +61,7 @@ MAILJET_APISECRET=YOUR_APISECRET
 'mailjet' => [
     'key' => env('MAILJET_APIKEY'),
     'secret' => env('MAILJET_APISECRET'),
-    'transactionnal' => [
+    'transactional' => [
         'call' => true,
         'options' => [
             'url' => 'api.mailjet.com',
@@ -83,23 +83,23 @@ MAILJET_APISECRET=YOUR_APISECRET
 ```
 You can pass settings to [MailjetClient](https://github.com/mailjet/mailjet-apiv3-php#new--version-120-of-the-php-wrapper-).
 
-* `transactionnal`: settings to sendAPI client
+* `transactional`: settings to sendAPI client
 * `common`: setting to MailjetClient accessible throught the Facade Mailjet
 
 ## Mail driver configuration
 
-In order to use Mailjet as Mail driver, you need to change the mail driver in your `config/mail.php` or your `.env` file to `MAIL_DRIVER=mailjet`, and make sure you have a valid and authorised from-address configured on your Mailjet account.
+In order to use Mailjet as your Mail driver, you need to update the mail driver in your `config/mail.php` or your `.env` file to `MAIL_DRIVER=mailjet`, and make sure you are using a valid and authorised from email address configured on your Mailjet account. The sending email addresses and domain can be managed [here](https://app.mailjet.com/account/sender)
 
-For usage, check the [Laravel mail documentation](https://laravel.com/docs/master/mail)
+For usage, please check the [Laravel mail documentation](https://laravel.com/docs/master/mail)
 
 ## Usage
 
-To use it, you need to import Mailjet Facade in your file
+In order to usage this package, you first need to import Mailjet Facade in your code:
 
     use Mailjet\LaravelMailjet\Facades\Mailjet;
 
 
-Then, in your code you can use one of the method available in the MailjetServices :
+Then, in your code you can use one of the methods available in the MailjetServices.
 
 Low level API methods:
 
@@ -120,10 +120,10 @@ High level API methods:
 
 For more informations about the filters you can use in each methods, refer to the [Mailjet API documentation](https://dev.mailjet.com/email-api/v3/apikey/)
 
-All method return Mailjet\Response or throw a MailjetException in case of API error.
+All method return `Mailjet\Response` or throw a `MailjetException` in case of API error.
 
-You can also get the client with the method `getClient()` and make your own request to Mailjet API.
+You can also get the Mailjet API client with the method `getClient()` and make your own custom request to Mailjet API.
 
 ## ToDo
 
-* More Tests
+* Add additional unit tests to increase code coverage.

@@ -15,7 +15,7 @@ First, include the package in your dependencies
 
     composer require mailjet/laravel-mailjet
 
-Then, you need to add some informations in your configuration files
+Then, you need to add some informations in your configuration files. You can find your Mailjet API key/secret [here](https://app.mailjet.com/account/api_keys).
 
 * In the providers array add the service providers you want to use, for example:
 
@@ -55,8 +55,6 @@ MAILJET_APIKEY=YOUR_APIKEY
 MAILJET_APISECRET=YOUR_APISECRET
 ```
 
-
-
 ## Usage
 
 To use it, you need to import the Mailjet Facade or any of the available Service-provider contracts in your file
@@ -66,7 +64,7 @@ To use it, you need to import the Mailjet Facade or any of the available Service
 	use Mailjet\LaravelMailjet\Contracts\CampaignDraftContract;
 
 
-Then, in your code you can use one of the method available in the MailjetServices :
+Then, in your code you can use one of the methods available in the `MailjetServices`.
 
 Low level API methods:
 
@@ -87,7 +85,7 @@ High level API methods:
 
 For more informations about the filters you can use in each methods, refer to the [Mailjet API documentation](https://dev.mailjet.com/email-api/v3/apikey/)
 
-All method return Mailjet\Response or throw a MailjetException in case of API error.
+All method return `Mailjet\Response` or throw a `MailjetException` in case of API error.
 
-You can also get the client with the method `getClient()` and make your own request to Mailjet API.
+You can also get the Mailjet API client with the method `getClient()` and make your own request to Mailjet API.
 
