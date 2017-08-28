@@ -4,7 +4,7 @@
 'mailjet' => [
     'key' => env('MAILJET_APIKEY'),
     'secret' => env('MAILJET_APISECRET'),
-    'transactionnal' => [
+    'transactional' => [
         'call' => true,
         'options' => [
             'url' => 'api.mailjet.com',
@@ -26,16 +26,16 @@
 ```
 You can pass settings to [MailjetClient](https://github.com/mailjet/mailjet-apiv3-php).
 
-* `transactional`: settings to Send API client
-* `common`: setting to MailjetClient accessible throught the Facade Mailjet.
-* `url` (Default: api.mailjet.com) : domain name of the API
-version (Default: v3) : API version (only working for Mailjet API V3 +)
-* `call` (Default: true) : turns on(true) / off the call to the API
-* `secured` (Default: true) : turns on(true) / off the use of 'https'
+* `transactional`: settings for Send API
+* `common`: setting to `MailjetClient` accessible through the Facade Mailjet.
+* `url` (Default: `api.mailjet.com`): domain name of the API
+* `version` (Default: `v3`): Mailjet API version (only working for Mailjet API v3)
+* `call` (Default: `true`): Toggle if the API call is actually performed or mocked
+* `secured` (Default: `true`): Toggle the usage of 'https'
 
 
 ## Mail driver configuration
 
-In order to use Mailjet as Mail driver, you need to change the mail driver in your `config/mail.php` or your `.env` file to `MAIL_DRIVER=mailjet`, and make sure you have a valid and authorised from-address configured on your Mailjet account.
+In order to use Mailjet as your Mail driver, you need to update the mail driver in your `config/mail.php` or your `.env` file to `MAIL_DRIVER=mailjet`, and make sure you are using a valid and authorised from email address configured on your Mailjet account. The sending email addresses and domain can be managed [here](https://app.mailjet.com/account/sender)
 
 For usage, check the [Laravel mail documentation](https://laravel.com/docs/master/mail)
