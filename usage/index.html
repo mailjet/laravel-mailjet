@@ -217,16 +217,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#retrieve-mailjet-client-object-to-make-custom-mailjet-api-v3-requests" title="Retrieve Mailjet Client Object to make custom MailJet API V3 requests" class="md-nav__link">
-    Retrieve Mailjet Client Object to make custom MailJet API V3 requests
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#prepare-send-a-campaign-draft" title="Prepare &amp; Send a Campaign Draft" class="md-nav__link">
     Prepare &amp; Send a Campaign Draft
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-sample" title="Code sample" class="md-nav__link">
+    Code sample
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -235,18 +241,58 @@
     Storing &amp; Sending a Template
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-template-code-sample" title="Create Template Code Sample" class="md-nav__link">
+    Create Template Code Sample
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send-template-code-sample" title="Send Template Code Sample" class="md-nav__link">
+    Send Template Code Sample
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#campaigns-example" title="Campaigns Example" class="md-nav__link">
-    Campaigns Example
+  <a href="#manage-campaigns" title="Manage Campaigns" class="md-nav__link">
+    Manage Campaigns
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-sample_1" title="Code Sample" class="md-nav__link">
+    Code Sample
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update-a-contact-email-address" title="Update a contact email address" class="md-nav__link">
+    Update a contact email address
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#change-users-email-address" title="Change User's email address" class="md-nav__link">
-    Change User's email address
+  <a href="#retrieve-mailjet-client-instance-to-perform-custom-requests" title="Retrieve Mailjet Client instance to perform custom requests" class="md-nav__link">
+    Retrieve Mailjet Client instance to perform custom requests
   </a>
   
 </li>
@@ -303,16 +349,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#retrieve-mailjet-client-object-to-make-custom-mailjet-api-v3-requests" title="Retrieve Mailjet Client Object to make custom MailJet API V3 requests" class="md-nav__link">
-    Retrieve Mailjet Client Object to make custom MailJet API V3 requests
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#prepare-send-a-campaign-draft" title="Prepare &amp; Send a Campaign Draft" class="md-nav__link">
     Prepare &amp; Send a Campaign Draft
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-sample" title="Code sample" class="md-nav__link">
+    Code sample
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -321,18 +373,58 @@
     Storing &amp; Sending a Template
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-template-code-sample" title="Create Template Code Sample" class="md-nav__link">
+    Create Template Code Sample
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#send-template-code-sample" title="Send Template Code Sample" class="md-nav__link">
+    Send Template Code Sample
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#campaigns-example" title="Campaigns Example" class="md-nav__link">
-    Campaigns Example
+  <a href="#manage-campaigns" title="Manage Campaigns" class="md-nav__link">
+    Manage Campaigns
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-sample_1" title="Code Sample" class="md-nav__link">
+    Code Sample
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update-a-contact-email-address" title="Update a contact email address" class="md-nav__link">
+    Update a contact email address
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#change-users-email-address" title="Change User's email address" class="md-nav__link">
-    Change User's email address
+  <a href="#retrieve-mailjet-client-instance-to-perform-custom-requests" title="Retrieve Mailjet Client instance to perform custom requests" class="md-nav__link">
+    Retrieve Mailjet Client instance to perform custom requests
   </a>
   
 </li>
@@ -353,9 +445,135 @@
               
                 
                 <h1 id="examples">Examples</h1>
-<h2 id="retrieve-mailjet-client-object-to-make-custom-mailjet-api-v3-requests">Retrieve Mailjet Client Object to make custom MailJet API V3 requests</h2>
-<p>You can retrieve the MailjetClient, as defined in the PHP <a href="../(https://github.com/mailjet/mailjet-apiv3-php)">wrapper</a>, with the method getClient() and make your own request to Mailjet API.
-* In the providers array</p>
+<h2 id="prepare-send-a-campaign-draft">Prepare &amp; Send a Campaign Draft</h2>
+<p>In order to create a draft campaign, perform a <code>POST</code> on the <code>/campaigndraft</code> endpoint. </p>
+<p>Required fields are <code>Locale</code>, <code>Sender</code>, <code>SenderEmail</code>, <code>Subject</code> and <code>ContactsListID</code>.
+In the providers array inside <code>app.php</code> add:</p>
+<pre><code>Mailjet\LaravelMailjet\Providers\CampaignDraftServiceProvider::class
+</code></pre>
+<p>You can manage <a href="https://dev.mailjet.com/email-api/v3/campaigndraft">/campaigndraft</a> resources using the <code>CampaignDraftContract</code> class.</p>
+<h3 id="code-sample">Code sample</h3>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Contracts\CampaignDraftContract</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Model\CampaignDraft</span><span class="p">;</span>
+<span class="c1">// ...</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">campaignDraftExample</span><span class="p">(</span><span class="nx">CampaignDraftContract</span> <span class="nv">$campaignDraftManager</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+    <span class="nv">$optionalProp</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Friday newsletter&#39;</span><span class="p">;</span>
+    <span class="nv">$optionalProp</span><span class="p">[</span><span class="s1">&#39;SenderName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Mailjet team&#39;</span><span class="p">;</span>
+    <span class="nv">$optionalProp</span><span class="p">[</span><span class="s1">&#39;EditMode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;html2&#39;</span><span class="p">;</span>
+    <span class="nv">$campaignDraft</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CampaignDraft</span><span class="p">(</span><span class="s2">&quot;en_US&quot;</span><span class="p">,</span> <span class="s2">&quot;Lyubo&quot;</span><span class="p">,</span> <span class="s2">&quot;api@mailjet.com&quot;</span><span class="p">,</span> <span class="s2">&quot;Laravel bundle test&quot;</span><span class="p">,</span> <span class="s2">&quot;5410&quot;</span><span class="p">);</span>
+    <span class="nv">$campaignDraft</span><span class="o">-&gt;</span><span class="na">setOptionalProperties</span><span class="p">(</span><span class="nv">$optionalProp</span><span class="p">);</span>
+    <span class="nv">$campaignDraftManager</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$campaignDraft</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Now we've created a draft campaign, we can set its most important property: the content, which can be either plain text or HTML (respectively represented by the <code>Text-part</code> and the <code>Html-part</code> resource's properties).</p>
+<div class="highlight"><pre><span></span><span class="x">    $content = [&#39;Html-part&#39; =&gt; &quot;Hello &lt;strong&gt;world&lt;/strong&gt;!&quot;,</span>
+<span class="x">        &#39;Text-part&#39; =&gt; &quot;Hello world!&quot;];</span>
+<span class="x">    $campaignDraft-&gt;setContent($content);</span>
+<span class="x">    $campaignDraftManager-&gt;createDetailContent($campaignDraft-&gt;getId(), $campaignDraft-&gt;getContent());</span>
+</pre></div>
+
+<p>Once the draft campaign draft is all set, it can now be sent via the <code>CampaignDraftContract</code>.
+<div class="highlight"><pre><span></span><span class="x">     /* Send the campaigndraft instance */</span>
+<span class="x">    $campaignDraftManager-&gt;sendCampaign($campaignDraft-&gt;getId());</span>
+</pre></div></p>
+<h2 id="storing-sending-a-template">Storing &amp; Sending a Template</h2>
+<p>The <code>/template</code> resource allows to store your template on the Mailjet system.
+To create a template you only need to provide a name.</p>
+<p>You can than reuse the template in your messages by referencing the ID returned when created.</p>
+<p>In the providers array inside <code>app.php</code> add:</p>
+<pre><code>Mailjet\LaravelMailjet\Providers\TemplateServiceProvider::class
+</code></pre>
+<p>You can manage <a href="https://dev.mailjet.com/email-api/v3/template">/template</a> resources through the <code>TemplateContract</code>.</p>
+<h3 id="create-template-code-sample">Create Template Code Sample</h3>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Contracts\TemplateContract</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Model\Template</span><span class="p">;</span>
+
+<span class="c1">// ...</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">templateExample</span><span class="p">(</span><span class="nx">TemplateContract</span> <span class="nv">$templateManager</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$optionalProp</span><span class="p">[</span><span class="s1">&#39;Author&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Mailjet team&#39;</span><span class="p">;</span>
+        <span class="nv">$optionalProp</span><span class="p">[</span><span class="s1">&#39;EditMode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nv">$optionalProp</span><span class="p">[</span><span class="s1">&#39;Purposes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;transactional&#39;</span><span class="p">];</span>
+        <span class="nv">$template</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Template</span><span class="p">(</span><span class="s2">&quot;Laravel Template Example&quot;</span><span class="p">,</span> <span class="nv">$optionalProp</span><span class="p">);</span>
+
+        <span class="nv">$ID</span> <span class="o">=</span> <span class="nv">$templateManager</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$template</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;ID&#39;</span><span class="p">];</span>
+
+        <span class="c1">// Set template content</span>
+        <span class="nv">$contentData</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;Html-part&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;&lt;html&gt;&lt;body&gt;&lt;p&gt;Hello {{var:name}}&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;Text-part&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;Hello {{var:name}}&quot;</span>
+        <span class="p">];</span>
+        <span class="nv">$templateManager</span><span class="o">-&gt;</span><span class="na">createDetailContent</span><span class="p">(</span><span class="nv">$ID</span><span class="p">,</span> <span class="nv">$contentData</span><span class="p">);</span>
+
+        <span class="c1">// List all templates based on multiple filters</span>
+        <span class="nv">$filters</span><span class="p">[</span><span class="s1">&#39;OwnerType&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;apikey&#39;</span><span class="p">;</span>
+        <span class="nv">$filters</span><span class="p">[</span><span class="s1">&#39;EditMode&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+        <span class="nv">$result</span><span class="o">=</span><span class="nv">$templateManager</span><span class="o">-&gt;</span><span class="na">getAll</span><span class="p">(</span><span class="nv">$filters</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>To send the template you must set the <code>Mj-TemplateID</code> property to the template ID to send in your Send API payload.</p>
+<p>In addition to that, you must set the <code>Mj-TemplateLanguage</code> property in the Send API payload to true in order to have the Mailjet templating language interpreted.</p>
+<h3 id="send-template-code-sample">Send Template Code Sample</h3>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+    <span class="k">use</span> <span class="nx">\Mailjet\Resources</span><span class="p">;</span>
+    <span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Facades\Mailjet</span><span class="p">;</span>
+    <span class="o">...</span>
+    <span class="nv">$mj</span> <span class="o">=</span> <span class="nx">Mailjet</span><span class="o">::</span><span class="na">getClient</span><span class="p">();</span>
+    <span class="nv">$body</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;FromEmail&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;pilot@mailjet.com&quot;</span><span class="p">,</span>
+    <span class="s1">&#39;FromName&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;Mailjet Pilot&quot;</span><span class="p">,</span>
+    <span class="s1">&#39;Subject&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;Your email flight plan!&quot;</span><span class="p">,</span>
+    <span class="s1">&#39;MJ-TemplateID&#39;</span> <span class="o">=&gt;</span> <span class="nv">$ID</span><span class="p">,</span>
+    <span class="s1">&#39;MJ-TemplateLanguage&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+    <span class="s1">&#39;Recipients&#39;</span> <span class="o">=&gt;</span> <span class="p">[[</span><span class="s1">&#39;Email&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;passenger@mailjet.com&quot;</span><span class="p">]]</span>
+<span class="p">];</span>
+<span class="nv">$response</span> <span class="o">=</span>  <span class="nv">$mj</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="nx">Resources</span><span class="o">::</span><span class="nv">$Email</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;body&#39;</span> <span class="o">=&gt;</span> <span class="nv">$body</span><span class="p">]);</span>
+<span class="nv">$response</span><span class="o">-&gt;</span><span class="na">success</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$response</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">());</span>
+</pre></div>
+
+<h2 id="manage-campaigns">Manage Campaigns</h2>
+<p>In the providers array inside <code>app.php</code> add:</p>
+<pre><code>Mailjet\LaravelMailjet\Providers\CampaignServiceProvider::class
+</code></pre>
+<p>You can manage the <a href="https://dev.mailjet.com/email-api/v3/campaign">/campaign</a> resources through the <code>CampaignContract</code>.</p>
+<h3 id="code-sample_1">Code Sample</h3>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Contracts\CampaignContract</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Model\Campaign</span><span class="p">;</span>
+    <span class="c1">// ...</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">campaignExample</span><span class="p">(</span><span class="nx">CampaignContract</span> <span class="nv">$campaignManager</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Retrieve last ten starred campaigns</span>
+        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$campaignManager</span><span class="o">-&gt;</span><span class="na">getAllCampaigns</span><span class="p">(</span><span class="nv">$filters</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2 id="update-a-contact-email-address">Update a contact email address</h2>
+<p>In the providers array inside app.php add:</p>
+<pre><code> Mailjet\LaravelMailjet\Providers\ContactsListServiceProvider::class
+</code></pre>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Contracts\ContactsListContract</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Model\Contact</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">changeEmailAddress</span><span class="p">(</span><span class="nx">ContactsListContract</span> <span class="nv">$ContactsListManager</span><span class="p">,</span> <span class="nv">$oldEmail</span><span class="p">,</span> <span class="nv">$newEmail</span><span class="p">,</span> <span class="nv">$listId</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$contact</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contact</span><span class="p">(</span><span class="nv">$newEmail</span><span class="p">);</span>
+
+    <span class="nv">$ContactsListManager</span><span class="o">-&gt;</span><span class="na">updateEmail</span><span class="p">(</span><span class="nv">$listId</span><span class="p">,</span> <span class="nv">$contact</span><span class="p">,</span><span class="nv">$oldEmail</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2 id="retrieve-mailjet-client-instance-to-perform-custom-requests">Retrieve Mailjet Client instance to perform custom requests</h2>
+<p>You can retrieve the <code>MailjetClient</code> instance, as defined in the PHP <a href="../(https://github.com/mailjet/mailjet-apiv3-php)">wrapper</a>, using the method <code>getClient()</code>. It enables you to perform custom requests to Mailjet API.</p>
+<ul>
+<li>In the providers array</li>
+</ul>
 <div class="highlight"><pre><span></span><span class="x">&#39;providers&#39; =&gt; [</span>
 <span class="x">    ...</span>
 <span class="x">    Mailjet\LaravelMailjet\MailjetServiceProvider::class,</span>
@@ -408,133 +626,6 @@ To use it, you need to import Mailjet Facade in your file</p>
     <span class="p">];</span>
 
     <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$mailjet</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="nx">Resources</span><span class="o">::</span><span class="nv">$Email</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;body&#39;</span> <span class="o">=&gt;</span> <span class="nv">$body</span><span class="p">]);</span>
-</pre></div>
-
-<h2 id="prepare-send-a-campaign-draft">Prepare &amp; Send a Campaign Draft</h2>
-<p>To create a campaign draft, perform a POST on the /campaigndraft . Required fields are a Locale, Sender, SenderEmail, Subject and ContactsListID.
-In the providers array inside app.php add:</p>
-<pre><code>Mailjet\LaravelMailjet\Providers\CampaignDraftServiceProvider::class
-</code></pre>
-<p>You can access the <a href="https://dev.mailjet.com/email-api/v3/campaigndraft">/campaigndraft</a> api through the CampaignDraftContract.</p>
-<p>Example:</p>
-<p><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Contracts\CampaignDraftContract</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Model\CampaignDraft</span><span class="p">;</span>
-<span class="c1">// ...</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">campaignDraftExample</span><span class="p">(</span><span class="nx">CampaignDraftContract</span> <span class="nv">$campaignDraftManager</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// ...</span>
-    <span class="nv">$optionalProp</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Friday newsletter&#39;</span><span class="p">;</span>
-    <span class="nv">$optionalProp</span><span class="p">[</span><span class="s1">&#39;SenderName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Mailjet team&#39;</span><span class="p">;</span>
-    <span class="nv">$optionalProp</span><span class="p">[</span><span class="s1">&#39;EditMode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;html2&#39;</span><span class="p">;</span>
-    <span class="nv">$campaignDraft</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CampaignDraft</span><span class="p">(</span><span class="s2">&quot;en_US&quot;</span><span class="p">,</span> <span class="s2">&quot;Lyubo&quot;</span><span class="p">,</span> <span class="s2">&quot;api@mailjet.com&quot;</span><span class="p">,</span> <span class="s2">&quot;Laravel bundle test&quot;</span><span class="p">,</span> <span class="s2">&quot;5410&quot;</span><span class="p">);</span>
-    <span class="nv">$campaignDraft</span><span class="o">-&gt;</span><span class="na">setOptionalProperties</span><span class="p">(</span><span class="nv">$optionalProp</span><span class="p">);</span>
-    <span class="nv">$campaignDraftManager</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$campaignDraft</span><span class="p">);</span>
-
-
-<span class="p">}</span>
-</pre></div>
-Now that we have a campaign draft, we can add the most important property: its content, which can be Text or Html (Text-part or Html-part).</p>
-<div class="highlight"><pre><span></span><span class="x">    $content = [&#39;Html-part&#39; =&gt; &quot;Hello &lt;strong&gt;world&lt;/strong&gt;!&quot;,</span>
-<span class="x">        &#39;Text-part&#39; =&gt; &quot;Hello world!&quot;];</span>
-<span class="x">    $campaignDraft-&gt;setContent($content);</span>
-<span class="x">    $campaignDraftManager-&gt;createDetailContent($campaignDraft-&gt;getId(), $campaignDraft-&gt;getContent());</span>
-</pre></div>
-
-<p>Once the campaign draft is completely set up, it can be sent through the CampaignDraftContract.
-<div class="highlight"><pre><span></span><span class="x">     /*     * Send the a campaigndraft** */</span>
-<span class="x">    $campaignDraftManager-&gt;sendCampaign($campaignDraft-&gt;getId());</span>
-</pre></div></p>
-<h2 id="storing-sending-a-template">Storing &amp; Sending a Template</h2>
-<p>The /template resource allows to store your template on the Mailjet system.
-To create a template you need to specify it's name.</p>
-<p>You can than reuse the template at will for your messages by referencing the ID returned when created</p>
-<p>In the providers array inside app.php add:</p>
-<pre><code>Mailjet\LaravelMailjet\Providers\TemplateServiceProvider::class
-</code></pre>
-<p>You can access the <a href="https://dev.mailjet.com/email-api/v3/template">/template</a> api through the TemplateContract.</p>
-<p>Create Template Example:</p>
-<p><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Contracts\TemplateContract</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Model\Template</span><span class="p">;</span>
-
-<span class="c1">// ...</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">templateExample</span><span class="p">(</span><span class="nx">TemplateContract</span> <span class="nv">$templateManager</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// ...</span>
-        <span class="c1">//Example create template</span>
-        <span class="nv">$optionalProp</span><span class="p">[</span><span class="s1">&#39;Author&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Mailjet team&#39;</span><span class="p">;</span>
-        <span class="nv">$optionalProp</span><span class="p">[</span><span class="s1">&#39;EditMode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="nv">$optionalProp</span><span class="p">[</span><span class="s1">&#39;Purposes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;transactional&#39;</span><span class="p">];</span>
-        <span class="nv">$template</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Template</span><span class="p">(</span><span class="s2">&quot;Laravel Template Example!!! &quot;</span><span class="p">,</span> <span class="nv">$optionalProp</span><span class="p">);</span>
-
-        <span class="nv">$ID</span> <span class="o">=</span> <span class="nv">$templateManager</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$template</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;ID&#39;</span><span class="p">];</span>
-
-        <span class="c1">//Add content to a template</span>
-        <span class="nv">$contentData</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;Html-part&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;&lt;html&gt;&lt;body&gt;&lt;p&gt;Hello {{var:name}}&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&quot;</span><span class="p">,</span>
-            <span class="s1">&#39;Text-part&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;Hello {{var:name}}&quot;</span>
-        <span class="p">];</span>
-        <span class="nv">$templateManager</span><span class="o">-&gt;</span><span class="na">createDetailContent</span><span class="p">(</span><span class="nv">$ID</span><span class="p">,</span> <span class="nv">$contentData</span><span class="p">);</span>
-
-        <span class="c1">//Example list all templates based on multiple filters</span>
-        <span class="nv">$filters</span><span class="p">[</span><span class="s1">&#39;OwnerType&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;apikey&#39;</span><span class="p">;</span>
-        <span class="nv">$filters</span><span class="p">[</span><span class="s1">&#39;EditMode&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-        <span class="nv">$result</span><span class="o">=</span><span class="nv">$templateManager</span><span class="o">-&gt;</span><span class="na">getAll</span><span class="p">(</span><span class="nv">$filters</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-To send the template you use the Mj-TemplateID property in your Send API payload to specify the ID of the the template you created.</p>
-<p>You must set the Mj-TemplateLanguage property in the payload at true to have the templating language interpreted.</p>
-<p>Send Template Example:
-<div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
-    <span class="k">use</span> <span class="nx">\Mailjet\Resources</span><span class="p">;</span>
-    <span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Facades\Mailjet</span><span class="p">;</span>
-    <span class="o">...</span>
-    <span class="nv">$mj</span> <span class="o">=</span> <span class="nx">Mailjet</span><span class="o">::</span><span class="na">getClient</span><span class="p">();</span>
-    <span class="nv">$body</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;FromEmail&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;pilot@mailjet.com&quot;</span><span class="p">,</span>
-    <span class="s1">&#39;FromName&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;Mailjet Pilot&quot;</span><span class="p">,</span>
-    <span class="s1">&#39;Subject&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;Your email flight plan!&quot;</span><span class="p">,</span>
-    <span class="s1">&#39;MJ-TemplateID&#39;</span> <span class="o">=&gt;</span> <span class="nv">$ID</span><span class="p">,</span>
-    <span class="s1">&#39;MJ-TemplateLanguage&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-    <span class="s1">&#39;Recipients&#39;</span> <span class="o">=&gt;</span> <span class="p">[[</span><span class="s1">&#39;Email&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;passenger@mailjet.com&quot;</span><span class="p">]]</span>
-<span class="p">];</span>
-<span class="nv">$response</span> <span class="o">=</span>  <span class="nv">$mj</span><span class="o">-&gt;</span><span class="na">post</span><span class="p">(</span><span class="nx">Resources</span><span class="o">::</span><span class="nv">$Email</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;body&#39;</span> <span class="o">=&gt;</span> <span class="nv">$body</span><span class="p">]);</span>
-<span class="nv">$response</span><span class="o">-&gt;</span><span class="na">success</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$response</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">());</span>
-</pre></div></p>
-<h2 id="campaigns-example">Campaigns Example</h2>
-<p>In the providers array inside app.php add:</p>
-<pre><code>Mailjet\LaravelMailjet\Providers\CampaignServiceProvider::class
-</code></pre>
-<p>You can  access the <a href="https://dev.mailjet.com/email-api/v3/campaign">/campaign</a> API through the CampaignContract.</p>
-<p>Example:</p>
-<div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
-
-<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Contracts\CampaignContract</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Model\Campaign</span><span class="p">;</span>
-    <span class="c1">// ...</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">campaignExample</span><span class="p">(</span><span class="nx">CampaignContract</span> <span class="nv">$campaignManager</span> <span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// ...</span>
-        <span class="c1">//Example retrieve all (limit 10 :) ) stared campaigns</span>
-        <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$campaignManager</span><span class="o">-&gt;</span><span class="na">getAllCampaigns</span><span class="p">(</span><span class="nv">$filters</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-
-<h2 id="change-users-email-address">Change User's email address</h2>
-<p>In the providers array inside app.php add:</p>
-<pre><code> Mailjet\LaravelMailjet\Providers\ContactsListServiceProvider::class
-</code></pre>
-<div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
-
-<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Contracts\ContactsListContract</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Mailjet\LaravelMailjet\Model\Contact</span><span class="p">;</span>
-
-<span class="k">public</span> <span class="k">function</span> <span class="nf">changeEmailAddress</span><span class="p">(</span><span class="nx">ContactsListContract</span> <span class="nv">$ContactsListManager</span><span class="p">,</span> <span class="nv">$oldEmail</span><span class="p">,</span> <span class="nv">$newEmail</span><span class="p">,</span><span class="nv">$listId</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">// ...</span>
-    <span class="nv">$contact</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contact</span><span class="p">(</span><span class="nv">$newEmail</span><span class="p">);</span>
-
-      <span class="nv">$ContactsListManager</span><span class="o">-&gt;</span><span class="na">updateEmail</span><span class="p">(</span><span class="nv">$listId</span><span class="p">,</span><span class="nv">$contact</span><span class="p">,</span><span class="nv">$oldEmail</span><span class="p">);</span>
-
-<span class="p">}</span>
 </pre></div>
               
               

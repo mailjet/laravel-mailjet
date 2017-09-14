@@ -321,7 +321,7 @@
 <p>First, include the package in your dependencies</p>
 <pre><code>composer require mailjet/laravel-mailjet
 </code></pre>
-<p>Then, you need to add some informations in your configuration files</p>
+<p>Then, you need to add some informations in your configuration files. You can find your Mailjet API key/secret <a href="https://app.mailjet.com/account/api_keys">here</a>.</p>
 <ul>
 <li>In the providers array add the service providers you want to use, for example:</li>
 </ul>
@@ -366,7 +366,7 @@
 .....
 use Mailjet\LaravelMailjet\Contracts\CampaignDraftContract;
 </code></pre>
-<p>Then, in your code you can use one of the method available in the MailjetServices :</p>
+<p>Then, in your code you can use one of the methods available in the <code>MailjetServices</code>.</p>
 <p>Low level API methods:</p>
 <ul>
 <li><code>Mailjet::get($resource, $args, $options)</code></li>
@@ -385,8 +385,8 @@ use Mailjet\LaravelMailjet\Contracts\CampaignDraftContract;
 <li><code>Mailjet::editListrecipient($id, $body)</code></li>
 </ul>
 <p>For more informations about the filters you can use in each methods, refer to the <a href="https://dev.mailjet.com/email-api/v3/apikey/">Mailjet API documentation</a></p>
-<p>All method return Mailjet\Response or throw a MailjetException in case of API error.</p>
-<p>You can also get the client with the method <code>getClient()</code> and make your own request to Mailjet API.</p>
+<p>All method return <code>Mailjet\Response</code> or throw a <code>MailjetException</code> in case of API error.</p>
+<p>You can also get the Mailjet API client with the method <code>getClient()</code> and make your own request to Mailjet API.</p>
               
               
             </article>
