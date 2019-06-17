@@ -27,7 +27,7 @@
         "laravel/framework": "5.6.*",
         "laravel/tinker": "~1.0",
         "mailjet/mailjet-apiv3-php": "^1.2",
-        "mailjet/mailjet-swiftmailer": "^1.0"
+        "mailjet/mailjet-swiftmailer": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
