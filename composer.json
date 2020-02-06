@@ -36,7 +36,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Mailjet\\LaravelMailjet\\": "src/"
+            "Mailjet\\LaravelMailjet\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mailjet\\LaravelMailjet\\Tests\\": "tests"
         }
     },
     "config": {
