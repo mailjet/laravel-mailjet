@@ -1,25 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Contracts;
 
 use Mailjet\LaravelMailjet\Model\Template;
 
 interface TemplateServiceContract
 {
+    public function getAll(array $filters = null): array;
 
-    public function getAll(array $filters = null);
+    public function get(string $id): array;
 
-    public function get($id);
+    public function create(Template $template): array;
 
-    public function create(Template $Template);
+    public function update(string $id, Template $template): array;
 
-    public function update($id, Template $Template);
+    public function delete(string $id): array;
 
-    public function delete($id);
+    public function getDetailContent(string $id): array;
 
-    public function getDetailContent($id);
+    public function createDetailContent(string $id, array $content): array;
 
-    public function createDetailContent($id, $contentData);
-
-    public function deleteDetailContent($id);
+    public function deleteDetailContent(string $id): array;
 }
