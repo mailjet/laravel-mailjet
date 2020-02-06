@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Tests\Services;
 
 use Mailjet\Client;
@@ -8,6 +10,8 @@ use Mailjet\Resources;
 use Mailjet\Response;
 use Mockery;
 use Orchestra\Testbench\TestCase;
+use Mailjet\LaravelMailjet\Facades\Mailjet;
+use Mailjet\LaravelMailjet\MailjetServiceProvider;
 
 class MailjetServiceTest extends TestCase
 {
@@ -148,7 +152,7 @@ class MailjetServiceTest extends TestCase
         $this->mailjetService = $this->app['Mailjet'];
     }
 
-    public function testFacade()
+    public function testFacade(): void
     {
         $this->assertTrue(method_exists($this->mailjetService, 'get'));
         $this->assertTrue(method_exists($this->mailjetService, 'post'));
@@ -164,10 +168,10 @@ class MailjetServiceTest extends TestCase
         $this->assertTrue(method_exists($this->mailjetService, 'getClient'));
     }
 
-    public function testCanUseClient()
+    public function testCanUseClient(): void
     {
-        $client = \Mailjet::getClient();
-        $this->assertEquals("Mailjet\Client", get_class($client));
+        $client = Mailjet::getClient();
+        $this->assertInstanceOf(Client::class, $client);
     }
 
     public function testPost()
@@ -313,10 +317,10 @@ class MailjetServiceTest extends TestCase
         ], $response->getData());
     }
 
-    protected function getPackageAliases($app)
+    protected function getPackageAliases($app): array
     {
         return [
-            'Mailjet' => \Mailjet\LaravelMailjet\Facades\Mailjet::class
+            'Mailjet' => Mailjet::class
         ];
     }
 
@@ -326,15 +330,15 @@ class MailjetServiceTest extends TestCase
      * @param  \Illuminate\Foundation\Application  $app
      * @return void
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         // Setup default database to use sqlite :memory:
         $app['config']->set('services.mailjet.key', 'ABC123456');
         $app['config']->set('services.mailjet.secret', 'ABC123456');
     }
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
-        return ['\Mailjet\LaravelMailjet\MailjetServiceProvider'];
+        return [MailjetServiceProvider::class];
     }
 }
