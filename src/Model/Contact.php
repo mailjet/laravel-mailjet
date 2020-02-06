@@ -1,141 +1,149 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Model;
 
+use RuntimeException;
+
 /**
-* https://dev.mailjet.com/email-api/v3/contactslist-managecontact/
-* Only email is required
-*/
-class Contact
+ * https://dev.mailjet.com/email/reference/contacts/bulk-contact-management/
+ */
+class Contact extends Model
 {
-    const ACTION_ADDFORCE = 'addforce'; # adds the contact and resets the unsub status to false
-    const ACTION_ADDNOFORCE = 'addnoforce'; # adds the contact and does not change the subscription status of the contact
-    const ACTION_REMOVE = 'remove'; # removes the contact from the list
-    const ACTION_UNSUB = 'unsub'; # unsubscribes a contact from the list
+    public const ACTION_ADDFORCE = 'addforce';
+    public const ACTION_ADDNOFORCE = 'addnoforce';
+    public const ACTION_REMOVE = 'remove';
+    public const ACTION_UNSUB = 'unsub';
 
-    const EMAIL_KEY = 'Email';
-    const NAME_KEY = 'Name';
-    const ACTION_KEY = 'Action';
-    const PROPERTIES_KEY = 'Properties';
+    public const EMAIL_KEY = 'Email';
+    public const NAME_KEY = 'Name';
+    public const ACTION_KEY = 'Action';
+    public const PROPERTIES_KEY = 'Properties';
 
+    /**
+     * @var string
+     */
     protected $email;
+
+    /**
+     * @var string|null
+     */
     protected $name;
-    protected $optionalProperties;
+
+    /**
+     * @var string|null
+     */
     protected $action;
 
-    public function __construct($email, array $optionalProperties = [])
+    public function __construct(string $email, array $optionalProperties = [])
     {
         $this->email = $email;
         $this->optionalProperties = $optionalProperties;
     }
 
     /**
-     * Formate contact for MailJet API request
+     * Format Contact for MailJet API request.
+     *
      * @return array
      */
-    public function format()
+    public function format(): array
     {
         $result = [
             self::EMAIL_KEY => $this->email,
+            self::PROPERTIES_KEY => array_filter($this->optionalProperties)
         ];
-        
-        if (!is_null($this->action)) {
-            $result[self::ACTION_KEY] = $this->action;
-        }
 
-        if (!is_null($this->optionalProperties)) {
-            #$result[self::PROPERTIES_KEY] = $this->removeNullProperties($this->properties);
-            $result[self::PROPERTIES_KEY] = $this->optionalProperties;
+        if ($this->action !== null) {
+            $result[self::ACTION_KEY] = $this->action;
         }
 
         return $result;
     }
 
     /**
-     * Correspond to Email in Mailjet request
+     * Correspond to Email in Mailjet request.
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
     /**
-     * Set contact email
+     * Set contact email.
+     *
      * @param string $email
+     *
      * @return Contact
      */
-    public function setEmail($email)
+    public function setEmail($email): Contact
     {
         $this->email = $email;
+
         return $this;
     }
 
     /**
-     * Correspond to Name in MailJet request
+     * Correspond to Name in MailJet request.
      */
-    public function getName()
+    public function getName(): ?string
     {
-        return $this->optionalProperties[self::NAME_KEY];
+        return $this->optionalProperties[self::NAME_KEY] ?? null;
     }
 
     /**
-     * Set contact name
+     * Set contact name.
+     *
      * @param string $name
+     *
      * @return Contact
      */
-    public function setName($name)
+    public function setName(string $name): Contact
     {
         $this->optionalProperties[self::NAME_KEY] = $name;
+
         return $this;
     }
 
     /**
-     * Correspond to Properties in MailJet request
-     * Array ['property' => value, ...]
+     * Action to the contact for Synchronization.
+     *
+     * @return string|null
      */
-    public function getProperties()
-    {
-        return $this->optionalProperties;
-    }
-
-    /**
-     * Set array of Contact properties
-     * @param array $properties
-     * @return Contact
-     */
-    public function setProperties(array $properties)
-    {
-        $this->optionalProperties = $properties;
-        return $this;
-    }
-
-    /**
-     * Action to the contact for Synchronization
-     * @return string
-     */
-    public function getAction()
+    public function getAction(): ?string
     {
         return $this->action;
     }
 
     /**
-     * Action to the contact for Synchronization
-     * @param string $action ACTION_*
+     * Action to the contact for Synchronization.
+     *
+     * @param string $action (ACTION_* const)
+     *
      * @return Contact
      */
-    public function setAction($action)
+    public function setAction($action): Contact
     {
+        if (! $this->validateAction($action)) {
+            throw new RuntimeException("$action: is not a valid Action.");
+        }
+
         $this->action = $action;
+
         return $this;
     }
 
     /**
-     * Clean null properties to avoid conflict with API
-     * @param  array  $properties
-     * @return array
+     * Validate action.
+     *
+     * @param string $action
+     *
+     * @return bool
      */
-    protected function removeNullProperties(array $properties)
+    protected function validateAction(string $action): bool
     {
-        return array_filter($this->optionalProperties);
+        $available = [self::ACTION_ADDFORCE, self::ACTION_ADDNOFORCE, self::ACTION_REMOVE, self::ACTION_UNSUB];
+
+        return in_array($action, $available);
     }
 }
