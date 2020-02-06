@@ -1,85 +1,147 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Model;
 
+use RuntimeException;
+
 /**
-* https://dev.mailjet.com/email-api/v3/eventcallbackurl/
-* Model for EventCallbackUrl
-*/
-class EventCallbackUrl
+ * https://dev.mailjet.com/email/reference/webhook/
+ */
+class EventCallbackUrl implements Requestable
 {
-    const EVENT_TYPE_OPEN = 'open';
-    const EVENT_TYPE_CLICK = 'click';
-    const EVENT_TYPE_BOUNCE = 'bounce';
-    const EVENT_TYPE_SPAM = 'spam';
-    const EVENT_TYPE_BLOCKED = 'blocked';
-    const EVENT_TYPE_UNSUB = 'unsub';
-    const EVENT_TYPE_SENT = 'sent';
+    public const EVENT_TYPE_OPEN = 'open';
+    public const EVENT_TYPE_CLICK = 'click';
+    public const EVENT_TYPE_BOUNCE = 'bounce';
+    public const EVENT_TYPE_SPAM = 'spam';
+    public const EVENT_TYPE_BLOCKED = 'blocked';
+    public const EVENT_TYPE_UNSUB = 'unsub';
+    public const EVENT_TYPE_SENT = 'sent';
 
-
-    const EVENT_STATUS_DEAD = 'dead';
-    const EVENT_STATUS_ALIVE = 'alive';
-
-    protected $apikeyId;
-    protected $url;
-    protected $eventType;
-    protected $isBackup;
-    protected $status;
-    // seems to be a problem between API and UI for Mailjet EventCallbackUrl
-    // In the UI when I check the groupEvent checkbox the version=2 when I unchecked
-    // version=1...
-    // And no properties groupEvent in the API reference and here is the description
-    // for version property: Event API version for which this URL is valid.
-    protected $version;
-    protected $groupEvent;
-
-
+    public const EVENT_STATUS_DEAD = 'dead';
+    public const EVENT_STATUS_ALIVE = 'alive';
 
     /**
-     * @param string $apikeyId
-     * @param string $url
-     * @param string $eventType
-     * @param bool   $isBackup
-     * @param string $status
-     * @param int    $version
-     * @param bool   $groupEvent
+     * @var string|null
      */
-    public function __construct($url, $eventType = self::EVENT_TYPE_OPEN, $groupEvent = false,
-                                $isBackup = false, $status = self::EVENT_STATUS_ALIVE,
-                                $version = 1, $apikeyId = null
+    protected $apiKeyId;
+
+    /**
+     * @var string
+     */
+    protected $url;
+
+    /**
+     * @var string
+     */
+    protected $type;
+
+    /**
+     * @var string
+     */
+    protected $status;
+
+    /**
+     * @var bool
+     */
+    protected $isBackup;
+
+    /**
+     * @var int
+     */
+    protected $version;
+
+    /**
+     * @var bool
+     */
+    protected $groupEvent;
+
+    public function __construct($url,
+                                $type = self::EVENT_TYPE_OPEN,
+                                $groupEvent = false,
+                                $isBackup = false,
+                                $status = self::EVENT_STATUS_ALIVE,
+                                $version = 1,
+                                $apiKeyId = null
     ) {
+        if (! $this->validateType($type)) {
+            throw new RuntimeException("$type: is not a valid event type.");
+        }
+
+        if (! $this->validateStatus($status)) {
+            throw new RuntimeException("$status: is not a valid event status.");
+        }
+
         $this->url = $url;
-        $this->eventType = $eventType;
+        $this->type = $type;
         $this->isBackup = $isBackup;
         $this->status = $status;
         $this->version = $version;
-        $this->apikeyId = $apikeyId;
+        $this->apiKeyId = $apiKeyId;
         $this->groupEvent = $groupEvent;
     }
 
     /**
-     * Formate contactList for MailJet API request
+     * Format contactList for MailJet API request.
+     *
      * @return array
      */
-    public function format()
+    public function format(): array
     {
         if ($this->groupEvent) {
-            // ugly fix for misunderstanding of this...
+            // Events are grouped only in API version 2.
             $this->version = 2;
         }
 
         $result = [
             'Url' => $this->url,
-            'EventType' => $this->eventType,
-            'IsBackup'  => $this->isBackup,
-            'Status'    => $this->status,
-            'Version'   => $this->version
+            'EventType' => $this->type,
+            'IsBackup' => $this->isBackup,
+            'Status' => $this->status,
+            'Version' => $this->version,
         ];
 
-        if($this->apikeyId){
-            $result['APIKeyID'] = $this->apikeyId;
+        if ($this->apiKeyId) {
+            $result['APIKeyID'] = $this->apiKeyId;
         }
 
         return $result;
+    }
+
+    /**
+     * Validate event type.
+     *
+     * @param string $type
+     *
+     * @return bool
+     */
+    protected function validateType(string $type): bool
+    {
+        $available = [
+            self::EVENT_TYPE_OPEN,
+            self::EVENT_TYPE_CLICK,
+            self::EVENT_TYPE_BOUNCE,
+            self::EVENT_TYPE_SPAM,
+            self::EVENT_TYPE_BLOCKED,
+            self::EVENT_TYPE_UNSUB,
+            self::EVENT_TYPE_SENT,
+        ];
+
+        return in_array($type, $available);
+    }
+
+    /**
+     * Validate event status.
+     *
+     * @param string $status
+     *
+     * @return bool
+     */
+    protected function validateStatus(string $status): bool
+    {
+        $available = [self::EVENT_STATUS_ALIVE, self::EVENT_STATUS_DEAD];
+
+        return in_array($status, $available);
     }
 }
