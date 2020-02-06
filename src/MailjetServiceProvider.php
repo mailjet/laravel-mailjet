@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet;
 
 use Illuminate\Support\ServiceProvider;
@@ -12,7 +14,7 @@ class MailjetServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
     }
 
@@ -21,20 +23,21 @@ class MailjetServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        // Facade
-        $this->app->singleton('Mailjet', function ($app) {
-            $config = $this->app['config']->get('services.mailjet', array());
+        $this->app->singleton('Mailjet', function () {
+            $config = $this->app['config']->get('services.mailjet', []);
             $call = $this->app['config']->get('services.mailjet.common.call', true);
-            $options = $this->app['config']->get('services.mailjet.common.options', array());
+            $options = $this->app['config']->get('services.mailjet.common.options', []);
 
             return new MailjetService($config['key'], $config['secret'], $call, $options);
         });
     }
 
-
-    public function provides()
+    /**
+     * @return array
+     */
+    public function provides(): array
     {
         return ['mailjet'];
     }
