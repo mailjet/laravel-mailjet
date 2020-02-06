@@ -1,219 +1,253 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Services;
 
-use \Mailjet\Resources;
-use \Mailjet\Response;
-use \Mailjet\Client;
-use Mailjet\LaravelMailjet\Contracts\MailjetServiceContract;
+use Mailjet\Client;
+use Mailjet\Response;
+use Mailjet\Resources;
 use Mailjet\LaravelMailjet\Exception\MailjetException;
+use Mailjet\LaravelMailjet\Contracts\MailjetServiceContract;
 
 class MailjetService implements MailjetServiceContract
 {
     /**
-     * Mailjet Client
      * @var \Mailjet\Client
      */
     private $client;
 
-    /**
-     * Instanciate the client whit the api key and api secret given in the configuration
-     */
-    public function __construct($key, $secret, $call = true, array $settings = [])
+    public function __construct(string $key, string $secret, $call = true, array $settings = [])
     {
         $this->client = new Client($key, $secret, $call, $settings);
     }
 
     /**
-     * Trigger a POST request
+     * Trigger a POST request.
      *
      * @param array $resource Mailjet Resource/Action pair
      * @param array $args     Request arguments
      * @param array $options
      *
      * @return Response
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function post($resource, array $args = [], array $options = [])
+    public function post(array $resource, array $args = [], array $options = []): Response
     {
         $response = $this->client->post($resource, $args, $options);
-        if (!$response->success()) {
-            $this->throwError("MailjetService:post() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'MailjetService:post() failed', $response);
         }
+
         return $response;
     }
 
     /**
-     * Trigger a GET request
+     * Trigger a GET request.
      *
      * @param array $resource Mailjet Resource/Action pair
      * @param array $args     Request arguments
      * @param array $options
      *
      * @return Response
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function get($resource, array $args = [], array $options = [])
+    public function get(array $resource, array $args = [], array $options = []): Response
     {
         $response = $this->client->get($resource, $args, $options);
-        if (!$response->success()) {
-            $this->throwError("MailjetService:get() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'MailjetService:get() failed', $response);
         }
+
         return $response;
     }
 
     /**
-     * Trigger a PUT request
+     * Trigger a PUT request.
      *
      * @param array $resource Mailjet Resource/Action pair
      * @param array $args     Request arguments
      * @param array $options
      *
      * @return Response
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function put($resource, array $args = [], array $options = [])
+    public function put(array $resource, array $args = [], array $options = []): Response
     {
         $response = $this->client->put($resource, $args, $options);
-        if (!$response->success()) {
-            $this->throwError("MailjetService:put() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'MailjetService:put() failed', $response);
         }
+
         return $response;
     }
 
     /**
-     * Trigger a DELETE request
+     * Trigger a DELETE request.
      *
      * @param array $resource Mailjet Resource/Action pair
      * @param array $args     Request arguments
      * @param array $options
      *
      * @return Response
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function delete($resource, array $args = [], array $options = [])
+    public function delete(array $resource, array $args = [], array $options = []): Response
     {
         $response = $this->client->delete($resource, $args, $options);
-        if (!$response->success()) {
-            $this->throwError("MailjetService:delete() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'MailjetService:delete() failed', $response);
         }
+
         return $response;
     }
 
-
-
-    /**TODO exclude HIGH Level API methods into managers**/
     /**
-     * Get all list on your mailjet account
-     * @param  array $filters Filters that will be use to filter the request. See mailjet API documentation for all filters available
-     * @return array
+     * Get all list on your Mailjet account.
+     * TODO: Exclude HIGH Level API methods into managers.
+     *
+     * @param array $filters Filters that will be use to filter the request
+     *
+     * @return \Mailjet\Response
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function getAllLists($filters)
+    public function getAllLists(array $filters = null): Response
     {
         $response = $this->client->get(Resources::$Contactslist, ['filters' => $filters]);
-        if (!$response->success()) {
-            $this->throwError("MailjetService:getAllLists() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'MailjetService:getAllLists() failed', $response);
         }
+
         return $response;
     }
 
     /**
-     * Create a new list
-     * @param  array $body array containing the list informations. the 'Name' parameter is mandatory.See mailjet API documentation for all parameters available
-     * @return array
+     * Create a new list.
+     *
+     * @param array $body Information list - the 'Name' field is mandatory.
+     *
+     * @return \Mailjet\Response
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function createList($body)
+    public function createList(array $body): Response
     {
         $response = $this->client->post(Resources::$Contactslist, ['body' => $body]);
-        if (!$response->success()) {
-            $this->throwError("MailjetService:createList() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'MailjetService:createList() failed', $response);
         }
+
         return $response;
     }
 
     /**
-     * Get all list recipient on your mailjet account
-     * @param  array $filters Filters that will be use to filter the request. See mailjet API documentation for all filters available
-     * @return array
+     * Get all list recipient on your Mailjet account.
+     *
+     * @param array $filters Filters that will be use to filter the request.
+     *
+     * @return \Mailjet\Response
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function getListRecipients($filters)
+    public function getListRecipients(array $filters = null): Response
     {
         $response = $this->client->get(Resources::$Listrecipient, ['filters' => $filters]);
-        if (!$response->success()) {
-            $this->throwError("MailjetService:getListRecipients() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'MailjetService:getListRecipients() failed', $response);
         }
+
         return $response;
     }
 
     /**
-     * Get single contact informations.
-     * @param  int $id ID of the contact
-     * @return array
+     * Get single contact information.
+     *
+     * @param string $id
+     *
+     * @return \Mailjet\Response
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function getSingleContact($id)
+    public function getSingleContact(string $id): Response
     {
         $response = $this->client->get(Resources::$Contact, ['id' => $id]);
-        if (!$response->success()) {
-            $this->throwError("MailjetService:getSingleContact() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'MailjetService:getSingleContact() failed', $response);
         }
+
         return $response;
     }
 
     /**
-     * create a contact
-     * @param  array $body array containing the list informations. the 'Email' parameter is mandatory.See mailjet API documentation for all parameters available
-     * @return array
+     * Create a contact.
+     *
+     * @param array $body Information list - the 'Email' field is mandatory.
+     *
+     * @return \Mailjet\Response
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function createContact($body)
+    public function createContact(array $body): Response
     {
         $response = $this->client->post(Resources::$Contact, ['body' => $body]);
-        if (!$response->success()) {
-            $this->throwError("MailjetService:createContact() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'MailjetService:createContact() failed', $response);
         }
+
         return $response;
     }
 
     /**
-     * create a listrecipient (relationship between contact and list)
-     * @param  array $body array containing the list informations. the 'ContactID' and 'ListID' parameters are mandatory.See mailjet API documentation for all parameters available
-     * @return array
+     * Create a list recipient (relationship between contact and list).
+     *
+     * @param array $body Information list - the 'ContactID' and 'ListID' parameters are mandatory.
+     *
+     * @return \Mailjet\Response
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function createListRecipient($body)
+    public function createListRecipient(array $body): Response
     {
         $response = $this->client->post(Resources::$Listrecipient, ['body' => $body]);
-        if (!$response->success()) {
-            $this->throwError("MailjetService:createListRecipient() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'MailjetService:createListRecipient() failed', $response);
         }
+
         return $response;
     }
 
     /**
-     * edit a list recipient
-     * @param  int $id   id of the list recipient
-     * @param  array $body array containing the list informations. the 'ContactID' and 'ListID' parameters are mandatory.See mailjet API documentation for all parameters available
-     * @return array
+     * Edit a list recipient.
+     *
+     * @param string $id
+     * @param array  $body Information list - the 'ContactID' and 'ListID' parameters are mandatory.
+     *
+     * @return \Mailjet\Response
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function editListrecipient($id, $body)
+    public function editListRecipient(string $id, array $body): Response
     {
-        $response = $this->client->put(Resources::$Listrecipient, ['id'=>$id, 'body' => $body]);
-        if (!$response->success()) {
-            $this->throwError("MailjetService:editListrecipient() failed", $response);
+        $response = $this->client->put(Resources::$Listrecipient, ['id' => $id, 'body' => $body]);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'MailjetService:editListrecipient() failed', $response);
         }
+
         return $response;
     }
 
     /**
-     * Retrieve Mailjet\Client
-     * @return Client
+     * Retrieve Mailjet client.
+     *
+     * @return \Mailjet\Client
      */
-    public function getClient()
+    public function getClient(): Client
     {
         return $this->client;
     }
-
-    /**
-     * Helper to throw error
-     * @param  string $title
-     * @param  Response $response
-     */
-     private function throwError($title, Response $response)
-     {
-         throw new MailjetException(0, $title, $response);
-     }
 }

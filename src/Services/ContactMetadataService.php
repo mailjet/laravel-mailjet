@@ -1,59 +1,60 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Services;
 
-use \Mailjet\Resources;
-use \Mailjet\Response;
-use Mailjet\LaravelMailjet\Services\MailjetService;
+use Mailjet\Resources;
 use Mailjet\LaravelMailjet\Model\ContactMetadata;
-use Mailjet\LaravelMailjet\Contracts\ContactMetadataContract;
 use Mailjet\LaravelMailjet\Exception\MailjetException;
+use Mailjet\LaravelMailjet\Contracts\ContactMetadataContract;
 
 /**
-* https://dev.mailjet.com/email-api/v3/contactmetadata/
-* manage ContactsMetadata (create, update, delete, ...)
-*
-*/
+ * https://dev.mailjet.com/email-api/v3/contactmetadata/
+ */
 class ContactMetadataService implements ContactMetadataContract
 {
     /**
-     * Mailjet client
-     * @var MailjetClient
+     * @var MailjetService
      */
     protected $mailjet;
 
-    /**
-     * @param MailjetClient $mailjet
-     */
     public function __construct(MailjetService $mailjet)
     {
         $this->mailjet = $mailjet;
     }
 
     /**
-     * Retrieve all ContactMetadata
+     * Retrieve all ContactMetadata.
+     *
      * @return array
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function getAll()
+    public function getAll(): array
     {
         $response = $this->mailjet->get(Resources::$Contactmetadata);
-        if (!$response->success()) {
-            $this->throwError("ContactMetadataService:getAll() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'ContactMetadataService:getAll() failed', $response);
         }
 
         return $response->getData();
     }
 
     /**
-     * Retrieve one ContactMetadata
+     * Retrieve one ContactMetadata.
+     *
      * @param string $id
+     *
      * @return array
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function get($id)
+    public function get(string $id): array
     {
         $response = $this->mailjet->get(Resources::$Contactmetadata, ['id' => $id]);
-        if (!$response->success()) {
-            $this->throwError("ContactMetadataService:get() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'ContactMetadataService:get() failed', $response);
         }
 
         return $response->getData();
@@ -61,13 +62,17 @@ class ContactMetadataService implements ContactMetadataContract
 
     /**
      * create a new fresh ContactMetadata
-     * @param ContactMetadata $contactMetadata
+     *
+     * @param ContactMetadata $metadata
+     *
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function create(ContactMetadata $contactMetadata)
+    public function create(ContactMetadata $metadata): array
     {
-        $response = $this->mailjet->post(Resources::$Contactmetadata, ['body' => $contactMetadata->format()]);
-        if (!$response->success()) {
-            $this->throwError("ContactMetadataService:create() failed", $response);
+        $response = $this->mailjet->post(Resources::$Contactmetadata, ['body' => $metadata->format()]);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'ContactMetadataService:create() failed', $response);
         }
 
         return $response->getData();
@@ -75,14 +80,18 @@ class ContactMetadataService implements ContactMetadataContract
 
     /**
      * Update one ContactMetadata
-     * @param int $id
-     * @param ContactMetadata $contactMetadata
+     *
+     * @param string          $id
+     * @param ContactMetadata $metadata
+     *
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function update($id, ContactMetadata $contactMetadata)
+    public function update(string $id, ContactMetadata $metadata): array
     {
-        $response = $this->mailjet->put(Resources::$Contactmetadata, ['id' => $id,'body' => $contactMetadata->format()]);
-        if (!$response->success()) {
-            $this->throwError("ContactMetadataService:update() failed", $response);
+        $response = $this->mailjet->put(Resources::$Contactmetadata, ['id' => $id, 'body' => $metadata->format()]);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'ContactMetadataService:update() failed', $response);
         }
 
         return $response->getData();
@@ -90,25 +99,19 @@ class ContactMetadataService implements ContactMetadataContract
 
     /**
      * Delete one ContactMetadata
-     * @param int $id
+     *
+     * @param string $id
+     *
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function delete($id)
+    public function delete(string $id): array
     {
         $response = $this->mailjet->delete(Resources::$Contactmetadata, ['id' => $id]);
-        if (!$response->success()) {
-            $this->throwError("ContactMetadataService:delete() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'ContactMetadataService:delete() failed', $response);
         }
 
         return $response->getData();
-    }
-
-    /**
-     * Helper to throw error
-     * @param  string $title
-     * @param  Response $response
-     */
-    private function throwError($title, Response $response)
-    {
-        throw new MailjetException(0, $title, $response);
     }
 }

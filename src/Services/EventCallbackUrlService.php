@@ -1,118 +1,120 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Services;
 
-use \Mailjet\Resources;
-use \Mailjet\Response;
-use Mailjet\LaravelMailjet\Services\MailjetService;
+use Mailjet\Resources;
 use Mailjet\LaravelMailjet\Model\EventCallbackUrl;
-use Mailjet\LaravelMailjet\Contracts\EventCallbackUrlContract;
 use Mailjet\LaravelMailjet\Exception\MailjetException;
+use Mailjet\LaravelMailjet\Contracts\EventCallbackUrlContract;
 
 /**
-* https://dev.mailjet.com/email-api/v3/eventcallbackurl/
-* Manage EventCallbackUrl
-*/
+ * https://dev.mailjet.com/email-api/v3/eventcallbackurl/
+ */
 class EventCallbackUrlService implements EventCallbackUrlContract
 {
-
     /**
-     * Mailjet client
-     * @var MailjetClient
+     * @var MailjetService
      */
     protected $mailjet;
-
-    /**
-     * @param MailjetClient $mailjet
-     */
+    
     public function __construct(MailjetService $mailjet)
     {
         $this->mailjet = $mailjet;
     }
 
     /**
-     * Retrieve all EventCallbackUrl
+     * Retrieve all EventCallbackUrl.
+     *
      * @return array
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function getAll()
+    public function getAll(): array
     {
         $response = $this->mailjet->get(Resources::$Eventcallbackurl);
-        if (!$response->success()) {
-            $this->throwError("EventCallbackUrlService:getAll() failed", $response);
+        
+        if (! $response->success()) {
+            throw new MailjetException(0, 'EventCallbackUrlService:getAll() failed', $response);
         }
 
         return $response->getData();
     }
 
     /**
-     * Retrieve one EventCallbackUrl
+     * Retrieve one EventCallbackUrl.
+     *
      * @param string $id
+     *
      * @return array
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function get($id)
+    public function get(string $id): array
     {
         $response = $this->mailjet->get(Resources::$Eventcallbackurl, ['id' => $id]);
-        if (!$response->success()) {
-            $this->throwError("EventCallbackUrlService:get() failed", $response);
+        
+        if (! $response->success()) {
+            throw new MailjetException(0, 'EventCallbackUrlService:get() failed', $response);
         }
 
         return $response->getData();
     }
 
     /**
-     * Create one EventCallbackUrl
-     * @param EventCallbackUrl $eventCallbackUrl
+     * Create one EventCallbackUrl.
+     *
+     * @param EventCallbackUrl $url
+     *
      * @return array
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function create(EventCallbackUrl $eventCallbackUrl)
+    public function create(EventCallbackUrl $url): array
     {
-        $response = $this->mailjet->post(Resources::$Eventcallbackurl, ['body' => $eventCallbackUrl->format()]);
-        if (!$response->success()) {
-            $this->throwError("EventCallbackUrlService:create() failed", $response);
+        $response = $this->mailjet->post(Resources::$Eventcallbackurl, ['body' => $url->format()]);
+        
+        if (! $response->success()) {
+            throw new MailjetException(0, 'EventCallbackUrlService:create() failed', $response);
         }
 
         return $response->getData();
     }
 
     /**
-     * Update one EventCallbackUrl
-     * @param string $id
-     * @param EventCallbackUrl $eventCallbackUrl
+     * Update one EventCallbackUrl.
+     *
+     * @param string           $id
+     * @param EventCallbackUrl $url
+     *
      * @return array
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function update($id, EventCallbackUrl $eventCallbackUrl)
+    public function update(string $id, EventCallbackUrl $url): array
     {
-        $response = $this->mailjet->put(Resources::$Eventcallbackurl, ['id' => $id, 'body' => $eventCallbackUrl->format()]);
-        if (!$response->success()) {
-            $this->throwError("EventCallbackUrlService:update() failed", $response);
+        $response = $this->mailjet->put(Resources::$Eventcallbackurl, ['id' => $id, 'body' => $url->format()]);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'EventCallbackUrlService:update() failed', $response);
         }
 
         return $response->getData();
     }
 
     /**
-     * Delete one EventCallbackUrl
+     * Delete one EventCallbackUrl.
+     *
      * @param string $id
+     *
      * @return array
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function delete($id)
+    public function delete(string $id): array
     {
         $response = $this->mailjet->delete(Resources::$Eventcallbackurl, ['id' => $id]);
-        if (!$response->success()) {
-            $this->throwError("EventCallbackUrlService:delete() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'EventCallbackUrlService:delete() failed', $response);
         }
 
         return $response->getData();
     }
-
-    /**
-     * Helper to throw error
-     * @param  string $title
-     * @param  Response $response
-     * @param  array $response
-     */
-     private function throwError($title, Response $response)
-     {
-         throw new MailjetException(0, $title, $response);
-     }
 }
