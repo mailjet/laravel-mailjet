@@ -1,35 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Contracts;
 
 use Mailjet\LaravelMailjet\Model\CampaignDraft;
 
 interface CampaignDraftContract
 {
-
     public function getAllCampaignDrafts(array $filters = null);
 
-    public function findByCampaignDraftId($CampaignId);
+    public function findByCampaignDraftId(string $id);
 
     public function create(CampaignDraft $campaignDraft);
 
-    public function update($CampaignId, CampaignDraft $campaignDraft);
+    public function update(string $id, CampaignDraft $campaignDraft);
 
-    public function getDetailContent($id);
+    public function getDetailContent(string $id);
 
-    public function createDetailContent($id, $contentData);
+    public function createDetailContent(string $id, array $content);
 
-    public function getSchedule($CampaignId);
+    public function getSchedule(string $id);
 
-    public function scheduleCampaign($CampaignId, $date);
+    public function scheduleCampaign(string $id, string $date);
 
-    public function updateCampaignSchedule($CampaignId, $date);
+    public function updateCampaignSchedule(string $id, string $date);
 
-    public function removeSchedule($CampaignId);
+    public function removeSchedule(string $id);
 
-    public function sendCampaign($CampaignId);
+    public function sendCampaign(string $id);
 
-    public function testCampaign($CampaignId, $recipients);
+    public function testCampaign(string $id, array $recipients);
 
-    public function getCampaignStatus($CampaignId);
+    public function getCampaignStatus(string $id);
 }
