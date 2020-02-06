@@ -44,6 +44,17 @@
             "Mailjet\\LaravelMailjet\\Tests\\": "tests"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mailjet\\LaravelMailjet\\MailjetServiceProvider",
+                "Mailjet\\LaravelMailjet\\MailjetMailServiceProvider"
+            ],
+            "aliases": {
+                "Mailjet": "Mailjet\\LaravelMailjet\\Facades\\Mailjet"
+            }
+        }
+    },
     "config": {
         "sort-packages": true,
         "bin-dir": "bin"
