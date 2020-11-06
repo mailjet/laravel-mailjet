@@ -17,8 +17,8 @@ class MailjetMailServiceProvider extends MailServiceProvider
         parent::registerSwiftTransport();
         app('swift.transport')->extend('mailjet', function ($app) {
             $config = $this->app['config']->get('services.mailjet', array());
-            $call = $this->app['config']->get('services.mailjet.transactionnal.call', true);
-            $options = $this->app['config']->get('services.mailjet.transactionnal.options', array());
+            $call = $this->app['config']->get('services.mailjet.transactional.call', true);
+            $options = $this->app['config']->get('services.mailjet.transactional.options', array());
 
             return new MailjetTransport(new \Swift_Events_SimpleEventDispatcher(), $config['key'], $config['secret'], $call, $options);
         });
