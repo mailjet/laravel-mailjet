@@ -36,6 +36,16 @@ You can pass settings to [MailjetClient](https://github.com/mailjet/mailjet-apiv
 
 ## Mail driver configuration
 
-In order to use Mailjet as your Mail driver, you need to update the mail driver in your `config/mail.php` or your `.env` file to `MAIL_DRIVER=mailjet`, and make sure you are using a valid and authorised from email address configured on your Mailjet account. The sending email addresses and domain can be managed [here](https://app.mailjet.com/account/sender)
+In order to use Mailjet as your Mail driver, you need to update the mail driver in your `config/mail.php` or your `.env` file to `MAIL_MAILER=mailjet` (for Laravel 6 and older use MAIL_DRIVER constant instead), and make sure you are using a valid and authorised from email address configured on your Mailjet account. The sending email addresses and domain can be managed [here](https://app.mailjet.com/account/sender)
 
+For Laravel 7+ you also need to specify new available mail driver in config/mail.php:
+```
+'mailers' => [
+    ...
+
+    'mailjet' => [
+        'transport' => 'mailjet',
+    ],
+],
+```
 For usage, check the [Laravel mail documentation](https://laravel.com/docs/master/mail)
