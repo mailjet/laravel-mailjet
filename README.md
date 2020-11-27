@@ -16,7 +16,8 @@ First, include the package in your dependencies:
 
     composer require mailjet/laravel-mailjet
 
-Then, you need to add some informations in your configuration files. You can find your Mailjet API key/secret [here](https://app.mailjet.com/account/api_keys)
+Then, you need to add some informations in your configuration files. You can find your Mailjet API key/secret [here](https://app.mailjet.com/account/api_keys).
+Please also set your email from address and name.
 
 * In the providers array:
 
