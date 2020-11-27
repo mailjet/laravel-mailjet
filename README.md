@@ -53,6 +53,8 @@ Then, you need to add some informations in your configuration files. You can fin
 ```php
 MAILJET_APIKEY=YOUR_APIKEY
 MAILJET_APISECRET=YOUR_APISECRET
+MAIL_FROM_ADDRESS=YOUR_EMAIL_FROM_ADDRESS
+MAIL_FROM_NAME=YOU_FROM_NAME
 ```
 
 ## Full configuration
