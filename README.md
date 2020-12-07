@@ -81,13 +81,23 @@ MAIL_FROM_NAME=YOU_FROM_NAME
             'call' => true,
             'secured' => true
         ]
-    ]
+    ],
+    'v4' => [
+        'call' => true,
+        'options' => [
+            'url' => 'api.mailjet.com',
+            'version' => 'v4',
+            'call' => true,
+            'secured' => true
+        ]
+    ],
 ]
 ```
 You can pass settings to [MailjetClient](https://github.com/mailjet/mailjet-apiv3-php#new--version-120-of-the-php-wrapper-).
 
 * `transactional`: settings to sendAPI client
 * `common`: setting to MailjetClient accessible throught the Facade Mailjet
+* `v4`: setting used for some DataProvider`s
 
 ## Mail driver configuration
 
@@ -136,6 +146,26 @@ For more informations about the filters you can use in each methods, refer to th
 All method return `Mailjet\Response` or throw a `MailjetException` in case of API error.
 
 You can also get the Mailjet API client with the method `getClient()` and make your own custom request to Mailjet API.
+
+If you need to delete a contact, you need to register ContactsServiceProvider:
+* In the providers array:
+
+```php
+'providers' => [
+    ...
+    \Mailjet\LaravelMailjet\Providers\ContactsServiceProvider::class,
+    ...
+]
+```
+
+and use it:
+```php
+public function handle(ContactsV4Service $contactsV4Service)
+{
+    $response = $contactsV4Service->delete(351406781);
+    ...
+}
+```
 
 ## ToDo
 
