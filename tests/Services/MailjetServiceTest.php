@@ -7,11 +7,6 @@ use Orchestra\Testbench\TestCase;
 
 class MailjetServiceTest extends TestCase
 {
-    public function setUp()
-    {
-        parent::setUp();
-    }
-
     public function testFacade()
     {
         $this->assertTrue(method_exists($this->app['Mailjet'], 'get'));

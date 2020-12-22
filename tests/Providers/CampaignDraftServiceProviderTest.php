@@ -20,7 +20,7 @@ class CampaignDraftServiceProviderTest extends TestCase
      */
     protected $service_provider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->setUpMocks();
 
