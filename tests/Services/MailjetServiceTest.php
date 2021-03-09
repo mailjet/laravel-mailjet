@@ -6,7 +6,6 @@ namespace Mailjet\LaravelMailjet\Tests\Services;
 
 use Mailjet\Client;
 use Mailjet\LaravelMailjet\Services\MailjetService;
-use Mailjet\Resources;
 use Mailjet\Response;
 use Mockery;
 use Orchestra\Testbench\TestCase;
@@ -39,14 +38,14 @@ class MailjetServiceTest extends TestCase
             ->andReturnUsing(function($resourceArg, $params) use ($responseMock) {
                 $data = [];
 
-                switch ($resourceArg) {
+                switch ($resourceArg[0]) {
                     case 'resource-test-put':
                         $data = array_merge($params, [
                             'status' => '0003',
                         ]);
                         break;
 
-                    case Resources::$Listrecipient:
+                    case 'listrecipient':
                         $data = array_merge($params, [
                             'status' => '0011',
                         ]);
@@ -63,26 +62,26 @@ class MailjetServiceTest extends TestCase
             ->andReturnUsing(function($resourceArg, $params) use ($responseMock) {
                 $data = [];
 
-                switch ($resourceArg) {
+                switch ($resourceArg[0]) {
                     case 'resource-test-post':
                         $data = array_merge($params, [
                             'status' => '0001',
                         ]);
                         break;
 
-                    case Resources::$Contactslist:
+                    case 'contactslist':
                         $data = array_merge($params, [
                             'status' => '0006',
                         ]);
                         break;
 
-                    case Resources::$Contact:
+                    case 'contact':
                         $data = array_merge($params, [
                             'status' => '0009',
                         ]);
                         break;
 
-                    case Resources::$Listrecipient:
+                    case 'listrecipient':
                         $data = array_merge($params, [
                             'status' => '0010',
                         ]);
@@ -100,7 +99,7 @@ class MailjetServiceTest extends TestCase
             ->andReturnUsing(function($resourceArg, $params) use ($responseMock) {
                 $data = [];
 
-                switch ($resourceArg) {
+                switch ($resourceArg[0]) {
                     case 'resource-test-delete':
                         $data = array_merge($params, [
                             'status' => '0004',
@@ -118,26 +117,26 @@ class MailjetServiceTest extends TestCase
             ->andReturnUsing(function($resourceArg, $params) use ($responseMock) {
                 $data = [];
 
-                switch ($resourceArg) {
+                switch ($resourceArg[0]) {
                     case 'resource-test-get':
                         $data = array_merge($params, [
                             'status' => '0002',
                         ]);
                         break;
 
-                    case Resources::$Contactslist:
+                    case 'contactslist':
                         $data = array_merge($params, [
                             'status' => '0005',
                         ]);
                         break;
 
-                    case Resources::$Listrecipient:
+                    case 'listrecipient':
                         $data = array_merge($params, [
                             'status' => '0007',
                         ]);
                         break;
 
-                    case Resources::$Contact:
+                    case 'contact':
                         $data = array_merge($params, [
                             'status' => '0008',
                         ]);
@@ -176,7 +175,7 @@ class MailjetServiceTest extends TestCase
 
     public function testPost()
     {
-        $response = $this->mailjetService->post('resource-test-post', [
+        $response = $this->mailjetService->post(['resource-test-post'], [
             'data' => 'test0001',
         ]);
 
@@ -188,7 +187,7 @@ class MailjetServiceTest extends TestCase
 
     public function testGet()
     {
-        $response = $this->mailjetService->get('resource-test-get', [
+        $response = $this->mailjetService->get(['resource-test-get'], [
             'data' => 'test0002',
         ], []);
 
@@ -200,7 +199,7 @@ class MailjetServiceTest extends TestCase
 
     public function testPut()
     {
-        $response = $this->mailjetService->put('resource-test-put', [
+        $response = $this->mailjetService->put(['resource-test-put'], [
             'data' => 'test0003',
         ], []);
 
@@ -212,7 +211,7 @@ class MailjetServiceTest extends TestCase
 
     public function testDelete()
     {
-        $response = $this->mailjetService->delete('resource-test-delete', [
+        $response = $this->mailjetService->delete(['resource-test-delete'], [
             'data' => 'test0004',
         ], []);
 
@@ -266,10 +265,10 @@ class MailjetServiceTest extends TestCase
 
     public function testGetSingleContact()
     {
-        $response = $this->mailjetService->getSingleContact(123);
+        $response = $this->mailjetService->getSingleContact('123');
 
         $this->assertSame([
-            'id' => 123,
+            'id' => '123',
             'status' => '0008',
         ], $response->getData());
     }
@@ -304,12 +303,12 @@ class MailjetServiceTest extends TestCase
 
     public function testEditListrecipient()
     {
-        $response = $this->mailjetService->editListrecipient(123, [
+        $response = $this->mailjetService->editListrecipient('1233', [
             'data' => 'test0011'
         ]);
 
         $this->assertSame([
-            'id' => 123,
+            'id' => '1233',
             'body' => [
                 'data' => 'test0011',
             ],
