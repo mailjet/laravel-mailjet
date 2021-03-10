@@ -1,122 +1,94 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Model;
 
 /**
- * Description of Template
- *
+ * https://dev.mailjet.com/email/reference/templates
  */
-class Template {
-
-    const NAME_KEY = 'Name';
-
-    //Mandatory properties (must be set through constructor)
-    protected $name;
-    //Optional properties (array)
-    protected $optionalProperties = null;
-    //content
-    protected $content = null;
-    //id
-    protected $id = null;
+class Template extends Model
+{
+    public const NAME_KEY = 'Name';
 
     /**
-     * @param $name
-     * @param optionalProperties
+     * @var string
      */
-    public function __construct($name, $optionalProperties = null) {
+    protected $name;
+
+    /**
+     * @var array|null
+     */
+    protected $content;
+
+    /**
+     * @var string|null
+     */
+    protected $id;
+
+    public function __construct(string $name, array $optionalProperties = [])
+    {
         $this->name = $name;
         $this->optionalProperties = $optionalProperties;
     }
 
     /**
-     * Format Template for MailJet API request
+     * Format Template for MailJet API request.
+     *
      * @return array
      */
-    public function format() {
+    public function format(): array
+    {
+        $result[self::NAME_KEY] = $this->name;
 
-        /*         * Add the mandatary props* */
-        if (!is_null($this->name)) {
-            $result[self::NAME_KEY] = $this->name;
-        }
-
-        /*         * Add the optional props if any* */
-        if (!is_null($this->optionalProperties)) {
-            $result = array_merge($result, $this->optionalProperties);
-        }
-
-
-        return $result;
-    }
-
-    /**
-     * Correspond to properties in MailJet request
-     * Array ['PropertyName' => value, ...]
-     */
-    public function getOptionalProperties() {
-        return $this->optionalProperties;
-    }
-
-    /**
-     * Set array of Template properties
-     * @param array $property
-     * @return Properties
-     */
-    public function setOptionalProperties(array $properties) {
-        $this->optionalProperties = $properties;
-        return $this->optionalProperties;
-    }
-
-    /**
-     * Add a new $property to Template
-     * @param array $property
-     * @return Properties
-     */
-    public function addProperty(array $property) {
-        $this->optionalProperties[] = $property;
-        return $this->optionalProperties;
-    }
-
-    /**
-     * Remove a $property from Template
-     * @param array $property
-     * @return Properties
-     */
-    public function removeProperty(array $property) {
-        foreach (array_keys($this->optionalProperties, $property) as $key) {
-            unset($this->optionalProperties[$key]);
-        }
-        return $this->optionalProperties;
+        return array_merge($result, $this->optionalProperties);
     }
 
     /**
      * Get  Template content
-     * @return $content
+     *
+     * @return array|null $content
      */
-    public function setContent($content) {
-        $this->content = $content;
-    }
-
-    /**
-     * Get  Template content
-     * @return $content
-     */
-    public function getContent() {
+    public function getContent(): ?array
+    {
         return $this->content;
     }
 
     /**
-     * Get Id
-     * @return $content
+     * Set Template content.
+     *
+     * @param array $content
+     *
+     * @return \Mailjet\LaravelMailjet\Model\Template
      */
-    public function getId() {
+    public function setContent(array $content): Template
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get id.
+     *
+     * @return string|null
+     */
+    public function getId(): ?string
+    {
         return $this->id;
     }
 
     /**
-     * Set Id
+     * Set id.
+     *
+     * @param string $id
+     *
+     * @return \Mailjet\LaravelMailjet\Model\Template
      */
-    public function setId($id) {
+    public function setId(string $id): Template
+    {
         $this->id = $id;
-    }
 
+        return $this;
+    }
 }

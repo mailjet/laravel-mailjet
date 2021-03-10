@@ -1,107 +1,122 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Services;
 
-use \Mailjet\Resources;
-use \Mailjet\Response;
-use Mailjet\LaravelMailjet\Services\MailjetService;
+use Mailjet\Response;
+use Mailjet\Resources;
 use Mailjet\LaravelMailjet\Model\Contact;
 use Mailjet\LaravelMailjet\Model\ContactsList;
-use Mailjet\LaravelMailjet\Contracts\ContactsListContract;
 use Mailjet\LaravelMailjet\Exception\MailjetException;
+use Mailjet\LaravelMailjet\Contracts\ContactsListContract;
 
 /**
-* https://dev.mailjet.com/email-api/v3/contactslist-managecontact/
-* manage ContactsList (create, update, delete, ...)
-*
-*/
+ * https://dev.mailjet.com/email-api/v3/contactslist-managecontact/
+ */
 class ContactsListService implements ContactsListContract
 {
     /**
      * @var int
      */
-    const CONTACT_BATCH_SIZE = 1000;
+    public const CONTACT_BATCH_SIZE = 1000;
 
     /**
-     * Mailjet client
-     * @var MailjetClient
+     * @var MailjetService
      */
     protected $mailjet;
 
-    /**
-     * @param MailjetClient $mailjet
-     */
     public function __construct(MailjetService $mailjet)
     {
         $this->mailjet = $mailjet;
     }
 
     /**
-     * create a new fresh Contact to listId
-     * @param string $listId
+     * Create a new fresh Contact to listId.
+     *
+     * @param string  $id
      * @param Contact $contact
-     * @param string $action
+     * @param string  $action
+     *
+     * @return array
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function create($listId, Contact $contact, $action=Contact::ACTION_ADDFORCE)
+    public function create(string $id, Contact $contact, $action = Contact::ACTION_ADDFORCE): array
     {
         $contact->setAction($action);
-        $response = $this->_exec($listId, $contact);
-        if (!$response->success()) {
-            $this->throwError("ContactsListService:create() failed", $response);
+
+        $response = $this->_exec($id, $contact);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'ContactsListService:create() failed', $response);
         }
 
         return $response->getData();
     }
 
     /**
-     * update a Contact to listId
-     * @param string $listId
+     * Update a Contact to listId.
+     *
+     * @param string  $id
      * @param Contact $contact
-     * @param string $action
+     * @param string  $action
+     *
+     * @return array
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function update($listId, Contact $contact, $action=Contact::ACTION_ADDNOFORCE)
+    public function update(string $id, Contact $contact, $action = Contact::ACTION_ADDNOFORCE): array
     {
         $contact->setAction($action);
-        $response = $this->_exec($listId, $contact);
-        if (!$response->success()) {
-            $this->throwError("ContactsListService:update() failed", $response);
+
+        $response = $this->_exec($id, $contact);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'ContactsListService:update() failed', $response);
         }
 
         return $response->getData();
     }
 
     /**
-     * re/subscribe a Contact to listId
-     * @param string $listId
+     * Re/subscribe a Contact to listId.
+     *
+     * @param string  $id
      * @param Contact $contact
-     * @param bool $force
+     * @param bool    $force
+     *
+     * @return array
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function subscribe($listId, Contact $contact, $force = true)
+    public function subscribe(string $id, Contact $contact, bool $force = true): array
     {
-        if ($force) {
-            $contact->setAction(Contact::ACTION_ADDFORCE);
-        } else {
-            $contact->setAction(Contact::ACTION_ADDNOFORCE);
-        }
-        $response = $this->_exec($listId, $contact);
-        if (!$response->success()) {
-            $this->throwError("ContactsListService:subscribe() failed", $response);
+        $contact->setAction($force ? Contact::ACTION_ADDFORCE : Contact::ACTION_ADDNOFORCE);
+
+        $response = $this->_exec($id, $contact);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'ContactsListService:subscribe() failed', $response);
         }
 
         return $response->getData();
     }
 
     /**
-     * unsubscribe a Contact from listId
-     * @param string $listId
+     * Unsubscribe a Contact from listId.
+     *
+     * @param string  $id
      * @param Contact $contact
+     *
+     * @return array
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function unsubscribe($listId, Contact $contact)
+    public function unsubscribe(string $id, Contact $contact): array
     {
         $contact->setAction(Contact::ACTION_UNSUB);
-        $response = $this->_exec($listId, $contact);
-        if (!$response->success()) {
-            $this->throwError("ContactsListService:unsubscribe() failed", $response);
+
+        $response = $this->_exec($id, $contact);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'ContactsListService:unsubscribe() failed', $response);
         }
 
         return $response->getData();
@@ -109,111 +124,118 @@ class ContactsListService implements ContactsListContract
 
     /**
      * Delete a Contact from listId
-     * @param string $listId
+     *
+     * @param string  $id
      * @param Contact $contact
+     *
+     * @return array
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function delete($listId, Contact $contact)
+    public function delete(string $id, Contact $contact): array
     {
         $contact->setAction(Contact::ACTION_REMOVE);
-        $response = $this->_exec($listId, $contact);
-        if (!$response->success()) {
-            $this->throwError("ContactsListService:delete() failed", $response);
+
+        $response = $this->_exec($id, $contact);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'ContactsListService:delete() failed', $response);
         }
 
         return $response->getData();
     }
 
     /**
-     * Change email a Contact
-     * @param string $listId
+     * Change email a Contact.
+     *
+     * @param string  $id
      * @param Contact $contact
-     * @param string $oldEmail
+     * @param string  $oldEmail
+     *
+     * @return array
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function updateEmail($listId, Contact $contact, $oldEmail)
+    public function updateEmail(string $id, Contact $contact, string $oldEmail): array
     {
-        // get old contact properties
         $response = $this->mailjet->get(Resources::$Contactdata, ['id' => $oldEmail]);
-        if (!$response->success()) {
-            $this->throwError("ContactsListService:changeEmail() failed", $response);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'ContactsListService:changeEmail() failed', $response);
         }
 
-        // copy contact properties
         $oldContactData = $response->getData();
+
         if (isset($oldContactData[0])) {
             $contact->setProperties($oldContactData[0]['Data']);
         }
 
-        // add new contact
         $contact->setAction(Contact::ACTION_ADDFORCE);
-        $response = $this->_exec($listId, $contact);
-        if (!$response->success()) {
-            $this->throwError("ContactsListService:changeEmail() failed", $response);
+        $response = $this->_exec($id, $contact);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'ContactsListService:changeEmail() failed', $response);
         }
 
-        // remove old
         $oldContact = new Contact($oldEmail);
         $oldContact->setAction(Contact::ACTION_REMOVE);
-        $response = $this->_exec($listId, $oldContact);
-        if (!$response->success()) {
-            $this->throwError("ContactsListService:changeEmail() failed", $response);
+        $response = $this->_exec($id, $oldContact);
+
+        if (! $response->success()) {
+            throw new MailjetException(0, 'ContactsListService:changeEmail() failed', $response);
         }
 
         return $response->getData();
     }
 
     /**
-     * Import many contacts to a list
+     * Import many contacts to a list.
      * https://dev.mailjet.com/email-api/v3/contactslist-managemanycontacts/
-     * @param  ContactsList $contactsList
+     *
+     * @param ContactsList $list
+     *
      * @return array
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
      */
-    public function uploadManyContactsList(ContactsList $contactsList)
+    public function uploadManyContactsList(ContactsList $list): array
     {
         $batchResults = [];
-        // we send multiple smaller requests instead of a bigger one
-        $contactChunks = array_chunk($contactsList->getContacts(), self::CONTACT_BATCH_SIZE);
+        $contactChunks = array_chunk($list->getContacts(), self::CONTACT_BATCH_SIZE);
+
         foreach ($contactChunks as $contactChunk) {
-            // create a sub-contactList to divide large request
-            $subContactsList = new ContactsList($contactsList->getListId(), $contactsList->getAction(), $contactChunk);
+            $subContactsList = new ContactsList($list->getListId(), $list->getAction(), $contactChunk);
             $currentBatch = $this->mailjet->post(Resources::$ContactslistManagemanycontacts,
                 ['id' => $subContactsList->getListId(), 'body' => $subContactsList->format()]
             );
+
             if ($currentBatch->success()) {
-                array_push($batchResults, $currentBatch->getData()[0]);
+                $batchResults[] = $currentBatch->getData()[0];
             } else {
-                $this->throwError("ContactsListService:manageManyContactsList() failed", $currentBatch);
+                throw new MailjetException(0, 'ContactsListService:manageManyContactsList() failed', $currentBatch);
             }
         }
+
         return $batchResults;
     }
 
     /**
-    * An action for adding a contact to a contact list. Only POST is supported.
-    * The API will internally create the new contact if it does not exist,
-    * add or update the name and properties.
-    * The properties have to be defined before they can be used.
-    * The API then adds the contact to the contact list with active=true and
-    * unsub=specified value if it is not already in the list,
-    * or updates the entry with these values. On success,
-    * the API returns a packet with the same format but with all properties available
-    * for that contact.
-    * @param string $listId
-    * @param Contact $contact
-    */
-    private function _exec($listId, Contact $contact)
+     * An action for adding a contact to a contact list. Only POST is supported.
+     * The API will internally create the new contact if it does not exist,
+     * add or update the name and properties.
+     * The properties have to be defined before they can be used.
+     * The API then adds the contact to the contact list with active=true
+     * and unsub=specified value if it is not already in the list,
+     * or updates the entry with these values.
+     * On success, the API returns a packet with the same format
+     * but with all properties available for that contact.
+     *
+     * @param string  $id
+     * @param Contact $contact
+     *
+     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     */
+    private function _exec(string $id, Contact $contact): Response
     {
         return $this->mailjet->post(Resources::$ContactslistManagecontact,
-            ['id' => $listId, 'body' => $contact->format()]
+            ['id' => $id, 'body' => $contact->format()]
         );
     }
-
-    /**
-     * Helper to throw error
-     * @param  string $title
-     * @param  Response $response
-     */
-     private function throwError($title, Response $response)
-     {
-         throw new MailjetException(0, $title, $response);
-     }
 }

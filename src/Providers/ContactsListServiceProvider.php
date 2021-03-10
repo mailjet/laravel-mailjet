@@ -1,13 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Mailjet\LaravelMailjet\Services\ContactsListService;
 use Mailjet\LaravelMailjet\Services\MailjetService;
+use Mailjet\LaravelMailjet\Services\ContactsListService;
+use Mailjet\LaravelMailjet\Contracts\ContactsListContract;
 
 class ContactsListServiceProvider extends ServiceProvider
 {
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
     protected $defer = true;
 
     /**
@@ -15,9 +23,8 @@ class ContactsListServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-
     }
 
     /**
@@ -25,14 +32,15 @@ class ContactsListServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        $this->app->bind('Mailjet\LaravelMailjet\Contracts\ContactsListContract',
-            function($app) {
-            $config  = $this->app['config']->get('services.mailjet', array());
-            $call    = $this->app['config']->get('services.mailjet.common.call',true);
-            $options = $this->app['config']->get('services.mailjet.common.options', array());
-            $mailjetService=new MailjetService($config['key'], $config['secret'], $call,$options);
+        $this->app->bind(ContactsListContract::class, function () {
+            $config = $this->app['config']->get('services.mailjet', []);
+            $call = $this->app['config']->get('services.mailjet.common.call', true);
+            $options = $this->app['config']->get('services.mailjet.common.options', []);
+
+            $mailjetService = new MailjetService($config['key'], $config['secret'], $call, $options);
+
             return new ContactsListService($mailjetService);
         });
     }
@@ -42,8 +50,8 @@ class ContactsListServiceProvider extends ServiceProvider
      *
      * @return array
      */
-    public function provides()
+    public function provides(): array
     {
-        return ['Mailjet\LaravelMailjet\Contracts\ContactsListContract'];
+        return [ContactsListContract::class];
     }
 }

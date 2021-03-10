@@ -1,17 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Contracts;
+
+use Mailjet\Client;
+use Mailjet\Response;
 
 interface MailjetServiceContract
 {
+    public function post(array $resource, array $args = [], array $options = []): Response;
 
-    public function post($resource, array $args = [], array $options = []);
+    public function get(array $resource, array $args = [], array $options = []): Response;
 
-    public function get($resource, array $args = [], array $options = []);
+    public function put(array $resource, array $args = [], array $options = []): Response;
 
-    public function put($resource, array $args = [], array $options = []);
+    public function delete(array $resource, array $args = [], array $options = []): Response;
 
-    public function delete($resource, array $args = [], array $options = []);
-
-    public function getClient();
+    public function getClient(): Client;
 }

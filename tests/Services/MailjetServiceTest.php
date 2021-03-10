@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Tests\Services;
 
 use Mailjet\Client;
 use Mailjet\LaravelMailjet\Services\MailjetService;
-use Mailjet\Resources;
 use Mailjet\Response;
 use Mockery;
 use Orchestra\Testbench\TestCase;
+use Mailjet\LaravelMailjet\Facades\Mailjet;
+use Mailjet\LaravelMailjet\MailjetServiceProvider;
 
 class MailjetServiceTest extends TestCase
 {
@@ -35,14 +38,14 @@ class MailjetServiceTest extends TestCase
             ->andReturnUsing(function($resourceArg, $params) use ($responseMock) {
                 $data = [];
 
-                switch ($resourceArg) {
+                switch ($resourceArg[0]) {
                     case 'resource-test-put':
                         $data = array_merge($params, [
                             'status' => '0003',
                         ]);
                         break;
 
-                    case Resources::$Listrecipient:
+                    case 'listrecipient':
                         $data = array_merge($params, [
                             'status' => '0011',
                         ]);
@@ -59,26 +62,26 @@ class MailjetServiceTest extends TestCase
             ->andReturnUsing(function($resourceArg, $params) use ($responseMock) {
                 $data = [];
 
-                switch ($resourceArg) {
+                switch ($resourceArg[0]) {
                     case 'resource-test-post':
                         $data = array_merge($params, [
                             'status' => '0001',
                         ]);
                         break;
 
-                    case Resources::$Contactslist:
+                    case 'contactslist':
                         $data = array_merge($params, [
                             'status' => '0006',
                         ]);
                         break;
 
-                    case Resources::$Contact:
+                    case 'contact':
                         $data = array_merge($params, [
                             'status' => '0009',
                         ]);
                         break;
 
-                    case Resources::$Listrecipient:
+                    case 'listrecipient':
                         $data = array_merge($params, [
                             'status' => '0010',
                         ]);
@@ -96,7 +99,7 @@ class MailjetServiceTest extends TestCase
             ->andReturnUsing(function($resourceArg, $params) use ($responseMock) {
                 $data = [];
 
-                switch ($resourceArg) {
+                switch ($resourceArg[0]) {
                     case 'resource-test-delete':
                         $data = array_merge($params, [
                             'status' => '0004',
@@ -114,26 +117,26 @@ class MailjetServiceTest extends TestCase
             ->andReturnUsing(function($resourceArg, $params) use ($responseMock) {
                 $data = [];
 
-                switch ($resourceArg) {
+                switch ($resourceArg[0]) {
                     case 'resource-test-get':
                         $data = array_merge($params, [
                             'status' => '0002',
                         ]);
                         break;
 
-                    case Resources::$Contactslist:
+                    case 'contactslist':
                         $data = array_merge($params, [
                             'status' => '0005',
                         ]);
                         break;
 
-                    case Resources::$Listrecipient:
+                    case 'listrecipient':
                         $data = array_merge($params, [
                             'status' => '0007',
                         ]);
                         break;
 
-                    case Resources::$Contact:
+                    case 'contact':
                         $data = array_merge($params, [
                             'status' => '0008',
                         ]);
@@ -148,7 +151,7 @@ class MailjetServiceTest extends TestCase
         $this->mailjetService = $this->app['Mailjet'];
     }
 
-    public function testFacade()
+    public function testFacade(): void
     {
         $this->assertTrue(method_exists($this->mailjetService, 'get'));
         $this->assertTrue(method_exists($this->mailjetService, 'post'));
@@ -164,15 +167,15 @@ class MailjetServiceTest extends TestCase
         $this->assertTrue(method_exists($this->mailjetService, 'getClient'));
     }
 
-    public function testCanUseClient()
+    public function testCanUseClient(): void
     {
-        $client = \Mailjet::getClient();
-        $this->assertEquals("Mailjet\Client", get_class($client));
+        $client = Mailjet::getClient();
+        $this->assertInstanceOf(Client::class, $client);
     }
 
     public function testPost()
     {
-        $response = $this->mailjetService->post('resource-test-post', [
+        $response = $this->mailjetService->post(['resource-test-post'], [
             'data' => 'test0001',
         ]);
 
@@ -184,7 +187,7 @@ class MailjetServiceTest extends TestCase
 
     public function testGet()
     {
-        $response = $this->mailjetService->get('resource-test-get', [
+        $response = $this->mailjetService->get(['resource-test-get'], [
             'data' => 'test0002',
         ], []);
 
@@ -196,7 +199,7 @@ class MailjetServiceTest extends TestCase
 
     public function testPut()
     {
-        $response = $this->mailjetService->put('resource-test-put', [
+        $response = $this->mailjetService->put(['resource-test-put'], [
             'data' => 'test0003',
         ], []);
 
@@ -208,7 +211,7 @@ class MailjetServiceTest extends TestCase
 
     public function testDelete()
     {
-        $response = $this->mailjetService->delete('resource-test-delete', [
+        $response = $this->mailjetService->delete(['resource-test-delete'], [
             'data' => 'test0004',
         ], []);
 
@@ -262,10 +265,10 @@ class MailjetServiceTest extends TestCase
 
     public function testGetSingleContact()
     {
-        $response = $this->mailjetService->getSingleContact(123);
+        $response = $this->mailjetService->getSingleContact('123');
 
         $this->assertSame([
-            'id' => 123,
+            'id' => '123',
             'status' => '0008',
         ], $response->getData());
     }
@@ -300,12 +303,12 @@ class MailjetServiceTest extends TestCase
 
     public function testEditListrecipient()
     {
-        $response = $this->mailjetService->editListrecipient(123, [
+        $response = $this->mailjetService->editListrecipient('1233', [
             'data' => 'test0011'
         ]);
 
         $this->assertSame([
-            'id' => 123,
+            'id' => '1233',
             'body' => [
                 'data' => 'test0011',
             ],
@@ -313,10 +316,10 @@ class MailjetServiceTest extends TestCase
         ], $response->getData());
     }
 
-    protected function getPackageAliases($app)
+    protected function getPackageAliases($app): array
     {
         return [
-            'Mailjet' => \Mailjet\LaravelMailjet\Facades\Mailjet::class
+            'Mailjet' => Mailjet::class
         ];
     }
 
@@ -326,15 +329,15 @@ class MailjetServiceTest extends TestCase
      * @param  \Illuminate\Foundation\Application  $app
      * @return void
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         // Setup default database to use sqlite :memory:
         $app['config']->set('services.mailjet.key', 'ABC123456');
         $app['config']->set('services.mailjet.secret', 'ABC123456');
     }
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
-        return ['\Mailjet\LaravelMailjet\MailjetServiceProvider'];
+        return [MailjetServiceProvider::class];
     }
 }

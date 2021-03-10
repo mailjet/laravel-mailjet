@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Contracts;
 
 use Mailjet\LaravelMailjet\Model\Contact;
@@ -7,20 +9,17 @@ use Mailjet\LaravelMailjet\Model\ContactsList;
 
 interface ContactsListContract
 {
+    public function create(string $id, Contact $contact, $action = Contact::ACTION_ADDFORCE): array;
 
-    public function create($listId, Contact $contact,
-                           $action = Contact::ACTION_ADDFORCE);
+    public function update(string $id, Contact $contact, $action = Contact::ACTION_ADDNOFORCE): array;
 
-    public function update($listId, Contact $contact,
-                           $action = Contact::ACTION_ADDNOFORCE);
+    public function subscribe(string $id, Contact $contact, bool $force = true): array;
 
-    public function subscribe($listId, Contact $contact, $force = true);
+    public function unsubscribe(string $id, Contact $contact): array;
 
-    public function unsubscribe($listId, Contact $contact);
+    public function delete(string $id, Contact $contact): array;
 
-    public function delete($listId, Contact $contact);
+    public function updateEmail(string $id, Contact $contact, string $oldEmail): array;
 
-    public function updateEmail($listId, Contact $contact, $oldEmail);
-
-    public function uploadManyContactsList(ContactsList $contactsList);
+    public function uploadManyContactsList(ContactsList $list): array;
 }

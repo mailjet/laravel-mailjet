@@ -1,19 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Contracts;
 
 use Mailjet\LaravelMailjet\Model\EventCallbackUrl;
 
 interface EventCallbackUrlContract
 {
+    public function getAll(): array;
 
-    public function getAll();
+    public function get(string $id): array;
 
-    public function get($id);
+    public function create(EventCallbackUrl $url): array;
 
-    public function create(EventCallbackUrl $eventCallbackUrl);
+    public function update(string $id, EventCallbackUrl $url): array;
 
-    public function update($id, EventCallbackUrl $eventCallbackUrl);
-
-    public function delete($id);
+    public function delete(string $id): array;
 }

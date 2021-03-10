@@ -1,32 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Mailjet\LaravelMailjet\Model;
 
+use RuntimeException;
+
 /**
-* https://dev.mailjet.com/email-api/v3/contactslist-managemanycontacts/
-* Object to manage many contacts from list
-*/
-class ContactsList
+ * https://dev.mailjet.com/email/reference/contacts/contact-list/
+ */
+class ContactsList extends Model
 {
-    const ACTION_ADDFORCE = 'addforce'; # adds the contact and resets the unsub status to false
-    const ACTION_ADDNOFORCE = 'addnoforce'; # adds the contact and does not change the subscription status of the contact
-    const ACTION_REMOVE = 'remove'; # removes the contact from the list
-    const ACTION_UNSUB = 'unsub'; # unsubscribes a contact from the list
-
-    protected $listId;
-    protected $action;
-    protected $contacts;
-
+    public const ACTION_ADDFORCE = 'addforce';
+    public const ACTION_ADDNOFORCE = 'addnoforce';
+    public const ACTION_REMOVE = 'remove';
+    public const ACTION_UNSUB = 'unsub';
 
     /**
-     * @param int $listId
-     * @param string $action see const ACTION_*
-     * @param array $contacts
+     * @var string
      */
-    public function __construct($listId, $action, $contacts)
+    protected $listId;
+
+    /**
+     * @var string
+     */
+    protected $action;
+
+    /**
+     * @var array
+     */
+    protected $contacts;
+
+    public function __construct(string $listId, string $action, array $contacts)
     {
-        if (!$this->validateAction($action)) {
-            throw new \RuntimeException("$action: is not a valide Action.");
+        if (! $this->validateAction($action)) {
+            throw new RuntimeException("$action: is not a valid Action.");
         }
 
         $this->listId = $listId;
@@ -35,22 +43,19 @@ class ContactsList
     }
 
     /**
-     * Formate contactList for MailJet API request
+     * Format contactList for MailJet API request.
+     *
      * @return array
      */
-    public function format()
+    public function format(): array
     {
         $result = [
             'Action' => $this->action,
-            'Contacts' => [],
         ];
 
-        $contacts = $this->contacts;
-        $contactsArray = array_map(function (Contact $contact) {
+        $result['Contacts'] = array_map(static function (Contact $contact) {
             return $contact->format();
-        }, $contacts);
-
-        $result['Contacts'] = $contactsArray;
+        }, $this->contacts);
 
         return $result;
     }
@@ -58,19 +63,28 @@ class ContactsList
     /**
      * Get list id
      */
-    public function getListId()
+    public function getListId(): string
     {
         return $this->listId;
     }
 
     /**
-     * Set Action
+     * Get action.
+     */
+    public function getAction(): string
+    {
+        return $this->action;
+    }
+
+    /**
+     * Set action.
+     *
      * @param string $action
      */
-    public function setAction($action)
+    public function setAction($action): ContactsList
     {
-        if (!$this->validateAction($action)) {
-            throw new \RuntimeException("$action: is not a valide Action.");
+        if (! $this->validateAction($action)) {
+            throw new RuntimeException("$action: is not a valid Action.");
         }
 
         $this->action = $action;
@@ -79,32 +93,24 @@ class ContactsList
     }
 
     /**
-     * Get action
+     * Get contacts.
      */
-    public function getAction()
-    {
-        return $this->action;
-    }
-
-    /**
-     * Get contacts
-     */
-    public function getContacts()
+    public function getContacts(): array
     {
         return $this->contacts;
     }
 
     /**
-     * Validate if action is authorized
+     * Validate action name.
+     *
      * @param string $action
+     *
      * @return bool
      */
-    private function validateAction($action)
+    protected function validateAction($action): bool
     {
-        $actionAvailable = [self::ACTION_ADDFORCE, self::ACTION_ADDNOFORCE, self::ACTION_REMOVE, self::ACTION_UNSUB];
-        if (in_array($action, $actionAvailable)) {
-            return true;
-        }
-        return false;
+        $actionsAvailable = [self::ACTION_ADDFORCE, self::ACTION_ADDNOFORCE, self::ACTION_REMOVE, self::ACTION_UNSUB];
+
+        return in_array($action, $actionsAvailable);
     }
 }
