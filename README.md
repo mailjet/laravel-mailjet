@@ -60,44 +60,7 @@ MAIL_FROM_NAME=YOU_FROM_NAME
 
 ## Full configuration
 
-```php
-'mailjet' => [
-    'key' => env('MAILJET_APIKEY'),
-    'secret' => env('MAILJET_APISECRET'),
-    'transactional' => [
-        'call' => true,
-        'options' => [
-            'url' => 'api.mailjet.com',
-            'version' => 'v3.1',
-            'call' => true,
-            'secured' => true
-        ]
-    ],
-    'common' => [
-        'call' => true,
-        'options' => [
-            'url' => 'api.mailjet.com',
-            'version' => 'v3',
-            'call' => true,
-            'secured' => true
-        ]
-    ],
-    'v4' => [
-        'call' => true,
-        'options' => [
-            'url' => 'api.mailjet.com',
-            'version' => 'v4',
-            'call' => true,
-            'secured' => true
-        ]
-    ],
-]
-```
-You can pass settings to [MailjetClient](https://github.com/mailjet/mailjet-apiv3-php#new--version-120-of-the-php-wrapper-).
-
-* `transactional`: settings to sendAPI client
-* `common`: setting to MailjetClient accessible throught the Facade Mailjet
-* `v4`: setting used for some DataProvider`s
+For details head to [configuration doc](docs/configuration.md).
 
 ## Mail driver configuration
 
