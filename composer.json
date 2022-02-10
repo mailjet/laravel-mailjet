@@ -26,7 +26,7 @@
         "php": "^7.1.3|^8.0",
         "laravel/framework": "~5.1|^6.0|^7.0|^8.0|^9.0",
         "mailjet/mailjet-apiv3-php": "^1.2",
-        "mailjet/mailjet-swiftmailer": "^2.0"
+        "symfony/mailjet-mailer": "^6.0"
     },
     "require-dev": {
         "fakerphp/faker": "~1",
@@ -47,8 +47,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Mailjet\\LaravelMailjet\\MailjetServiceProvider",
-                "Mailjet\\LaravelMailjet\\MailjetMailServiceProvider"
+                "Mailjet\\LaravelMailjet\\MailjetServiceProvider"
             ],
             "aliases": {
                 "Mailjet": "Mailjet\\LaravelMailjet\\Facades\\Mailjet"
