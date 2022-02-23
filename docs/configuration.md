@@ -21,7 +21,16 @@
             'call' => true,
             'secured' => true
         ]
-    ]
+    ],
+    'v4' => [
+        'call' => true,
+        'options' => [
+            'url' => 'api.mailjet.com',
+            'version' => 'v4',
+            'call' => true,
+            'secured' => true
+        ]
+    ],
 ]
 ```
 You can pass settings to [MailjetClient](https://github.com/mailjet/mailjet-apiv3-php).
@@ -32,7 +41,7 @@ You can pass settings to [MailjetClient](https://github.com/mailjet/mailjet-apiv
 * `version` (Default: `v3`): Mailjet API version (only working for Mailjet API v3)
 * `call` (Default: `true`): Toggle if the API call is actually performed or mocked
 * `secured` (Default: `true`): Toggle the usage of 'https'
-
+* `v4`: setting used for some DataProvider`s
 
 ## Mail driver configuration
 
