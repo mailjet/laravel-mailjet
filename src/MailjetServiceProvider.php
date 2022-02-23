@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Mailjet\LaravelMailjet;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\ServiceProvider;
 use Mailjet\LaravelMailjet\Services\MailjetService;
+use Symfony\Component\Mailer\Bridge\Mailjet\Transport\MailjetTransportFactory;
+use Symfony\Component\Mailer\Transport\Dsn;
 
 class MailjetServiceProvider extends ServiceProvider
 {
@@ -16,6 +19,16 @@ class MailjetServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Mail::extend('mailjet', function () {
+            return (new MailjetTransportFactory)->create(
+                new Dsn(
+                    'mailjet+api',
+                    'default',
+                    config('services.mailjet.key'),
+                    config('services.mailjet.secret')
+                )
+            );
+        });
     }
 
     /**
