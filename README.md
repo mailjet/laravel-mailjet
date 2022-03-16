@@ -25,7 +25,6 @@ Please also set your email from address and name.
 'providers' => [
     ...
     Mailjet\LaravelMailjet\MailjetServiceProvider::class,
-    Mailjet\LaravelMailjet\MailjetMailServiceProvider::class,
     ...
 ]
 ```
