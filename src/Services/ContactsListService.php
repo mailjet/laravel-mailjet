@@ -165,7 +165,7 @@ class ContactsListService implements ContactsListContract
         $oldContactData = $response->getData();
 
         if (isset($oldContactData[0])) {
-            $contact->setProperties($oldContactData[0]['Data']);
+            $contact->setOptionalProperties($oldContactData[0]['Data']);
         }
 
         $contact->setAction(Contact::ACTION_ADDFORCE);
