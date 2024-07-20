@@ -29,6 +29,17 @@ Please also set your email from address and name.
 ]
 ```
 
+## Laravel 11.0+
+In the file  `example-app/bootstrap/providers.php`
+```php
+use Mailjet\LaravelMailjet\MailjetServiceProvider;
+
+return [
+    App\Providers\AppServiceProvider::class,
+    MailjetServiceProvider::class,
+];
+````
+
 * In the aliases array:
 
 ```php
@@ -128,7 +139,3 @@ public function handle(ContactsV4Service $contactsV4Service)
     ...
 }
 ```
-
-## ToDo
-
-* Add additional unit tests to increase code coverage.
