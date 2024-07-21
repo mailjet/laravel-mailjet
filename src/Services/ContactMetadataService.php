@@ -26,9 +26,8 @@ class ContactMetadataService implements ContactMetadataContract
 
     /**
      * Retrieve all ContactMetadata.
-     *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function getAll(): array
     {
@@ -43,11 +42,9 @@ class ContactMetadataService implements ContactMetadataContract
 
     /**
      * Retrieve one ContactMetadata.
-     *
      * @param string $id
-     *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function get(string $id): array
     {
@@ -62,10 +59,9 @@ class ContactMetadataService implements ContactMetadataContract
 
     /**
      * create a new fresh ContactMetadata
-     *
      * @param ContactMetadata $metadata
-     *
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @return array
+     * @throws MailjetException
      */
     public function create(ContactMetadata $metadata): array
     {
@@ -80,11 +76,10 @@ class ContactMetadataService implements ContactMetadataContract
 
     /**
      * Update one ContactMetadata
-     *
-     * @param string          $id
+     * @param string $id
      * @param ContactMetadata $metadata
-     *
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @return array
+     * @throws MailjetException
      */
     public function update(string $id, ContactMetadata $metadata): array
     {
@@ -99,10 +94,9 @@ class ContactMetadataService implements ContactMetadataContract
 
     /**
      * Delete one ContactMetadata
-     *
      * @param string $id
-     *
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @return array
+     * @throws MailjetException
      */
     public function delete(string $id): array
     {

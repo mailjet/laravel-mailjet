@@ -13,24 +13,28 @@ use Mailjet\LaravelMailjet\Contracts\MailjetServiceContract;
 class MailjetService implements MailjetServiceContract
 {
     /**
-     * @var \Mailjet\Client
+     * @var Client
      */
     private $client;
 
-    public function __construct(string $key, string $secret, $call = true, array $settings = [])
+    /**
+     * @param string $key
+     * @param string $secret
+     * @param bool $call
+     * @param array $settings
+     */
+    public function __construct(string $key, string $secret, bool $call = true, array $settings = [])
     {
         $this->client = new Client($key, $secret, $call, $settings);
     }
 
     /**
      * Trigger a POST request.
-     *
      * @param array $resource Mailjet Resource/Action pair
      * @param array $args     Request arguments
      * @param array $options
-     *
      * @return Response
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function post(array $resource, array $args = [], array $options = []): Response
     {
@@ -51,7 +55,7 @@ class MailjetService implements MailjetServiceContract
      * @param array $options
      *
      * @return Response
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function get(array $resource, array $args = [], array $options = []): Response
     {
@@ -72,7 +76,7 @@ class MailjetService implements MailjetServiceContract
      * @param array $options
      *
      * @return Response
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function put(array $resource, array $args = [], array $options = []): Response
     {
@@ -93,7 +97,7 @@ class MailjetService implements MailjetServiceContract
      * @param array $options
      *
      * @return Response
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function delete(array $resource, array $args = [], array $options = []): Response
     {
@@ -109,13 +113,11 @@ class MailjetService implements MailjetServiceContract
     /**
      * Get all list on your Mailjet account.
      * TODO: Exclude HIGH Level API methods into managers.
-     *
-     * @param array $filters Filters that will be use to filter the request
-     *
-     * @return \Mailjet\Response
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @param array|null $filters Filters that will be use to filter the request
+     * @return Response
+     * @throws MailjetException
      */
-    public function getAllLists(array $filters = null): Response
+    public function getAllLists(?array $filters = null): Response
     {
         $response = $this->client->get(Resources::$Contactslist, ['filters' => $filters]);
 
@@ -128,11 +130,9 @@ class MailjetService implements MailjetServiceContract
 
     /**
      * Create a new list.
-     *
      * @param array $body Information list - the 'Name' field is mandatory.
-     *
-     * @return \Mailjet\Response
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @return Response
+     * @throws MailjetException
      */
     public function createList(array $body): Response
     {
@@ -147,13 +147,11 @@ class MailjetService implements MailjetServiceContract
 
     /**
      * Get all list recipient on your Mailjet account.
-     *
-     * @param array $filters Filters that will be use to filter the request.
-     *
-     * @return \Mailjet\Response
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @param array|null $filters Filters that will be use to filter the request.
+     * @return Response
+     * @throws MailjetException
      */
-    public function getListRecipients(array $filters = null): Response
+    public function getListRecipients(?array $filters = null): Response
     {
         $response = $this->client->get(Resources::$Listrecipient, ['filters' => $filters]);
 
@@ -166,11 +164,9 @@ class MailjetService implements MailjetServiceContract
 
     /**
      * Get single contact information.
-     *
      * @param string $id
-     *
-     * @return \Mailjet\Response
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @return Response
+     * @throws MailjetException
      */
     public function getSingleContact(string $id): Response
     {
@@ -188,14 +184,14 @@ class MailjetService implements MailjetServiceContract
      *
      * @param array $body Information list - the 'Email' field is mandatory.
      *
-     * @return \Mailjet\Response
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @return Response
+     * @throws MailjetException
      */
     public function createContact(array $body): Response
     {
         $response = $this->client->post(Resources::$Contact, ['body' => $body]);
 
-        if (! $response->success()) {
+        if (!$response->success()) {
             throw new MailjetException(0, 'MailjetService:createContact() failed', $response);
         }
 
@@ -207,8 +203,8 @@ class MailjetService implements MailjetServiceContract
      *
      * @param array $body Information list - the 'ContactID' and 'ListID' parameters are mandatory.
      *
-     * @return \Mailjet\Response
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @return Response
+     * @throws MailjetException
      */
     public function createListRecipient(array $body): Response
     {
@@ -227,8 +223,8 @@ class MailjetService implements MailjetServiceContract
      * @param string $id
      * @param array  $body Information list - the 'ContactID' and 'ListID' parameters are mandatory.
      *
-     * @return \Mailjet\Response
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @return Response
+     * @throws MailjetException
      */
     public function editListRecipient(string $id, array $body): Response
     {
@@ -243,8 +239,7 @@ class MailjetService implements MailjetServiceContract
 
     /**
      * Retrieve Mailjet client.
-     *
-     * @return \Mailjet\Client
+     * @return Client
      */
     public function getClient(): Client
     {

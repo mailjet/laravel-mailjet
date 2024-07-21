@@ -29,8 +29,9 @@ class ContactsV4Service implements ContactsV4Contract
      * Delete a Contact
      * @param int $id
      * @return bool
+     * @throws MailjetException
      */
-    public function delete($id)
+    public function delete(int $id): bool
     {
         $response = $this->mailjet->delete(['contacts', ''], ['id' => $id]);
 

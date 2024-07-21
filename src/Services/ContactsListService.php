@@ -33,15 +33,13 @@ class ContactsListService implements ContactsListContract
 
     /**
      * Create a new fresh Contact to listId.
-     *
      * @param string  $id
      * @param Contact $contact
-     * @param string  $action
-     *
+     * @param string $action
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
-    public function create(string $id, Contact $contact, $action = Contact::ACTION_ADDFORCE): array
+    public function create(string $id, Contact $contact, string $action = Contact::ACTION_ADDFORCE): array
     {
         $contact->setAction($action);
 
@@ -56,15 +54,13 @@ class ContactsListService implements ContactsListContract
 
     /**
      * Update a Contact to listId.
-     *
      * @param string  $id
      * @param Contact $contact
-     * @param string  $action
-     *
+     * @param string $action
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
-    public function update(string $id, Contact $contact, $action = Contact::ACTION_ADDNOFORCE): array
+    public function update(string $id, Contact $contact, string $action = Contact::ACTION_ADDNOFORCE): array
     {
         $contact->setAction($action);
 
@@ -85,7 +81,7 @@ class ContactsListService implements ContactsListContract
      * @param bool    $force
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function subscribe(string $id, Contact $contact, bool $force = true): array
     {
@@ -107,7 +103,7 @@ class ContactsListService implements ContactsListContract
      * @param Contact $contact
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function unsubscribe(string $id, Contact $contact): array
     {
@@ -129,7 +125,7 @@ class ContactsListService implements ContactsListContract
      * @param Contact $contact
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function delete(string $id, Contact $contact): array
     {
@@ -152,7 +148,7 @@ class ContactsListService implements ContactsListContract
      * @param string  $oldEmail
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function updateEmail(string $id, Contact $contact, string $oldEmail): array
     {
@@ -193,7 +189,7 @@ class ContactsListService implements ContactsListContract
      * @param ContactsList $list
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function uploadManyContactsList(ContactsList $list): array
     {
@@ -226,11 +222,10 @@ class ContactsListService implements ContactsListContract
      * or updates the entry with these values.
      * On success, the API returns a packet with the same format
      * but with all properties available for that contact.
-     *
-     * @param string  $id
+     * @param string $id
      * @param Contact $contact
-     *
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @return Response
+     * @throws MailjetException
      */
     private function _exec(string $id, Contact $contact): Response
     {
