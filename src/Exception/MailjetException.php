@@ -26,14 +26,15 @@ class MailjetException extends \Exception
 
     /**
      * https://dev.mailjet.com/guides/#about-the-mailjet-restful-api
-     *
-     * @param Response  $response
-     * @param \Throwable $previous
+     * @param int $statusCode
+     * @param null $message
+     * @param Response|null $response
+     * @param Throwable|null $previous
      */
-    public function __construct($statusCode = 0, $message = null, Response $response = null, Throwable $previous = null)
+    public function __construct(int $statusCode = 0, $message = null, Response $response = null, Throwable $previous = null)
     {
         if ($response) {
-            $statusCode = $response->getStatus();
+            $statusCode = $response->getStatus() ?? 0;
             $message = "{$message}: {$response->getReasonPhrase()}";
 
             $this->setErrorFromResponse($response);

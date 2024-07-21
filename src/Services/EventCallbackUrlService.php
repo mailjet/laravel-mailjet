@@ -26,9 +26,8 @@ class EventCallbackUrlService implements EventCallbackUrlContract
 
     /**
      * Retrieve all EventCallbackUrl.
-     *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function getAll(): array
     {
@@ -43,11 +42,9 @@ class EventCallbackUrlService implements EventCallbackUrlContract
 
     /**
      * Retrieve one EventCallbackUrl.
-     *
      * @param string $id
-     *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function get(string $id): array
     {
@@ -66,7 +63,7 @@ class EventCallbackUrlService implements EventCallbackUrlContract
      * @param EventCallbackUrl $url
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function create(EventCallbackUrl $url): array
     {
@@ -86,7 +83,7 @@ class EventCallbackUrlService implements EventCallbackUrlContract
      * @param EventCallbackUrl $url
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function update(string $id, EventCallbackUrl $url): array
     {
@@ -105,7 +102,7 @@ class EventCallbackUrlService implements EventCallbackUrlContract
      * @param string $id
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function delete(string $id): array
     {

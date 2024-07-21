@@ -26,9 +26,9 @@ class CampaignService implements CampaignContract
 
     /**
      * List campaigns resources available for this apikey
-     *
+     * @param array|null $filters
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function getAllCampaigns(array $filters = null): array
     {
@@ -43,11 +43,9 @@ class CampaignService implements CampaignContract
 
     /**
      * Access a given campaign resource.
-     *
      * @param string $id
-     *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function findByCampaignId(string $id): array
     {
@@ -66,7 +64,7 @@ class CampaignService implements CampaignContract
      * @param string $id
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function findByNewsletterId(string $id): array
     {
@@ -81,11 +79,10 @@ class CampaignService implements CampaignContract
 
     /**
      * Update one specific campaign resource with a PUT request.
-     *
      * @param string $id
-     *
+     * @param Campaign $campaign
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function updateCampaign(string $id, Campaign $campaign): array
     {

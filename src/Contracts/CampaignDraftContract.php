@@ -8,29 +8,86 @@ use Mailjet\LaravelMailjet\Model\CampaignDraft;
 
 interface CampaignDraftContract
 {
-    public function getAllCampaignDrafts(array $filters = null);
+    /**
+     * @param array|null $filters
+     * @return array
+     */
+    public function getAllCampaignDrafts(array $filters = null): array;
 
-    public function findByCampaignDraftId(string $id);
+    /**
+     * @param string $id
+     * @return array
+     */
+    public function findByCampaignDraftId(string $id): array;
 
-    public function create(CampaignDraft $campaignDraft);
+    /**
+     * @param CampaignDraft $campaignDraft
+     * @return array
+     */
+    public function create(CampaignDraft $campaignDraft): array;
 
-    public function update(string $id, CampaignDraft $campaignDraft);
+    /**
+     * @param string $id
+     * @param CampaignDraft $campaignDraft
+     * @return array
+     */
+    public function update(string $id, CampaignDraft $campaignDraft): array;
 
-    public function getDetailContent(string $id);
+    /**
+     * @param string $id
+     * @return array
+     */
+    public function getDetailContent(string $id): array;
 
-    public function createDetailContent(string $id, array $content);
+    /**
+     * @param string $id
+     * @param array $content
+     * @return array
+     */
+    public function createDetailContent(string $id, array $content): array;
 
-    public function getSchedule(string $id);
+    /**
+     * @param string $id
+     * @return array
+     */
+    public function getSchedule(string $id): array;
 
-    public function scheduleCampaign(string $id, string $date);
+    /**
+     * @param string $id
+     * @param string $date
+     * @return array
+     */
+    public function scheduleCampaign(string $id, string $date): array;
 
-    public function updateCampaignSchedule(string $id, string $date);
+    /**
+     * @param string $id
+     * @param string $date
+     * @return array
+     */
+    public function updateCampaignSchedule(string $id, string $date): array;
 
-    public function removeSchedule(string $id);
+    /**
+     * @param string $id
+     * @return array
+     */
+    public function removeSchedule(string $id): array;
 
-    public function sendCampaign(string $id);
+    /**
+     * @param string $id
+     * @return array
+     */
+    public function sendCampaign(string $id): array;
 
-    public function testCampaign(string $id, array $recipients);
+    /**
+     * @param string $id
+     * @param array $recipients
+     * @return array
+     */
+    public function testCampaign(string $id, array $recipients): array;
 
-    public function getCampaignStatus(string $id);
+    /**
+     * @param string $id
+     * @return array
+     */
+    public function getCampaignStatus(string $id): array;
 }

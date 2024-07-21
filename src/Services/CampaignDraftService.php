@@ -27,9 +27,9 @@ class CampaignDraftService implements CampaignDraftContract
 
     /**
      * List campaign draft resources available for this apikey.
-     *
+     * @param array|null $filters
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function getAllCampaignDrafts(array $filters = null): array
     {
@@ -44,12 +44,11 @@ class CampaignDraftService implements CampaignDraftContract
 
     /**
      * Access a given CampaignDraft resource.
-     *
      * @param string $id
-     *
      * @return array
+     * @throws MailjetException
      */
-    public function findByCampaignDraftId(string $id)
+    public function findByCampaignDraftId(string $id): array
     {
         $response = $this->mailjet->get(Resources::$Campaigndraft,
             ['id' => $id]);
@@ -63,10 +62,10 @@ class CampaignDraftService implements CampaignDraftContract
 
     /**
      * create a new fresh CampaignDraft
-     *
      * @param Campaigndraft $campaignDraft
+     * @throws MailjetException
      */
-    public function create(CampaignDraft $campaignDraft)
+    public function create(CampaignDraft $campaignDraft): array
     {
         $response = $this->mailjet->post(Resources::$Campaigndraft,
             ['body' => $campaignDraft->format()]);
@@ -79,11 +78,12 @@ class CampaignDraftService implements CampaignDraftContract
 
     /**
      * Update one specific campaigndraft resource
-     *
-     * @param int           $id
+     * @param string $id
      * @param Campaigndraft $campaignDraft
+     * @return array
+     * @throws MailjetException
      */
-    public function update($id, CampaignDraft $campaignDraft)
+    public function update(string $id, CampaignDraft $campaignDraft): array
     {
         $response = $this->mailjet->put(Resources::$Campaigndraft,
             ['id' => $id, 'body' => $campaignDraft->format()]);
@@ -96,12 +96,11 @@ class CampaignDraftService implements CampaignDraftContract
 
     /**
      * Return the text and html contents of the campaigndraft
-     *
      * @param string $id
-     *
      * @return array
+     * @throws MailjetException
      */
-    public function getDetailContent(string $id)
+    public function getDetailContent(string $id): array
     {
         $response = $this->mailjet->get(Resources::$CampaigndraftDetailcontent,
             ['id' => $id]);
@@ -115,12 +114,12 @@ class CampaignDraftService implements CampaignDraftContract
 
     /**
      * Creates the content of a  campaigndraft
-     *
      * @param string $id
-     *
+     * @param array $contentData
      * @return array
+     * @throws MailjetException
      */
-    public function createDetailContent($id, $contentData)
+    public function createDetailContent(string $id, array $contentData): array
     {
         $response = $this->mailjet->post(Resources::$CampaigndraftDetailcontent,
             ['id' => $id, 'body' => $contentData]);
@@ -134,12 +133,11 @@ class CampaignDraftService implements CampaignDraftContract
 
     /**
      * Return the date of the scheduled sending of the campaigndraft
-     *
-     * @param string Campaign $id
-     *
+     * @param string $id
      * @return array
+     * @throws MailjetException
      */
-    public function getSchedule(string $id)
+    public function getSchedule(string $id): array
     {
         $response = $this->mailjet->get(Resources::$CampaigndraftSchedule,
             ['id' => $id]);
@@ -153,13 +151,12 @@ class CampaignDraftService implements CampaignDraftContract
 
     /**
      * Schedule when the campaigndraft will be sent
-     *
      * @param string $id
      * @param string $date (RFC3339 format "Y-m-d\TH:i:sP")
-     *
      * @return array
+     * @throws MailjetException
      */
-    public function scheduleCampaign(string $id, string $date)
+    public function scheduleCampaign(string $id, string $date): array
     {
         $response = $this->mailjet->post(Resources::$CampaigndraftSchedule,
             ['id' => $id, 'body' => $date]);
@@ -173,13 +170,12 @@ class CampaignDraftService implements CampaignDraftContract
 
     /**
      * Update the date when the campaigndraft will be sent
-     *
-     * @param string Campaign $id
-     * @param string Schedule $date
-     *
+     * @param string $id
+     * @param string $date
      * @return array
+     * @throws MailjetException
      */
-    public function updateCampaignSchedule($id, $date)
+    public function updateCampaignSchedule(string $id, string $date): array
     {
         $response = $this->mailjet->put(Resources::$CampaigndraftSchedule,
             ['id' => $id, 'body' => $date]);
@@ -193,12 +189,11 @@ class CampaignDraftService implements CampaignDraftContract
 
     /**
      * Cancel a future sending
-     *
-     * @param string Campaign $id
-     *
+     * @param string $id
      * @return array
+     * @throws MailjetException
      */
-    public function removeSchedule(string $id)
+    public function removeSchedule(string $id): array
     {
         $response = $this->mailjet->delete(Resources::$CampaigndraftSchedule,
             ['id' => $id]);
@@ -212,12 +207,11 @@ class CampaignDraftService implements CampaignDraftContract
 
     /**
      * Send the campaign immediately
-     *
-     * @param string Campaign $id
-     *
+     * @param string $id
      * @return array
+     * @throws MailjetException
      */
-    public function sendCampaign(string $id)
+    public function sendCampaign(string $id): array
     {
         $response = $this->mailjet->post(Resources::$CampaigndraftSend,
             ['id' => $id]);
@@ -231,12 +225,11 @@ class CampaignDraftService implements CampaignDraftContract
 
     /**
      * Return the status of a CampaignDraft
-     *
-     * @param string Campaign $id
-     *
+     * @param string $id
      * @return array
+     * @throws MailjetException
      */
-    public function getCampaignStatus(string $id)
+    public function getCampaignStatus(string $id): array
     {
         $response = $this->mailjet->get(Resources::$CampaigndraftStatus,
             ['id' => $id]);
@@ -250,13 +243,12 @@ class CampaignDraftService implements CampaignDraftContract
 
     /**
      * An action to test a CampaignDraft.
-     *
-     * @param string Campaign $id
-     * @param array of  $recipients
-     *
+     * @param string $id
+     * @param array $recipients
      * @return array
+     * @throws MailjetException
      */
-    public function testCampaign($id, $recipients)
+    public function testCampaign(string $id, array $recipients): array
     {
         $response = $this->mailjet->post(Resources::$CampaigndraftTest,
             ['id' => $id, 'body' => $recipients]);
@@ -268,7 +260,12 @@ class CampaignDraftService implements CampaignDraftContract
         return $response->getData();
     }
 
-    private function throwError($title, Response $response)
+    /**
+     * @param $title
+     * @param Response $response
+     * @throws MailjetException
+     */
+    private function throwError($title, Response $response): void
     {
         throw new MailjetException(0, $title, $response);
     }

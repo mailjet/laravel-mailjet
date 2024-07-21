@@ -8,11 +8,28 @@ use Mailjet\LaravelMailjet\Model\Campaign;
 
 interface CampaignContract
 {
-    public function getAllCampaigns(array $filters = null);
+    /**
+     * @param array|null $filters
+     * @return array
+     */
+    public function getAllCampaigns(array $filters = null): array;
 
-    public function findByCampaignId(string $id);
+    /**
+     * @param string $id
+     * @return array
+     */
+    public function findByCampaignId(string $id): array;
 
-    public function findByNewsletterId(string $id);
+    /**
+     * @param string $id
+     * @return array
+     */
+    public function findByNewsletterId(string $id): array;
 
-    public function updateCampaign(string $id, Campaign $campaign);
+    /**
+     * @param string $id
+     * @param Campaign $campaign
+     * @return array
+     */
+    public function updateCampaign(string $id, Campaign $campaign): array;
 }

@@ -19,6 +19,9 @@ class TemplateService implements TemplateServiceContract
      */
     protected $mailjet;
 
+    /**
+     * @param MailjetService $mailjet
+     */
     public function __construct(MailjetService $mailjet)
     {
         $this->mailjet = $mailjet;
@@ -27,11 +30,9 @@ class TemplateService implements TemplateServiceContract
     /**
      * List template resources available for this apikey, use a GET request.
      * Alternatively, you may want to add one or more filters.
-     *
      * @param array|null $filters
-     *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function getAll(array $filters = null): array
     {
@@ -50,7 +51,7 @@ class TemplateService implements TemplateServiceContract
      * @param string $id
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function get(string $id): array
     {
@@ -69,7 +70,7 @@ class TemplateService implements TemplateServiceContract
      * @param Template $template
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function create(Template $template): array
     {
@@ -89,7 +90,7 @@ class TemplateService implements TemplateServiceContract
      * @param Template $template
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function update(string $id, Template $template): array
     {
@@ -108,7 +109,7 @@ class TemplateService implements TemplateServiceContract
      * @param string $id
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function delete(string $id): array
     {
@@ -127,7 +128,7 @@ class TemplateService implements TemplateServiceContract
      * @param string $id
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function getDetailContent(string $id): array
     {
@@ -147,7 +148,7 @@ class TemplateService implements TemplateServiceContract
      * @param array  $content
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function createDetailContent(string $id, array $content): array
     {
@@ -166,7 +167,7 @@ class TemplateService implements TemplateServiceContract
      * @param string $id
      *
      * @return array
-     * @throws \Mailjet\LaravelMailjet\Exception\MailjetException
+     * @throws MailjetException
      */
     public function deleteDetailContent(string $id): array
     {

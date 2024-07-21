@@ -9,5 +9,9 @@ namespace Mailjet\LaravelMailjet\Contracts;
 
 interface ContactsV4Contract
 {
-    public function delete($id);
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool;
 }
