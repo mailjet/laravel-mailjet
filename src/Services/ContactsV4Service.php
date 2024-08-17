@@ -15,7 +15,7 @@ class ContactsV4Service implements ContactsV4Contract
      * Mailjet client
      * @var MailjetService
      */
-    protected $mailjet;
+    protected MailjetService $mailjet;
 
     /**
      * @param MailjetService $mailjet

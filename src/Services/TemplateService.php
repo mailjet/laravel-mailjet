@@ -17,7 +17,7 @@ class TemplateService implements TemplateServiceContract
     /**
      * @var MailjetService
      */
-    protected $mailjet;
+    protected MailjetService $mailjet;
 
     /**
      * @param MailjetService $mailjet

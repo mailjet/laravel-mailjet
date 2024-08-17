@@ -14,18 +14,22 @@ class Template extends Model
     /**
      * @var string
      */
-    protected $name;
+    protected string $name;
 
     /**
      * @var array|null
      */
-    protected $content;
+    protected ?array $content;
 
     /**
      * @var string|null
      */
-    protected $id;
+    protected ?string $id;
 
+    /**
+     * @param string $name
+     * @param array $optionalProperties
+     */
     public function __construct(string $name, array $optionalProperties = [])
     {
         $this->name = $name;

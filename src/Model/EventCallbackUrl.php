@@ -25,51 +25,61 @@ class EventCallbackUrl implements Requestable
     /**
      * @var string|null
      */
-    protected $apiKeyId;
+    protected ?string $apiKeyId;
 
     /**
      * @var string
      */
-    protected $url;
+    protected string $url;
 
     /**
      * @var string
      */
-    protected $type;
+    protected string $type;
 
     /**
      * @var string
      */
-    protected $status;
+    protected string $status;
 
     /**
      * @var bool
      */
-    protected $isBackup;
+    protected bool $isBackup;
 
     /**
      * @var int
      */
-    protected $version;
+    protected int $version;
 
     /**
      * @var bool
      */
-    protected $groupEvent;
+    protected bool $groupEvent;
 
-    public function __construct($url,
-                                $type = self::EVENT_TYPE_OPEN,
-                                $groupEvent = false,
-                                $isBackup = false,
-                                $status = self::EVENT_STATUS_ALIVE,
-                                $version = 1,
-                                $apiKeyId = null
+    /**
+     * @param string $url
+     * @param string $type
+     * @param bool $groupEvent
+     * @param bool $isBackup
+     * @param string $status
+     * @param int $version
+     * @param $apiKeyId
+     */
+    public function __construct(
+        string $url,
+        string $type = self::EVENT_TYPE_OPEN,
+        bool $groupEvent = false,
+        bool $isBackup = false,
+        string $status = self::EVENT_STATUS_ALIVE,
+        int $version = 1,
+        $apiKeyId = null
     ) {
-        if (! $this->validateType($type)) {
+        if (!$this->validateType($type)) {
             throw new RuntimeException("$type: is not a valid event type.");
         }
 
-        if (! $this->validateStatus($status)) {
+        if (!$this->validateStatus($status)) {
             throw new RuntimeException("$status: is not a valid event status.");
         }
 

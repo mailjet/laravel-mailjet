@@ -16,7 +16,7 @@ class EventCallbackUrlServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected $defer = true;
+    protected bool $defer = true;
 
     /**
      * Bootstrap the application services.

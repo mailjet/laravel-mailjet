@@ -9,14 +9,19 @@ use Mailjet\LaravelMailjet\Services\MailjetService;
 
 class ContactsServiceProvider extends ServiceProvider
 {
-    protected $defer = true;
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected bool $defer = true;
 
     /**
      * Bootstrap the application services.
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
 
     }

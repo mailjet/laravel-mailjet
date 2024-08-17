@@ -18,45 +18,54 @@ class CampaignDraft extends Model
     /**
      * @var string
      */
-    protected $locale;
+    protected string $locale;
 
     /**
      * @var string
      */
-    protected $sender;
+    protected string $sender;
 
     /**
      * @var string
      */
-    protected $senderEmail;
+    protected string $senderEmail;
 
     /**
      * @var string
      */
-    protected $subject;
+    protected string $subject;
 
     /**
      * @var string
      */
-    protected $contactsListId;
+    protected string $contactsListId;
 
     /**
      * @var array|null
      */
-    protected $content;
+    protected ?array $content;
 
     /**
      * @var string|null
      */
-    protected $id;
+    protected ?string $id;
 
-    public function __construct(string $locale,
-                                string $sender,
-                                string $senderEmail,
-                                string $subject,
-                                string $contactsListId,
-                                array $optionalProperties = [])
-    {
+    /**
+     * @param string $locale
+     * @param string $sender
+     * @param string $senderEmail
+     * @param string $subject
+     * @param string $contactsListId
+     * @param array $optionalProperties
+     */
+    public function __construct(
+        string $locale,
+        string $sender,
+        string $senderEmail,
+        string $subject,
+        string $contactsListId,
+        array  $optionalProperties = []
+    ) {
         $this->locale = $locale;
         $this->sender = $sender;
         $this->senderEmail = $senderEmail;
