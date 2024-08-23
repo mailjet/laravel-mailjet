@@ -14,7 +14,7 @@ class Campaign extends Model
     /**
      * @var string
      */
-    protected $fromEmail;
+    protected string $fromEmail;
 
     /**
      * @param string $fromEmail

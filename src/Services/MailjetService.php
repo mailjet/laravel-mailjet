@@ -15,7 +15,7 @@ class MailjetService implements MailjetServiceContract
     /**
      * @var Client
      */
-    private $client;
+    private Client $client;
 
     /**
      * @param string $key

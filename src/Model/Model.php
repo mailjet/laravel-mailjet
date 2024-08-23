@@ -9,7 +9,7 @@ abstract class Model implements Requestable
     /**
      * @var array
      */
-    protected $optionalProperties;
+    protected array $optionalProperties;
 
     /**
      * Format MailJet API request.

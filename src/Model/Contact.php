@@ -24,17 +24,17 @@ class Contact extends Model
     /**
      * @var string
      */
-    protected $email;
+    protected string $email;
 
     /**
      * @var string|null
      */
-    protected $name;
+    protected ?string $name;
 
     /**
      * @var string|null
      */
-    protected $action;
+    protected ?string $action;
 
     public function __construct(string $email, array $optionalProperties = [])
     {
@@ -63,6 +63,7 @@ class Contact extends Model
 
     /**
      * Correspond to Email in Mailjet request.
+     * @return string
      */
     public function getEmail(): string
     {
@@ -76,7 +77,7 @@ class Contact extends Model
      *
      * @return Contact
      */
-    public function setEmail($email): Contact
+    public function setEmail(string $email): Contact
     {
         $this->email = $email;
 
@@ -85,6 +86,7 @@ class Contact extends Model
 
     /**
      * Correspond to Name in MailJet request.
+     * @return string|null
      */
     public function getName(): ?string
     {
@@ -122,7 +124,7 @@ class Contact extends Model
      *
      * @return Contact
      */
-    public function setAction($action): Contact
+    public function setAction(string $action): Contact
     {
         if (! $this->validateAction($action)) {
             throw new RuntimeException("$action: is not a valid Action.");

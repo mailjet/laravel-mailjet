@@ -17,7 +17,7 @@ class EventCallbackUrlService implements EventCallbackUrlContract
     /**
      * @var MailjetService
      */
-    protected $mailjet;
+    protected MailjetService $mailjet;
     
     public function __construct(MailjetService $mailjet)
     {

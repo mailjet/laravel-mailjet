@@ -20,12 +20,12 @@ class ContactMetadata implements Requestable
     /**
      * @var string
      */
-    protected $name;
+    protected string $name;
 
     /**
      * @var string
      */
-    protected $datatype;
+    protected string $datatype;
 
     public function __construct(string $name, string $datatype)
     {

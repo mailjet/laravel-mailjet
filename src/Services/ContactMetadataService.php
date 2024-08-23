@@ -17,7 +17,7 @@ class ContactMetadataService implements ContactMetadataContract
     /**
      * @var MailjetService
      */
-    protected $mailjet;
+    protected MailjetService $mailjet;
 
     public function __construct(MailjetService $mailjet)
     {

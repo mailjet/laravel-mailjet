@@ -19,18 +19,23 @@ class ContactsList extends Model
     /**
      * @var string
      */
-    protected $listId;
+    protected string $listId;
 
     /**
      * @var string
      */
-    protected $action;
+    protected string $action;
 
     /**
      * @var array
      */
-    protected $contacts;
+    protected array $contacts;
 
+    /**
+     * @param string $listId
+     * @param string $action
+     * @param array $contacts
+     */
     public function __construct(string $listId, string $action, array $contacts)
     {
         if (! $this->validateAction($action)) {
@@ -62,6 +67,7 @@ class ContactsList extends Model
 
     /**
      * Get list id
+     * @return string
      */
     public function getListId(): string
     {
@@ -70,6 +76,7 @@ class ContactsList extends Model
 
     /**
      * Get action.
+     * @return string
      */
     public function getAction(): string
     {
@@ -78,10 +85,10 @@ class ContactsList extends Model
 
     /**
      * Set action.
-     *
      * @param string $action
+     * @return ContactsList
      */
-    public function setAction($action): ContactsList
+    public function setAction(string $action): ContactsList
     {
         if (! $this->validateAction($action)) {
             throw new RuntimeException("$action: is not a valid Action.");
@@ -94,6 +101,7 @@ class ContactsList extends Model
 
     /**
      * Get contacts.
+     * @return array
      */
     public function getContacts(): array
     {
@@ -107,7 +115,7 @@ class ContactsList extends Model
      *
      * @return bool
      */
-    protected function validateAction($action): bool
+    protected function validateAction(string $action): bool
     {
         $actionsAvailable = [self::ACTION_ADDFORCE, self::ACTION_ADDNOFORCE, self::ACTION_REMOVE, self::ACTION_UNSUB];
 

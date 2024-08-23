@@ -6,6 +6,7 @@ namespace Mailjet\LaravelMailjet;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\ServiceProvider;
+use InvalidArgumentException;
 use Mailjet\LaravelMailjet\Services\MailjetService;
 use Symfony\Component\Mailer\Bridge\Mailjet\Transport\MailjetTransportFactory;
 use Symfony\Component\Mailer\Transport\Dsn;
@@ -42,6 +43,10 @@ class MailjetServiceProvider extends ServiceProvider
             $config = $this->app['config']->get('services.mailjet', []);
             $call = $this->app['config']->get('services.mailjet.common.call', true);
             $options = $this->app['config']->get('services.mailjet.common.options', []);
+
+            if (!isset($config['key'], $config['secret'])) {
+                throw new InvalidArgumentException('The Mailjet service is not configured.');
+            }
 
             return new MailjetService($config['key'], $config['secret'], $call, $options);
         });

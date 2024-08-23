@@ -12,17 +12,17 @@ class MailjetException extends \Exception
     /**
      * @var string
      */
-    private $errorInfo;
+    private string $errorInfo;
 
     /**
      * @var string
      */
-    private $errorMessage;
+    private string $errorMessage;
 
     /**
      * @var string
      */
-    private $errorIdentifier;
+    private string $errorIdentifier;
 
     /**
      * https://dev.mailjet.com/guides/#about-the-mailjet-restful-api

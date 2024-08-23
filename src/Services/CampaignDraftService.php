@@ -18,7 +18,7 @@ class CampaignDraftService implements CampaignDraftContract
     /**
      * @var MailjetService
      */
-    protected $mailjet;
+    protected MailjetService $mailjet;
 
     public function __construct(MailjetService $mailjet)
     {
@@ -63,6 +63,7 @@ class CampaignDraftService implements CampaignDraftContract
     /**
      * create a new fresh CampaignDraft
      * @param Campaigndraft $campaignDraft
+     * @return array
      * @throws MailjetException
      */
     public function create(CampaignDraft $campaignDraft): array
