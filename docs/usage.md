@@ -224,7 +224,7 @@ php artisan make:mail InvoicePaid
 ```
 Then define mailjet `X-MJ-` or `X-Mailjet-` properties inside the `headers` method, these headers will be add to the message body before sending.
 
-### Code Example
+### InvoicePaid class
 ```php
 <?php
 
@@ -237,9 +237,6 @@ use Illuminate\Mail\Mailables\Headers;
 
 class InvoicePaid extends Mailable
 {
-    // In case of usage with a MJ-TemplateID, set HTML to empty string
-    protected $html = '';
-
     /**
      * Create a new message instance.
      */
@@ -255,7 +252,7 @@ class InvoicePaid extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            // Variable can be use in subject too
+            // Variables can be use in subject too
             subject: 'Invoice Paid {{var:invoiceNumber}}',
         );
     }
@@ -266,11 +263,8 @@ class InvoicePaid extends Mailable
     public function content(): Content
     {
         return new Content(
-            // Use htmlString for plain HTML when using mjml template for example
-            htmlString: '<html><body><p>Invoice paid: {{var:invoiceNumber}}</p></body></html',
-            text: 'Invoice paid: {{var:invoiceNumber}}',
-            // Or use a blade view
-            view: 'mail.invoice-paid'
+            view: 'mail.invoice-paid',
+            text: 'mail.invoice-paid-text'
         );
     }
 
@@ -296,6 +290,70 @@ class InvoicePaid extends Mailable
                 'X-Mailjet-Prio' => 5,
                 'X-Mailjet-TrackClick' => 'string',
                 'X-Mailjet-TrackOpen' => 'string',
+            ]
+        );
+    }
+}
+```
+
+### Views
+Use `@` to escape blade directive.
+In `views/mail.invoice-paid.blade.php`:
+```php
+<p>An invoice has been paid: @{{var:invoiceNumber}}</p>
+```
+
+In `views/mail.invoice-paid-text.blade.php`:
+```php
+An invoice has been paid: @{{var:invoiceNumber}}
+```
+
+### Example with mailjet template
+```php
+<?php
+
+namespace App\Mail;
+
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Mail\Mailables\Headers;
+
+class InvoicePaid extends Mailable
+{
+    /**
+     * Create a new message instance.
+     */
+    public function __construct(
+        public string $invoiceNumber
+    ) {
+        // Set empty HTML since a tempalte is used
+        $this->html('');
+    }
+
+    /**
+     * Get the message envelope.
+     */
+    public function envelope(): Envelope
+    {
+        return new Envelope(
+            // Variables can be use in subject too
+            subject: 'Invoice Paid {{var:invoiceNumber}}',
+        );
+    }
+
+    /**
+     * Get the message headers.
+     */
+    public function headers(): Headers
+    {
+        return new Headers(
+            text: [
+                'X-MJ-TemplateLanguage' => true,
+                'X-MJ-Vars' => json_encode([
+                    'invoiceNumber' => $this->invoiceNumber
+                ]),
+                'X-MJ-TemplateID' => 12532,
             ]
         );
     }
