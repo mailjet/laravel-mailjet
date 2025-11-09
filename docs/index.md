@@ -15,23 +15,74 @@ First, include the package in your dependencies
 
     composer require mailjet/laravel-mailjet
 
-Then, you need to add some informations in your configuration files. You can find your Mailjet API key/secret [here](https://app.mailjet.com/account/api_keys).
+Then, you need to add some configuration. You can find your Mailjet API key/secret [here](https://app.mailjet.com/account/api_keys).
 
-* In the providers array add the service providers you want to use, for example:
+### Laravel 11.0+ (Recommended)
+
+Laravel 11+ removed the `providers` and `aliases` arrays from `config/app.php`. This package uses **Laravel Package Auto-Discovery** (available since Laravel 5.5), which automatically registers the service provider and `Mailjet` facade alias when you install the package via Composer.
+
+**No manual registration needed!** Just configure your credentials:
+
+* Add to `config/services.php`:
+
+```php
+'mailjet' => [
+    'key' => env('MAILJET_APIKEY'),
+    'secret' => env('MAILJET_APISECRET'),
+]
+```
+
+* Add to your `.env` file:
+
+```php
+MAILJET_APIKEY=YOUR_APIKEY
+MAILJET_APISECRET=YOUR_APISECRET
+MAIL_MAILER=mailjet
+```
+
+* Add mailjet mailer to `config/mail.php`:
+
+```php
+'mailers' => [
+    ...
+    'mailjet' => [
+        'transport' => 'mailjet',
+    ],
+],
+```
+
+**Optional:** If you have disabled auto-discovery, manually register the provider in `bootstrap/providers.php`:
+```php
+use Mailjet\LaravelMailjet\MailjetServiceProvider;
+
+return [
+    App\Providers\AppServiceProvider::class,
+    MailjetServiceProvider::class,
+];
+```
+
+**Additional Service Providers:** If you need specific features (campaigns, contacts, templates, etc.), you can manually register additional service providers in `bootstrap/providers.php`:
+```php
+Mailjet\LaravelMailjet\Providers\CampaignDraftServiceProvider::class,
+Mailjet\LaravelMailjet\Providers\ContactsServiceProvider::class,
+// etc.
+```
+
+### Laravel 9.x / 10.x (Auto-Discovery Available)
+
+**Note:** Package auto-discovery works automatically in these versions too! Manual registration is only needed if you've disabled auto-discovery in your `composer.json`.
+
+If you need manual registration, edit `config/app.php`:
 
 ```php
 'providers' => [
     ...
     Mailjet\LaravelMailjet\MailjetServiceProvider::class,
-    Mailjet\LaravelMailjet\MailjetMailServiceProvider::class,
+    // Optional: add additional service providers as needed
+    Mailjet\LaravelMailjet\Providers\CampaignDraftServiceProvider::class,
     ...
-	Mailjet\LaravelMailjet\Providers\CampaignDraftServiceProvider::class
-]
-```
+],
 
-* In the aliases array
-
-```php
 'aliases' => [
     ...
     'Mailjet' => Mailjet\LaravelMailjet\Facades\Mailjet::class,
@@ -39,20 +90,32 @@ Then, you need to add some informations in your configuration files. You can fin
 ]
 ```
 
-* In the services.php file
+Then add to `config/services.php`:
 
 ```php
-mailjet' => [
+'mailjet' => [
     'key' => env('MAILJET_APIKEY'),
     'secret' => env('MAILJET_APISECRET'),
 ]
 ```
 
-* In your .env file
+And to your `.env` file:
 
 ```php
 MAILJET_APIKEY=YOUR_APIKEY
 MAILJET_APISECRET=YOUR_APISECRET
+MAIL_MAILER=mailjet
+```
+
+**Note:** For Laravel 7+, you also need to add mailjet to `config/mail.php`:
+
+```php
+'mailers' => [
+    ...
+    'mailjet' => [
+        'transport' => 'mailjet',
+    ],
+],
 ```
 
 ## Usage

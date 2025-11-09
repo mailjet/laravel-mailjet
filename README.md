@@ -16,41 +16,15 @@ First, include the package in your dependencies:
 
     composer require mailjet/laravel-mailjet
 
-Then, you need to add some informations in your configuration files. You can find your Mailjet API key/secret [here](https://app.mailjet.com/account/api_keys).
-Please also set your email from address and name.
+Then, you need to add some configuration. You can find your Mailjet API key/secret [here](https://app.mailjet.com/account/api_keys).
 
-* In the providers array:
+### Laravel 11.0+ (Recommended)
 
-```php
-'providers' => [
-    ...
-    Mailjet\LaravelMailjet\MailjetServiceProvider::class,
-    ...
-]
-```
+Laravel 11+ removed the `providers` and `aliases` arrays from `config/app.php`. This package uses **Laravel Package Auto-Discovery** (available since Laravel 5.5), which automatically registers the service provider and `Mailjet` facade alias when you install the package via Composer.
 
-## Laravel 11.0+
-In the file  `example-app/bootstrap/providers.php`
-```php
-use Mailjet\LaravelMailjet\MailjetServiceProvider;
+**No manual registration needed!** Just configure your credentials:
 
-return [
-    App\Providers\AppServiceProvider::class,
-    MailjetServiceProvider::class,
-];
-````
-
-* In the aliases array:
-
-```php
-'aliases' => [
-    ...
-    'Mailjet' => Mailjet\LaravelMailjet\Facades\Mailjet::class,
-    ...
-]
-```
-
-* In the services.php file:
+* Add to `config/services.php`:
 
 ```php
 'mailjet' => [
@@ -59,14 +33,77 @@ return [
 ]
 ```
 
-* In your .env file:
+* Add to your `.env` file:
 
 ```php
 MAILJET_APIKEY=YOUR_APIKEY
 MAILJET_APISECRET=YOUR_APISECRET
+MAIL_MAILER=mailjet
 MAIL_FROM_ADDRESS=YOUR_EMAIL_FROM_ADDRESS
-MAIL_FROM_NAME=YOU_FROM_NAME
+MAIL_FROM_NAME=YOUR_FROM_NAME
 ```
+
+* Add mailjet mailer to `config/mail.php`:
+
+```php
+'mailers' => [
+    ...
+    'mailjet' => [
+        'transport' => 'mailjet',
+    ],
+],
+```
+
+**Optional:** If you have disabled auto-discovery, manually register the provider in `bootstrap/providers.php`:
+```php
+use Mailjet\LaravelMailjet\MailjetServiceProvider;
+
+return [
+    App\Providers\AppServiceProvider::class,
+    MailjetServiceProvider::class,
+];
+```
+
+### Laravel 9.x / 10.x (Auto-Discovery Available)
+
+**Note:** Package auto-discovery works automatically in these versions too! Manual registration is only needed if you've disabled auto-discovery in your `composer.json`.
+
+If you need manual registration, edit `config/app.php`:
+
+```php
+'providers' => [
+    ...
+    Mailjet\LaravelMailjet\MailjetServiceProvider::class,
+    ...
+],
+
+'aliases' => [
+    ...
+    'Mailjet' => Mailjet\LaravelMailjet\Facades\Mailjet::class,
+    ...
+]
+```
+
+Then add to `config/services.php`:
+
+```php
+'mailjet' => [
+    'key' => env('MAILJET_APIKEY'),
+    'secret' => env('MAILJET_APISECRET'),
+]
+```
+
+And to your `.env` file:
+
+```php
+MAILJET_APIKEY=YOUR_APIKEY
+MAILJET_APISECRET=YOUR_APISECRET
+MAIL_MAILER=mailjet
+MAIL_FROM_ADDRESS=YOUR_EMAIL_FROM_ADDRESS
+MAIL_FROM_NAME=YOUR_FROM_NAME
+```
+
+**Note:** For Laravel 7+, you also need to add mailjet to `config/mail.php` (see [Mail driver configuration](#mail-driver-configuration) section below).
 
 ## Full configuration
 
@@ -74,19 +111,13 @@ For details head to [configuration doc](docs/configuration.md).
 
 ## Mail driver configuration
 
-In order to use Mailjet as your Mail driver, you need to update the mail driver in your `config/mail.php` or your `.env` file to `MAIL_MAILER=mailjet` (for Laravel 6 and older use MAIL_DRIVER constant instead), and make sure you are using a valid and authorised from email address configured on your Mailjet account. The sending email addresses and domain can be managed [here](https://app.mailjet.com/account/sender)
+To use Mailjet as your Mail driver, make sure you've completed the installation steps above, including:
 
-For Laravel 7+ you also need to specify new available mail driver in config/mail.php:
-```
-'mailers' => [
-    ...
+1. Set `MAIL_MAILER=mailjet` in your `.env` file (use `MAIL_DRIVER` for Laravel 6 and older)
+2. Add the mailjet mailer to `config/mail.php` mailers array (Laravel 7+)
+3. Configure a valid and authorized sender email address on your [Mailjet account](https://app.mailjet.com/account/sender)
 
-    'mailjet' => [
-        'transport' => 'mailjet',
-    ],
-],
-```
-For usage, please check the [Laravel mail documentation](https://laravel.com/docs/master/mail)
+For detailed mail usage, check the [Laravel mail documentation](https://laravel.com/docs/master/mail)
 
 ## Usage
 
@@ -121,8 +152,17 @@ All method return `Mailjet\Response` or throw a `MailjetException` in case of AP
 You can also get the Mailjet API client with the method `getClient()` and make your own custom request to Mailjet API.
 
 If you need to delete a contact, you need to register ContactsServiceProvider:
-* In the providers array:
 
+**Laravel 11+:** Add to `bootstrap/providers.php`:
+```php
+return [
+    App\Providers\AppServiceProvider::class,
+    Mailjet\LaravelMailjet\MailjetServiceProvider::class,
+    Mailjet\LaravelMailjet\Providers\ContactsServiceProvider::class,
+];
+```
+
+**Laravel 9.x/10.x:** Add to `config/app.php` providers array:
 ```php
 'providers' => [
     ...
@@ -131,7 +171,7 @@ If you need to delete a contact, you need to register ContactsServiceProvider:
 ]
 ```
 
-and use it:
+Then use it:
 ```php
 public function handle(ContactsV4Service $contactsV4Service)
 {
