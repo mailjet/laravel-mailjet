@@ -38,9 +38,11 @@ return [
     App\Providers\AppServiceProvider::class,
     MailjetServiceProvider::class,
 ];
-````
+```
 
-* In the aliases array:
+> **Note:** The `Mailjet` alias is registered automatically via [Package Auto-Discovery](https://laravel.com/docs/packages#package-discovery). No manual alias configuration needed — just use `use Mailjet\LaravelMailjet\Facades\Mailjet;` in your code.
+
+* In the aliases array (Laravel 10 and below):
 
 ```php
 'aliases' => [
