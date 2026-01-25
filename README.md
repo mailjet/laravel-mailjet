@@ -56,6 +56,7 @@ return [
 'mailjet' => [
     'key' => env('MAILJET_APIKEY'),
     'secret' => env('MAILJET_APISECRET'),
+    'sandbox' => filter_var(env('MAILJET_SANDBOX', false), FILTER_VALIDATE_BOOLEAN),
 ]
 ```
 
@@ -66,6 +67,8 @@ MAILJET_APIKEY=YOUR_APIKEY
 MAILJET_APISECRET=YOUR_APISECRET
 MAIL_FROM_ADDRESS=YOUR_EMAIL_FROM_ADDRESS
 MAIL_FROM_NAME=YOU_FROM_NAME
+# Optional: Enable sandbox mode for testing (emails won't be actually sent)
+MAILJET_SANDBOX=false
 ```
 
 ## Full configuration

@@ -21,12 +21,23 @@ class MailjetServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Mail::extend('mailjet', function () {
+            $options = [];
+
+            // Use filter_var to handle both boolean true and string "true" from env
+            $sandbox = config('services.mailjet.sandbox', false);
+            if (filter_var($sandbox, FILTER_VALIDATE_BOOLEAN)) {
+                // Symfony DSN options require string values, not boolean
+                $options['sandbox'] = 'true';
+            }
+
             return (new MailjetTransportFactory)->create(
                 new Dsn(
                     'mailjet+api',
                     'default',
                     config('services.mailjet.key'),
-                    config('services.mailjet.secret')
+                    config('services.mailjet.secret'),
+                    null,
+                    $options
                 )
             );
         });
