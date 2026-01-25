@@ -222,7 +222,7 @@ In order to use this package with a laravel `Mailable` class, first generate a `
 ```bash
 php artisan make:mail InvoicePaid
 ```
-Then define mailjet `X-MJ-` or `X-Mailjet-` properties inside the `headers` method, these headers will be add to the message body before sending.
+Then define mailjet `X-MJ-` or `X-Mailjet-` properties inside the `headers` method, these headers will be added to the message body before sending.
 
 ### InvoicePaid class
 ```php
@@ -281,7 +281,7 @@ class InvoicePaid extends Mailable
                     'invoiceNumber' => $this->invoiceNumber
                 ]),
                 'X-MJ-TemplateID' => 12532,
-                'X-MJ-TemplateErrorReporting' => json_encode([...]),
+                'X-MJ-TemplateErrorReporting' => json_encode(['Email' => 'error-report@example.com', 'Name' => 'Error Reporter']),
                 'X-MJ-TemplateErrorDeliver' => true,
                 'X-MJ-CustomID' => 'string',
                 'X-MJ-EventPayload' => 'string',
@@ -298,13 +298,14 @@ class InvoicePaid extends Mailable
 
 ### Views
 Use `@` to escape blade directive.
-In `views/mail.invoice-paid.blade.php`:
-```php
+
+In `resources/views/mail/invoice-paid.blade.php`:
+```html
 <p>An invoice has been paid: @{{var:invoiceNumber}}</p>
 ```
 
-In `views/mail.invoice-paid-text.blade.php`:
-```php
+In `resources/views/mail/invoice-paid-text.blade.php`:
+```text
 An invoice has been paid: @{{var:invoiceNumber}}
 ```
 
@@ -327,7 +328,7 @@ class InvoicePaid extends Mailable
     public function __construct(
         public string $invoiceNumber
     ) {
-        // Set empty HTML since a tempalte is used
+        // Set empty HTML since a template is used
         $this->html('');
     }
 
