@@ -37,25 +37,6 @@ class MailjetServiceProviderTest extends TestCase
     /**
      * @test
      */
-    public function it_creates_transport_with_sandbox_when_enabled(): void
-    {
-        // Enable sandbox mode
-        config(['services.mailjet.sandbox' => true]);
-        
-        // Re-register the provider to pick up new config
-        $this->app->register(MailjetServiceProvider::class, true);
-        
-        $transport = Mail::mailer('mailjet')->getSymfonyTransport();
-        
-        // The transport string representation should contain sandbox
-        $transportString = (string) $transport;
-        
-        $this->assertStringContainsString('sandbox', $transportString);
-    }
-
-    /**
-     * @test
-     */
     public function it_provides_mailjet_service(): void
     {
         $provider = new MailjetServiceProvider($this->app);

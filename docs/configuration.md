@@ -4,7 +4,7 @@
 'mailjet' => [
     'key' => env('MAILJET_APIKEY'),
     'secret' => env('MAILJET_APISECRET'),
-    'sandbox' => env('MAILJET_SANDBOX', false),
+    'sandbox' => filter_var(env('MAILJET_SANDBOX', false), FILTER_VALIDATE_BOOLEAN),
     'transactional' => [
         'call' => true,
         'options' => [
