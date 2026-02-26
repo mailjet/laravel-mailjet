@@ -23,7 +23,10 @@ class MailjetServiceProvider extends ServiceProvider
         Mail::extend('mailjet', function () {
             $options = [];
 
-            if (filter_var(config('services.mailjet.sandbox', false), FILTER_VALIDATE_BOOLEAN)) {
+            // Use filter_var to handle both boolean true and string "true" from env
+            $sandbox = config('services.mailjet.sandbox', false);
+            if (filter_var($sandbox, FILTER_VALIDATE_BOOLEAN)) {
+                // Symfony DSN options require string values, not boolean
                 $options['sandbox'] = 'true';
             }
 

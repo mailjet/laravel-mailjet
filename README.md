@@ -38,9 +38,11 @@ return [
     App\Providers\AppServiceProvider::class,
     MailjetServiceProvider::class,
 ];
-````
+```
 
-* In the aliases array:
+> **Note:** The `Mailjet` alias is registered automatically via [Package Auto-Discovery](https://laravel.com/docs/packages#package-discovery). No manual alias configuration needed — just use `use Mailjet\LaravelMailjet\Facades\Mailjet;` in your code.
+
+* In the aliases array (Laravel 10 and below):
 
 ```php
 'aliases' => [
@@ -56,6 +58,7 @@ return [
 'mailjet' => [
     'key' => env('MAILJET_APIKEY'),
     'secret' => env('MAILJET_APISECRET'),
+    'sandbox' => filter_var(env('MAILJET_SANDBOX', false), FILTER_VALIDATE_BOOLEAN),
 ]
 ```
 
@@ -66,6 +69,8 @@ MAILJET_APIKEY=YOUR_APIKEY
 MAILJET_APISECRET=YOUR_APISECRET
 MAIL_FROM_ADDRESS=YOUR_EMAIL_FROM_ADDRESS
 MAIL_FROM_NAME=YOU_FROM_NAME
+# Optional: Enable sandbox mode for testing (emails won't be actually sent)
+MAILJET_SANDBOX=false
 ```
 
 ## Full configuration
