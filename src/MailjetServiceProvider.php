@@ -21,12 +21,20 @@ class MailjetServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Mail::extend('mailjet', function () {
+            $options = [];
+
+            if (filter_var(config('services.mailjet.sandbox', false), FILTER_VALIDATE_BOOLEAN)) {
+                $options['sandbox'] = 'true';
+            }
+
             return (new MailjetTransportFactory)->create(
                 new Dsn(
                     'mailjet+api',
                     'default',
                     config('services.mailjet.key'),
-                    config('services.mailjet.secret')
+                    config('services.mailjet.secret'),
+                    null,
+                    $options
                 )
             );
         });
