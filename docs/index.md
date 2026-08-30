@@ -1,91 +1,269 @@
+<div align="center">
+
+<img src="img/logo.png" alt="Mailjet" width="220">
+
 # Laravel Mailjet
 
-[![Build Status](https://travis-ci.org/mailjet/laravel-mailjet.svg?branch=master)](https://travis-ci.org/mailjet/laravel-mailjet)
-[![Packagist](https://img.shields.io/packagist/v/mailjet/laravel-mailjet.svg)](https://packagist.org/packages/mailjet/laravel-mailjet)
-[![Packagist](https://img.shields.io/packagist/dt/mailjet/laravel-mailjet.svg)](https://packagist.org/packages/mailjet/laravel-mailjet)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mailjet/laravel-mailjet/blob/master/LICENSE.md)
+**Fluent [Mailjet](https://www.mailjet.com/) API&nbsp;v3 integration &amp; mail transport for Laravel.**
 
-Laravel package for handling Mailjet API V3 using this wrapper: <https://github.com/mailjet/mailjet-apiv3-php>
+Send transactional mail through the Laravel `Mail` facade, or talk to the full Mailjet
+REST API — contacts, lists, campaigns, templates and webhooks — with an expressive wrapper.
 
-It also provide a mailjetTransport for [Laravel mail feature](https://laravel.com/docs/master/mail)
+<br>
+
+[![Latest Version](https://img.shields.io/packagist/v/mailjet/laravel-mailjet.svg?style=flat-square&label=packagist)](https://packagist.org/packages/mailjet/laravel-mailjet)
+[![Total Downloads](https://img.shields.io/packagist/dt/mailjet/laravel-mailjet.svg?style=flat-square)](https://packagist.org/packages/mailjet/laravel-mailjet)
+[![PHP Version](https://img.shields.io/packagist/php-v/mailjet/laravel-mailjet.svg?style=flat-square)](https://github.com/mailjet/laravel-mailjet/blob/master/composer.json)
+[![Laravel](https://img.shields.io/badge/laravel-9.x%20—%2013.x-FF2D20.svg?style=flat-square&logo=laravel)](https://laravel.com)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/mailjet/laravel-mailjet/blob/master/LICENSE.md)
+
+</div>
+
+---
+
+## Table of contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Sending mail with the Mailjet transport](#sending-mail-with-the-mailjet-transport)
+- [Using the Mailjet API](#using-the-mailjet-api)
+- [Optional service providers](#optional-service-providers)
+- [Sandbox mode](#sandbox-mode)
+- [Documentation](#documentation)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+## Features
+
+- 📨 **Drop-in mail transport** — set one env var and every `Mailable` / `Notification` goes through Mailjet.
+- 🧩 **Full API v3 wrapper** — low-level `get` / `post` / `put` / `delete` plus high-level helpers, built on the official [`mailjet/mailjet-apiv3-php`](https://github.com/mailjet/mailjet-apiv3-php) client.
+- 🗂️ **Resource managers** — dedicated, injectable services for contacts, lists, metadata, campaigns, campaign drafts, templates and event callbacks.
+- 🧪 **Sandbox mode** — validate payloads in CI and local development without sending a single email.
+- ⚡ **Zero-config setup** — package auto-discovery registers the provider and `Mailjet` facade for you.
+
+## Requirements
+
+| Package | Supported versions |
+| --- | --- |
+| PHP | `7.4` · `8.x` |
+| Laravel | `9.x` – `13.x` |
+| Symfony Mailer / Mailjet Mailer | `6.x` · `7.x` · `8.x` |
 
 ## Installation
 
-First, include the package in your dependencies
+```bash
+composer require mailjet/laravel-mailjet
+```
 
-    composer require mailjet/laravel-mailjet
+That's it. [Package auto-discovery](https://laravel.com/docs/packages#package-discovery) wires up the
+`MailjetServiceProvider` and the `Mailjet` facade automatically.
 
-Then, you need to add some informations in your configuration files. You can find your Mailjet API key/secret [here](https://app.mailjet.com/account/api_keys).
+<details>
+<summary><strong>Manual registration</strong> (only if auto-discovery is disabled)</summary>
 
-* In the providers array add the service providers you want to use, for example:
+<br>
+
+**Laravel 11 and newer** — `bootstrap/providers.php`:
+
+```php
+use Mailjet\LaravelMailjet\MailjetServiceProvider;
+
+return [
+    App\Providers\AppServiceProvider::class,
+    MailjetServiceProvider::class,
+];
+```
+
+**Laravel 10 and older** — `config/app.php`:
 
 ```php
 'providers' => [
-    ...
+    // ...
     Mailjet\LaravelMailjet\MailjetServiceProvider::class,
-    Mailjet\LaravelMailjet\MailjetMailServiceProvider::class,
-    ...
-	Mailjet\LaravelMailjet\Providers\CampaignDraftServiceProvider::class
-]
-```
+],
 
-* In the aliases array
-
-```php
 'aliases' => [
-    ...
+    // ...
     'Mailjet' => Mailjet\LaravelMailjet\Facades\Mailjet::class,
-    ...
-]
+],
 ```
 
-* In the services.php file
+</details>
+
+## Configuration
+
+Grab your API key and secret from the [Mailjet account settings](https://app.mailjet.com/account/api_keys).
+
+**1. Add your credentials to `.env`:**
+
+```env
+MAILJET_APIKEY=your_api_key
+MAILJET_APISECRET=your_api_secret
+
+MAIL_FROM_ADDRESS=you@example.com
+MAIL_FROM_NAME="Your App"
+
+# Optional — process requests without actually sending
+MAILJET_SANDBOX=false
+```
+
+**2. Register the service in `config/services.php`:**
 
 ```php
-mailjet' => [
-    'key' => env('MAILJET_APIKEY'),
-    'secret' => env('MAILJET_APISECRET'),
-]
+'mailjet' => [
+    'key'     => env('MAILJET_APIKEY'),
+    'secret'  => env('MAILJET_APISECRET'),
+    // filter_var keeps the "true"/"false" env string honest (handy in Docker)
+    'sandbox' => filter_var(env('MAILJET_SANDBOX', false), FILTER_VALIDATE_BOOLEAN),
+],
 ```
 
-* In your .env file
+> Need to tune the API URL, version, or the transactional/common/v4 clients?
+> See the [full configuration reference](configuration.md).
+
+## Sending mail with the Mailjet transport
+
+**1. Select the transport** in `.env`:
+
+```env
+MAIL_MAILER=mailjet
+```
+
+> Laravel 6 and older use the `MAIL_DRIVER` key instead.
+
+**2. Declare the mailer** in `config/mail.php`:
 
 ```php
-MAILJET_APIKEY=YOUR_APIKEY
-MAILJET_APISECRET=YOUR_APISECRET
+'mailers' => [
+    // ...
+    'mailjet' => [
+        'transport' => 'mailjet',
+    ],
+],
 ```
 
-## Usage
+**3. Send as usual** — no Mailjet-specific code required:
 
-To use it, you need to import the Mailjet Facade or any of the available Service-provider contracts in your file
+```php
+use Illuminate\Support\Facades\Mail;
 
-    use Mailjet\LaravelMailjet\Facades\Mailjet;
-	.....
-	use Mailjet\LaravelMailjet\Contracts\CampaignDraftContract;
+Mail::to($user)->send(new InvoicePaid($invoice));
+```
 
+Make sure the *from* address is a verified [Mailjet sender](https://app.mailjet.com/account/sender).
+More patterns (Mailjet templates, variables, custom headers) live in the
+[examples guide](usage.md#usage-with-laravel-mailable-class).
 
-Then, in your code you can use one of the methods available in the `MailjetServices`.
+## Using the Mailjet API
 
-Low level API methods:
+Import the facade:
 
-* `Mailjet::get($resource, $args, $options)`
-* `Mailjet::post($resource, $args, $options)`
-* `Mailjet::put($resource, $args, $options)`
-* `Mailjet::delete($resource, $args, $options)`
+```php
+use Mailjet\LaravelMailjet\Facades\Mailjet;
+```
 
-High level API methods:
+### Low-level requests
 
-* `Mailjet::getAllLists($filters)`
-* `Mailjet::createList($body)`
-* `Mailjet::getListRecipients($filters)`
-* `Mailjet::getSingleContact($id)`
-* `Mailjet::createContact($body)`
-* `Mailjet::createListRecipient($body)`
-* `Mailjet::editListrecipient($id, $body)`
+```php
+Mailjet::get($resource, $args, $options);
+Mailjet::post($resource, $args, $options);
+Mailjet::put($resource, $args, $options);
+Mailjet::delete($resource, $args, $options);
+```
 
-For more informations about the filters you can use in each methods, refer to the [Mailjet API documentation](https://dev.mailjet.com/email-api/v3/apikey/)
+Every call returns a `Mailjet\Response`, or throws a
+`Mailjet\LaravelMailjet\Exception\MailjetException` on an API error.
+Filter arguments are documented in the [Mailjet API reference](https://dev.mailjet.com/email-api/v3/apikey/).
 
-All method return `Mailjet\Response` or throw a `MailjetException` in case of API error.
+### High-level helpers
 
-You can also get the Mailjet API client with the method `getClient()` and make your own request to Mailjet API.
+```php
+Mailjet::getAllLists($filters);
+Mailjet::createList($body);
+Mailjet::getListRecipients($filters);
+Mailjet::getSingleContact($id);
+Mailjet::createContact($body);
+Mailjet::createListRecipient($body);
+Mailjet::editListrecipient($id, $body);
+```
 
+### Custom requests
+
+```php
+$client = Mailjet::getClient(); // the underlying \Mailjet\Client instance
+```
+
+## Optional service providers
+
+Each Mailjet resource has a focused, injectable manager. Register only the providers you use
+in `config/app.php` (or `bootstrap/providers.php` on Laravel 11+):
+
+| Service provider | Manages | Contract |
+| --- | --- | --- |
+| `Providers\ContactsServiceProvider` | Contacts, incl. deletion (API v4) | `ContactsV4Contract` |
+| `Providers\ContactsListServiceProvider` | Contact lists | `ContactsListContract` |
+| `Providers\ContactMetadataServiceProvider` | Contact properties / metadata | `ContactMetadataContract` |
+| `Providers\CampaignServiceProvider` | Campaigns | `CampaignContract` |
+| `Providers\CampaignDraftServiceProvider` | Campaign drafts | `CampaignDraftContract` |
+| `Providers\TemplateServiceProvider` | Templates | `TemplateServiceContract` |
+| `Providers\EventCallbackUrlServiceProvider` | Event (webhook) callback URLs | `EventCallbackUrlContract` |
+
+```php
+// config/app.php
+'providers' => [
+    // ...
+    Mailjet\LaravelMailjet\Providers\ContactsServiceProvider::class,
+],
+```
+
+Then resolve the manager wherever you need it:
+
+```php
+use Mailjet\LaravelMailjet\Services\ContactsV4Service;
+
+public function handle(ContactsV4Service $contacts)
+{
+    $contacts->delete(351406781);
+}
+```
+
+## Sandbox mode
+
+With `MAILJET_SANDBOX=true`, Mailjet validates the request and returns a successful
+response **without delivering any email** — ideal for staging environments and automated tests.
+
+```env
+MAILJET_SANDBOX=true
+```
+
+Details in the [configuration reference](configuration.md#sandbox-mode).
+
+## Documentation
+
+| Resource | Link |
+| --- | --- |
+| Configuration reference | [configuration.md](configuration.md) |
+| Examples (campaigns, templates, Mailables) | [usage.md](usage.md) |
+| Full docs site | <https://mailjet.github.io/laravel-mailjet/> |
+| Mailjet API v3 | <https://dev.mailjet.com/> |
+| PHP API client | <https://github.com/mailjet/mailjet-apiv3-php> |
+
+## Testing
+
+```bash
+composer install
+bin/phpunit
+```
+
+## Contributing
+
+Issues and pull requests are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+Released under the [MIT License](https://github.com/mailjet/laravel-mailjet/blob/master/LICENSE.md).
