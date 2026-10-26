@@ -1,6 +1,6 @@
 # Tests
 
-* <http://www.phpspec.net/>
+* <https://phpspec.net/>
 
 ## Unit tests
 
@@ -9,7 +9,7 @@
 
 ## Events (Webhook) tests
 
-use ngrok or http://requestb.in/
+use ngrok or a request inspector such as https://webhook.site/
 
 ## Debug/dev mode
 
