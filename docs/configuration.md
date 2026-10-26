@@ -39,10 +39,10 @@ You can pass settings to [MailjetClient](https://github.com/mailjet/mailjet-apiv
 * `sandbox` (Default: `false`): When enabled, emails are processed but not actually sent - useful for testing
 * `transactional`: settings for Send API
 * `common`: setting to `MailjetClient` accessible through the Facade Mailjet.
-* `url` (Default: `api.mailjet.com`): domain name of the API
+* `url` (Default: `api.mailjet.com`): domain name of the API (without scheme; requests are always sent over HTTPS)
 * `version` (Default: `v3`): Mailjet API version (only working for Mailjet API v3)
 * `call` (Default: `true`): Toggle if the API call is actually performed or mocked
-* `secured` (Default: `true`): Toggle the usage of 'https'
+* `secured` (Default: `true`): kept for backward compatibility. The Mailjet API is HTTPS-only, so the package always connects over HTTPS and a `false` value is ignored
 * `v4`: setting used for some DataProvider`s
 
 ## Sandbox Mode

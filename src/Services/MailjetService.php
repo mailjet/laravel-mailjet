@@ -25,7 +25,25 @@ class MailjetService implements MailjetServiceContract
      */
     public function __construct(string $key, string $secret, bool $call = true, array $settings = [])
     {
-        $this->client = new Client($key, $secret, $call, $settings);
+        $this->client = new Client($key, $secret, $call, self::enforceHttps($settings));
+    }
+
+    /**
+     * The Mailjet API is HTTPS-only: always connect securely, whatever the configuration says.
+     * `secured` is forced to true and any scheme given in `url` is stripped (it must be a host name).
+     *
+     * @param array $settings
+     * @return array
+     */
+    private static function enforceHttps(array $settings): array
+    {
+        $settings['secured'] = true;
+
+        if (isset($settings['url']) && is_string($settings['url'])) {
+            $settings['url'] = preg_replace('#^[a-z][a-z0-9+.-]*://#i', '', trim($settings['url']));
+        }
+
+        return $settings;
     }
 
     /**
