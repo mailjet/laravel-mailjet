@@ -22,7 +22,9 @@ class MailjetServiceHttpsTest extends TestCase
     private static function apiUrl(MailjetService $service): string
     {
         $method = new ReflectionMethod($service->getClient(), 'getApiUrl');
-        $method->setAccessible(true);
+        if (PHP_VERSION_ID < 80100) {
+            $method->setAccessible(true); // no-op since 8.1, deprecated in 8.5
+        }
 
         return $method->invoke($service->getClient());
     }
